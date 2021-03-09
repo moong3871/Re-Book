@@ -32,4 +32,4 @@ https://kr.123rf.com/visual/search/58800642
 
 **와이어프레임 구성**
 
-![image-20210309173924701](디자인참고 -이수민.assets/image-20210309173924701.png)
+![image-20210309173924701](assets/image-20210309173924701.png)
