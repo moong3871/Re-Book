@@ -33,3 +33,19 @@ https://kr.123rf.com/visual/search/58800642
 **와이어프레임 구성**
 
 ![image-20210309173924701](README.assets/image-20210309173924701.png)
+
+
+
+와이어프레임 (목업툴로 작업 ) 
+
+- 사용된 목업 : Justinmind
+
+- book 상세 페이지
+
+  ![image-20210310224921855](README.assets/image-20210310224921855.png)
+
+- 채팅 화면
+
+  모달창으로 구현할 예정
+
+  ![image-20210310225009181](README.assets/image-20210310225009181.png)

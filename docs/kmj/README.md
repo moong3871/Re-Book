@@ -23,3 +23,10 @@
 
 ![image-20210309195324067](README.assets/image-20210309195324067.png)
 
+## 메인
+
+![image-20210310223608766](README.assets/image-20210310223608766.png)
+
+## 마이페이지
+
+![image-20210310223631074](README.assets/image-20210310223631074.png)
