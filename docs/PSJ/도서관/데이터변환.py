@@ -18,5 +18,8 @@ for x in json_data['DATA']:
         else:
             else_libs.append(x['lbrry_se_name'])
 
+# print(small_libs)
 print(public_libs)
 print(len(public_libs))
+# print(len(public_libs))
+# print(else_libs)
