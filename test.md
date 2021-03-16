@@ -17,10 +17,7 @@ test
 
 fork test
 
-<<<<<<< HEAD
 ---
 
 fork origin - fork-test branch
-=======
 dony의 fork test
->>>>>>> ceadd62 (dony의 fork test)
