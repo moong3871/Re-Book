@@ -5,5 +5,7 @@ from api import views
 
 router = DefaultRouter(trailing_slash=False)
 router.register(r"books", views.BookViewSet, basename="books")
+# router.register(r"")
+
 
 urlpatterns = router.urls
