@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.db import models
-
+from django.conf import settings
+from django.db.models import Avg
 
 class Book(models.Model):
     isbn = models.IntegerField(primary_key=True)
@@ -16,3 +17,17 @@ class Book(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     publihsed_date = models.DateField
 
+# class MainCategory(models.Model):
+#     name = models.CharField(max_length=100)
+
+# class SubCategory(models.Model):
+#     name = models.CharField(max_length=100)
+#     main = models.ForeignKey(MainCategory,on_delete=models.CASCADE)
+#     book_category = models.ManyToManyField(
+#         related_name='favoriteCategory',
+#         blank=True
+#     )
+    
+# class DetailCategory(models.Model):
+#     name = models.CharField(max_length=100)
+#     sub = models.ForeignKey(SubCategory, on_delete =models.CASCADE)
