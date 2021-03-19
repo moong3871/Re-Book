@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 보안파일 google ###
+application-oauth.properties
