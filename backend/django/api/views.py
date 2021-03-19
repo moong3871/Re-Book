@@ -19,3 +19,10 @@ class BookViewSet(viewsets.ModelViewSet):
             models.Book.objects.all().filter(book_name__contains=name).order_by("id")
         )
         return queryset
+
+# class BookDetailViewSet(viewsets.ModelViewSet):
+#     serializer_class = serializers.BookDetailSerializer
+#     def get_queryset(self):
+#         book = models.Book.objects.filter(id=self.kwargs['isbn'])
+#         queryset = (book)
+#         return queryset
