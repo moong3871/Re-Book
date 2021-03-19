@@ -27,3 +27,7 @@
 - > 무난.
 
 와이어프레임 디벨롭
+
+vuetify 활용을 위해 설치 및 활용법을 숙지한다.
+
+https://vuetifyjs.com/en/
