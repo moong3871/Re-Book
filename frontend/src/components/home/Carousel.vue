@@ -14,8 +14,8 @@
 export default {
   data() {
     return {
-      colors: ['#2e6b23', '#848d01', '#885d06'],
-      slides: ['First', 'Second', 'Third'],
+      colors: ["#2e6b23", "#848d01", "#885d06"],
+      slides: ["First", "Second", "Third"],
     };
   },
 };

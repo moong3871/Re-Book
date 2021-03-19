@@ -6,10 +6,10 @@
 
 <script>
 // @ is an alias to /src
-import Carousel from '@/components/home/Carousel.vue';
+import Carousel from "@/components/home/Carousel.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     Carousel,
   },

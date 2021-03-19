@@ -1,10 +1,31 @@
 # 목차
 
+[구성](#구성)
+
 [Convention](#Convention)
 
 - [파일 작성 위치](##파일-작성-위치)
-
 - [파일명](##파일명)
+
+[Vuetify custom](#Vuetify-custom)
+
+- [색상(에러)](##색상)
+
+---------------
+
+# 구성
+
+| Package    | Version |                                    |
+| ---------- | ------- | ---------------------------------- |
+| @vue/cli   | 4.5.12  |                                    |
+| Vue.js     | 2.x     | vuetify 사용을 위해 version.2 사용 |
+| vue-router |         | 브라우저에서 화면 전환을 위해 사용 |
+| vuex       |         | 상태 관리 패턴 + 라이브러리        |
+| vuetify    |         | UI 구성                            |
+
+![image-20210320023733411](README.assets/image-20210320023733411.png)
+
+
 
 # Convention
 
@@ -26,7 +47,9 @@
 
 # Vuetify custom
 
-## 색상
+## 색상(ㅇㅔ러)
+
+> navbar 페이지에서 custom한 색상 사용시, 검은색으로만 표현된다.
 
 - ![image-20210319114638422](README.assets/image-20210319114638422.png)
 
