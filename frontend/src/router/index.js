@@ -5,6 +5,7 @@ import About from "../views/About.vue";
 import Category from "../views/Category.vue";
 import Market from "../views/Market.vue";
 import MyLibrary from "../views/MyLibrary.vue";
+import Detail from "../views/Detail.vue";
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,11 @@ const routes = [
     path: "/mylibrary",
     name: "MyLibrary",
     component: MyLibrary,
+  },
+  {
+    path: "/detail",
+    name: "Detail",
+    component: Detail,
   },
 ];
 
