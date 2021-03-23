@@ -4,7 +4,7 @@
             <div class="book">
                 <div class="inner-book">
                     <div class="img" style="padding-top: calc(1.07 * 100%)">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/277/02-cat-hair.jpg" />
+                    <img :src="book.src"/>
                     </div>
                     <div class="page"></div>
                     <div class="page page-2"></div>
@@ -12,7 +12,7 @@
                     <div class="page page-4"></div>
                     <div class="page page-5"></div>
                     <div class="img final-page" style="padding-top: calc(1.07 * 100%)">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/277/02-cat-hair.jpg" />
+                    <img :src="book.src" />
                     </div>
                 </div>
             </div>
@@ -22,7 +22,12 @@
 
 <script>
 export default {
-    name: "BookCover"
+    name: "BookCover",
+    props: {
+        book: {
+            type: Object
+        }
+    }
 }
 </script>
 
@@ -39,7 +44,7 @@ body {
 
 .wrapper {
   width: 100%;
-  height: 100vh;
+  height: 36vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,7 +52,8 @@ body {
 }
 
 .inner-book {
-  width: 30vh;
+  width: 24vh;
+  height: 36vh;
 }
 
 .book {
