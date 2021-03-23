@@ -23,5 +23,3 @@ fork origin - fork-test branch
 dony의 fork test
 
 test임
-
-수정 확인
