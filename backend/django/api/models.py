@@ -12,10 +12,10 @@ class Book(models.Model):
     price = models.CharField(max_length=45, null=True)
     publisher = models.CharField(max_length=45, null=True)
     writer = models.CharField(max_length=45, null=True)
-    genre = models.CharField(max_length=45, null=True)
+    # genre = models.CharField(max_length=45, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    publihsed_date = models.DateField
+    publihsed_date = models.DateField()
 
 # class MainCategory(models.Model):
 #     name = models.CharField(max_length=100)
