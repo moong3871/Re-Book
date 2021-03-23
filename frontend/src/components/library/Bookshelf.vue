@@ -1,19 +1,19 @@
 <template>
-    <div>
+    <v-container>
         <div class="bookshelf">
             <div class="book-grid">
                 <ul>
-                    <li> <BookCover :book="{src: 'https://images-na.ssl-images-amazon.com/images/I/51uLvJlKpNL._SX321_BO1,204,203,200_.jpg'}"/></li>
-                    <li> <BookCover :book="{src: 'https://damonza.com/wp-content/uploads/portfolio/fiction/The-prophecy_03.jpg' }"/></li>
-                    <li> <BookCover :book="{src: 'https://i.pinimg.com/564x/f7/c8/12/f7c812c9b0296cd9f119e33a06d9a256.jpg' }"/></li>
-                    <li> <BookCover :book="{src: 'https://images.penguinrandomhouse.com/cover/9781101931288' }"/></li>
-                    <li> <BookCover :book="{src: 'https://i.harperapps.com/covers/9780062698162/x510.jpg' }"/></li>
+                    <li> <BookCover :book="{src: 'https://images-na.ssl-images-amazon.com/images/I/51uLvJlKpNL._SX321_BO1,204,203,200_.jpg', title: '호빗'}"/></li>
+                    <li> <BookCover :book="{src: 'https://damonza.com/wp-content/uploads/portfolio/fiction/The-prophecy_03.jpg' , title: 'Prophecy'}"/></li>
+                    <li> <BookCover :book="{src: 'https://i.pinimg.com/564x/f7/c8/12/f7c812c9b0296cd9f119e33a06d9a256.jpg' , title: 'THE PAST IS RISING'}"/></li>
+                    <li> <BookCover :book="{src: 'https://images.penguinrandomhouse.com/cover/9781101931288' , title: 'TESS OF THE ROAD'}"/></li>
+                    <li> <BookCover :book="{src: 'https://i.harperapps.com/covers/9780062698162/x510.jpg', title: 'THE BUTTERFLY GIRL' }"/></li>
                 </ul>
             </div>
             <div class="shelf-shadows"></div>
             <div class="shelf"></div>
         </div>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -29,8 +29,8 @@ export default {
 
 <style>
     .bookshelf {
-    width: 80%;
-    margin: 5rem auto;
+    width: 100%;
+    margin: 50px 0;
     text-align: center;
     position: relative;
     }

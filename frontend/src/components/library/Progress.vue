@@ -1,9 +1,10 @@
 <template>
     <div class="container">
+        <h3 class="progress-tag">책벌레님의 책 달력</h3>
         <div class="progress-circle" data-progress="45"></div>
         <div class="progress-tag">
-            <h3>99권 중 45권</h3>
-            <h3>완독하셨습니다.</h3>
+            <h4>99권 중 45권</h4>
+            <h4>완독하셨습니다.</h4>
         </div>
     </div>
 </template>
@@ -22,12 +23,12 @@ export default {
     border-radius: 50%;
     display: inline-block;
     height: 15rem;
-    margin: 4rem 2rem 0;
+    margin: 2rem 0;
     position: relative;
     width: 15rem;
     }
-    .progress-tag h3 {
-        justify-content: center;
+    .progress-tag {
+        text-align: center;
     }
     .progress-circle:before {
     align-items: center;
