@@ -1,18 +1,19 @@
 <template>
     <div>
+        <h4 class="title">{{ book.title }}</h4>
         <div class="wrapper">
             <div class="book">
                 <div class="inner-book">
                     <div class="img" style="padding-top: calc(1.07 * 100%)">
-                    <img :src="book.src"/>
-                    </div>
-                    <div class="page"></div>
-                    <div class="page page-2"></div>
-                    <div class="page page-3"></div>
-                    <div class="page page-4"></div>
-                    <div class="page page-5"></div>
-                    <div class="img final-page" style="padding-top: calc(1.07 * 100%)">
-                    <img :src="book.src" />
+                      <img :src="book.src"/>
+                      </div>
+                      <div class="page"></div>
+                      <div class="page page-2"></div>
+                      <div class="page page-3"></div>
+                      <div class="page page-4"></div>
+                      <div class="page page-5"></div>
+                      <div class="img final-page" style="padding-top: calc(1.07 * 100%)">
+                      <img :src="book.src" />
                     </div>
                 </div>
             </div>
@@ -40,6 +41,10 @@ html,
 body {
   padding: 0px;
   margin: 0px;
+}
+
+.title {
+  margin-bottom: 10px;
 }
 
 .wrapper {
