@@ -50,7 +50,7 @@ export default {
   height: 40%;
   display: flex;
   justify-content: center;
-  background-color: green;
+  background-color: #445b54;
   margin: 1rem 0 3rem;
   padding: 2.5%;
 }
@@ -71,7 +71,7 @@ export default {
   height: 617px;
   display: flex;
   justify-content: center;
-  background-color: green;
+  background-color: #445b54;
   margin-right: 1%;
 }
 .s-img {

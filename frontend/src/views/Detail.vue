@@ -1,16 +1,18 @@
 <template>
   <div>
     <Info :dummy="dummy" />
-    <Stars />
+    <Comment :dummy="dummy" />
   </div>
 </template>
 
 <script>
 import Info from "@/components/detail/Info.vue";
+import Comment from "@/components/detail/Comment.vue";
 export default {
   name: "Detal",
   components: {
     Info,
+    Comment,
   },
   data() {
     return {
@@ -28,6 +30,22 @@ export default {
         grade: 9.8,
         point: "?",
         regtime: "regtime?",
+        comments: [
+          {
+            id: 1,
+            nickname: "북유럽",
+            rating: 3.5,
+            review:
+              "시기적으로 나에게 필요한 책이었다 논리가 때로 조금 어설프고 다듬어지지 않은 느낌도 들엇으나 한번씩 와닿는 문장들에 충분히 위로 받았다.",
+          },
+          {
+            id: 2,
+            nickname: "오마이걸",
+            rating: 3.5,
+            review:
+              "처음에 인스타를 통해 감정적인 소모로 인한 저의 마음을 잘 정리된 피드로 위로를 많이 받았어요",
+          },
+        ],
       },
     };
   },
