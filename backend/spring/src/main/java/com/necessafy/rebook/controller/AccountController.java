@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 //    private final ResponseService responseService;
 //    private final AccountService accountService;
-//    스프링 시큐리티에서 지원
+    
+    // 스프링 시큐리티에서 지원
 //    @GetMapping("/user/login")
 //    public CommonResult login(){
 //        
