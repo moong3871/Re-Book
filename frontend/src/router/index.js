@@ -5,6 +5,8 @@ import About from "../views/About.vue";
 import Category from "../views/Category.vue";
 import Market from "../views/Market.vue";
 import MyLibrary from "../views/MyLibrary.vue";
+import Login from "../views/Login.vue";
+import Signup from "../views/Signup.vue";
 import Detail from "../views/Detail.vue";
 import BookSearch from "../views/BookSearch.vue";
 
@@ -35,6 +37,16 @@ const routes = [
     path: "/mylibrary",
     name: "MyLibrary",
     component: MyLibrary,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
   },
   {
     path: "/detail",
