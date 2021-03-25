@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = {"*"}, maxAge = 3600)
 @RestController
 @RequestMapping("/book")
 public class BookController {
@@ -24,21 +25,29 @@ public class BookController {
     @ApiOperation(value = "전체 공개 게시물을 받아온다", response = CommonResult.class)
     public CommonResult retrieveBookDetail(@PathVariable String isbn){
 //        BookResponse bookResponse = ;
+        System.out.println("1");
         CommonResult commonResult = new CommonResult();
+        System.out.println("2" + "isbn" + isbn);
         Optional<Book> book = bookDao.findBookByIsbn(isbn);
+        System.out.println("3");
         if(!book.isPresent()) {
             commonResult.status = false;
             commonResult.data = "해당 isbn에 해당하는 책이 없습니다.";
             commonResult.object = "";
+            System.out.println(commonResult);
+            System.out.println("3-1");
             return commonResult;
         }else if(book.get().getBookSummary().equals("")){
+            System.out.println("3-2");
             book.get().setBookSummary("줄거리 정보가 없습니다.");
         }
+        System.out.println("4");
         commonResult.status = true;
         commonResult.data = "책 상세정보 반환에 성공하였습니다.";
         commonResult.object = book.get();
         System.out.println(commonResult.data);
         System.out.println("hell"+commonResult.object + " 책 정보입니다!!");
+        System.out.println(commonResult);
         return commonResult;
 //        return new CommonResult(true, "책 상세정보 반환에 성공하였습니다.", book.get());
     }
