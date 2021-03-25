@@ -1,6 +1,6 @@
 <template>
   <div class="b-img-box">
-    <img class="b-img" :src="dummy.profileimg_path" alt="책 이미지" />
+    <img class="b-img" :src="backDummy.bookImagePath" alt="책 이미지" />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
   name: "Cover",
   props: {
-    dummy: Object,
+    backDummy: Object,
   },
 };
 </script>
