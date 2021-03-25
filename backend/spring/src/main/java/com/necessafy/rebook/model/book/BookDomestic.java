@@ -1,8 +1,10 @@
 package com.necessafy.rebook.model.book;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +17,7 @@ import javax.persistence.Id;
 @Entity
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 
-public class Book {
+public class BookDomestic {
     private String category;
     private String publisher;
     private String bookSummary;
