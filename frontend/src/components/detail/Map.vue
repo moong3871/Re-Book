@@ -31,7 +31,13 @@ export default {
         level: 2,
       };
 
-      var map = new kakao.maps.Map(container, options);
+      var map = new kakao.maps.Map(container, options); // 지도 생성
+      var markerPosition = new kakao.maps.LatLng(36.3457153, 127.3021023); // 마커 표시 위치
+      var marker = new kakao.maps.Marker({
+        // 마커 생성
+        position: markerPosition,
+      });
+      marker.setMap(map); // 마커가 지도 위에 표시
       map.setMapTypeId(kakao.maps.MapTypeId.STANDARD); // 이거 안하면 is defined but not used
     },
   },
