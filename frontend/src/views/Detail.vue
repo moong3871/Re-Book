@@ -1,18 +1,35 @@
 <template>
-  <div>
+  <div class="container">
+    <Cover :dummy="dummy" />
     <Info :dummy="dummy" />
+    <hr />
     <Comment :dummy="dummy" />
+    <hr />
+    <Recommend :dummy="dummy" />
+    <hr />
+    <Library :dummy="dummy" />
+    <hr />
+    <OneBookMarket :dummy="dummy" />
+    <hr />
   </div>
 </template>
 
 <script>
+import Cover from "@/components/detail/Cover.vue";
 import Info from "@/components/detail/Info.vue";
 import Comment from "@/components/detail/Comment.vue";
+import Recommend from "@/components/detail/Recommend.vue";
+import Library from "@/components/detail/Library.vue";
+import OneBookMarket from "@/components/detail/OneBookMarket.vue";
 export default {
   name: "Detal",
   components: {
+    Cover,
     Info,
     Comment,
+    Recommend,
+    Library,
+    OneBookMarket,
   },
   data() {
     return {
@@ -51,4 +68,11 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+</style>

@@ -2,19 +2,25 @@
   <div class="container">
     <div class="c-header">
       <h3>코멘트</h3>
-      <button>+코멘트 남기기</button>
+      <Button />
     </div>
-    <li class="item">
-      <CommentItem />
-    </li>
+    <ul
+      class="item"
+      v-for="(comment, index) in dummy.comments"
+      v-bind:key="index"
+    >
+      <CommentItem :comment="comment" />
+    </ul>
   </div>
 </template>
 
 <script>
+import Button from "./Button.vue";
 import CommentItem from "./CommentItem.vue";
 export default {
   name: "Comment",
   components: {
+    Button,
     CommentItem,
   },
   props: {
@@ -29,16 +35,19 @@ export default {
   display: inline-block;
   text-align: center;
   font-size: 30px;
-  margin: 0 auto;
-  background-color: blue;
+  /* background-color: yellow; */
 }
-/* .c-header {
+.c-header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
+  margin: 1rem;
+  /* background-color: red; */
 }
-.li {
+ul {
+  list-style: none;
 }
 .item {
   display: block;
-} */
+}
 </style>

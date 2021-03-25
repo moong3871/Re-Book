@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="b-img-box">
-      <img class="b-img" :src="dummy.profileimg_path" alt="책 이미지" />
-    </div>
     <div class="info-container">
       <div class="s-img-box">
         <img class="s-img" :src="dummy.profileimg_path" alt="책 이미지" />
@@ -45,19 +42,6 @@ export default {
 </script>
 
 <style scoped>
-.b-img-box {
-  width: 100%;
-  height: 40%;
-  display: flex;
-  justify-content: center;
-  background-color: #445b54;
-  margin: 1rem 0 3rem;
-  padding: 2.5%;
-}
-.b-img {
-  width: 445px;
-  height: 656px;
-}
 .info-container {
   width: 100%;
   height: 100%;
