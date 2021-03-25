@@ -4,14 +4,14 @@ package com.necessafy.rebook.controller;
 //import com.necessafy.rebook.Service.ResponseService;
 import com.necessafy.rebook.model.CommonResult;
 import com.necessafy.rebook.model.user.UserUpdate;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AccountController {
 //    private final ResponseService responseService;
 //    private final AccountService accountService;
-    
-    // 스프링 시큐리티에서 지원
+//    스프링 시큐리티에서 지원
 //    @GetMapping("/user/login")
 //    public CommonResult login(){
 //        
@@ -34,6 +34,7 @@ public class AccountController {
     
     // 유저의 좋아요 정보 반환
     @GetMapping("/user/{userId}")
+    @ApiOperation(value = "전체 공개 게시물을 받아온다", response = CommonResult.class)
     public CommonResult retrieveUser(){
         return new CommonResult();
     }
