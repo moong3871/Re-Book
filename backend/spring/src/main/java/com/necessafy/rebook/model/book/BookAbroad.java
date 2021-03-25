@@ -1,24 +1,22 @@
 package com.necessafy.rebook.model.book;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@JsonInclude(JsonInclude.Include.NON_NULL)
-
-public class Book {
+public class BookAbroad {
     private String category;
     private String publisher;
-    private String bookSummary;
+//    private String bookSummary;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String isbn;

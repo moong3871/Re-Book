@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .userInfoEndpoint()                     // 8
                 .userService(customOAuth2UserSerivce);  // 9
         /*
-         * 1. h2-console화면을 사용하기 위해 해당 옵션들을 disable
+         * 1. h2-console 화면을 사용하기 위해 해당 옵션들을 disable
          * 2. URL별 권한 관리를 설정하는 옵션의 시작점, 선언되야만 antMatcher를 사용할 수 있다.
          * 3. permitAll()로 전체 권한 줌
          * 4. USER 권한을 가진 사람만 가능
