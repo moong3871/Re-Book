@@ -1,15 +1,20 @@
 <template>
-  <div>
-    <h3>책벌레님의 책 달력</h3>
-    <BookCover />
-    <Progress />
+  <v-container>
+    <v-row class="info">
+      <v-col md="8">
+        <v-calendar></v-calendar>
+      </v-col>
+      <v-col md="3" offset-md="1">
+        <Progress />
+      </v-col>
+    </v-row>
     <h3>책벌레님이 읽고 싶은 책</h3>
     <Bookshelf />
     <h3>책벌레님이 읽고 있는 책</h3>
     <Bookshelf />
     <h3>책벌레님이 읽은 책</h3>
-    <h3></h3>
-  </div>
+    <Bookshelf />
+  </v-container>
 </template>
 
 <script>
@@ -24,4 +29,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.info {
+  margin: 30px 0;
+}
+
+.container {
+  max-width: 1200px;
+}
+</style>

@@ -7,6 +7,8 @@ import Market from "../views/Market.vue";
 import MyLibrary from "../views/MyLibrary.vue";
 import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
+import Detail from "../views/Detail.vue";
+import BookSearch from "../views/BookSearch.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +47,21 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup,
+  },
+  {
+    path: "/detail",
+    name: "Detail",
+    component: Detail,
+  },
+  {
+    path: "/temp",
+    name: "Temp",
+    component: Detail,
+  },
+  {
+    path: "/booksearch",
+    name: "BookSearch",
+    component: BookSearch,
   },
 ];
 
