@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-app id="header">
+  <div class="nav">
+    <v-app id="header" style="height: 240px">
       <div class="top-header">
         <div class="logo" @click="toHome">
           <img src="@/assets/images/logo.png" style="height: 110px" />
@@ -23,18 +23,28 @@
       <div>
         <v-app-bar class="navbar" color="#345656" height="100px" width="100vw">
           <v-tabs class="tabs" style="margin-left: 50px">
-            <v-tab v-for="(item, i) in menuItems" :key="i" class="tab">{{
-              item.title
-            }}</v-tab>
+            <v-tab
+              v-for="(item, i) in menuItems"
+              :key="i"
+              class="tab"
+              @click="$router.push(item.path)"
+              >{{ item.title }}</v-tab
+            >
             <div style="display: flex; align-items: center">
               <v-text-field
+                class="search-input"
                 solo-inverted
                 flat
                 hide-details
-                label="Search"
-                v-model="foodSearch"
+                label="검색어를 입력해주세요"
+                v-model="bookSearch"
                 @keyup.enter="search"
-                style="margin-left: 4vw; width: 40vw"
+                style="
+                  margin-left: 4vw;
+                  width: 40vw;
+                  font-size: 26px;
+                  color: red;
+                "
               >
               </v-text-field>
             </div>
@@ -50,19 +60,26 @@ export default {
   name: "App",
   data() {
     return {
-      appTitle: "Awesome App",
-      sidebar: false,
+      bookSearch: "",
+      // sidebar: false,
       menuItems: [
-        { title: "사이트소개", path: "/home", icon: "home" },
-        { title: "카테고리", path: "/signup", icon: "face" },
-        { title: "장터", path: "/signin", icon: "lock_open" },
-        { title: "내 서재", path: "/signin", icon: "lock_open" },
+        { title: "사이트소개", path: "/introduce" },
+        { title: "카테고리", path: "/category" },
+        { title: "장터", path: "/market" },
+        { title: "내 서재", path: "/mylibrary" },
       ],
     };
   },
   methods: {
     toHome() {
       this.$router.push("/");
+    },
+    search() {
+      this.$router.push({
+        name: "BookSearch",
+        query: { keyword: this.bookSearch },
+      });
+      location.reload();
     },
   },
 };
@@ -116,4 +133,7 @@ export default {
   font-size: 30px !important;
   color: white !important;
 }
+/* .search-input .v-input {
+  color: blue !important;
+} */
 </style>

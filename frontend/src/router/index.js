@@ -6,6 +6,7 @@ import Category from "../views/Category.vue";
 import Market from "../views/Market.vue";
 import MyLibrary from "../views/MyLibrary.vue";
 import Detail from "../views/Detail.vue";
+import BookSearch from "../views/BookSearch.vue";
 
 Vue.use(VueRouter);
 
@@ -43,7 +44,12 @@ const routes = [
   {
     path: "/temp",
     name: "Temp",
-    component: Detail,
+    component: Detail
+  },
+  {
+    path: "/booksearch",
+    name: "BookSearch",
+    component: BookSearch,
   },
 ];
 
