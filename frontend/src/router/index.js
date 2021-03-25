@@ -44,7 +44,7 @@ const routes = [
   {
     path: "/temp",
     name: "Temp",
-    component: Detail
+    component: Detail,
   },
   {
     path: "/booksearch",
