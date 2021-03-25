@@ -10,6 +10,11 @@ import Navbar from "@/components/common/Navbar.vue";
 
 export default {
   name: "App",
+  data() {
+    return {
+      noNavbar: [],
+    };
+  },
   components: {
     Navbar,
   },
