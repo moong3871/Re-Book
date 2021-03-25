@@ -40,6 +40,11 @@ const routes = [
     name: "Detail",
     component: Detail,
   },
+  {
+    path: "/temp",
+    name: "Temp",
+    component: Detail,
+  },
 ];
 
 const router = new VueRouter({
