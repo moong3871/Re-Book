@@ -1,42 +1,44 @@
 <template>
   <div>
-    <h3>이런 책은 어떠세요?</h3>
-    <template>
-      <v-sheet class="mx-auto" elevation="8" max-width="800">
-        <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
-          <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
-            <v-card
-              :color="active ? 'primary' : 'grey lighten-1'"
-              class="ma-4"
-              height="200"
-              width="100"
-              @click="toggle"
-            >
-              <v-row class="fill-height" align="center" justify="center">
-                <v-scale-transition>
-                  <v-icon
-                    v-if="active"
-                    color="white"
-                    size="48"
-                    v-text="'mdi-close-circle-outline'"
-                  ></v-icon>
-                </v-scale-transition>
-              </v-row>
-            </v-card>
-          </v-slide-item>
-        </v-slide-group>
-      </v-sheet>
-    </template>
+    <h3 class="r-title">이런 책은 어떠세요?</h3>
+    <vueper-slides
+      class="no-shadow"
+      :visible-slides="3"
+      slide-multiple
+      :gap="3"
+      :slide-ratio="1 / 4"
+      :dragging-distance="200"
+      :breakpoints="{ 800: { visibleSlides: 2, slideMultiple: 2 } }"
+    >
+      <vueper-slide v-for="i in 4" :key="i" :title="i.toString()" />
+    </vueper-slides>
   </div>
 </template>
 
 <script>
+import { VueperSlides, VueperSlide } from "vueperslides";
+import "vueperslides/dist/vueperslides.css";
 export default {
   name: "Recommend",
   props: {
     dummy: Object,
   },
+  components: { VueperSlides, VueperSlide },
+  data() {
+    return {
+      slides: [
+        {
+          title: "Slide #1",
+          content: "Slide content.",
+        },
+      ],
+    };
+  },
 };
 </script>
 
-<style></style>
+<style>
+.r-title {
+  font-size: 30px;
+}
+</style>

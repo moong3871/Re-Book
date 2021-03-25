@@ -2,7 +2,7 @@
   <div class="container">
     <div class="c-header">
       <h3>코멘트</h3>
-      <Button />
+      <Button :title="title" />
     </div>
     <ul
       class="item"
@@ -25,6 +25,11 @@ export default {
   },
   props: {
     dummy: Object,
+  },
+  data() {
+    return {
+      title: "+ 코멘트 남기기",
+    };
   },
 };
 </script>

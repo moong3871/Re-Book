@@ -2,26 +2,26 @@
   <div>
     <div class="info-container">
       <div class="s-img-box">
-        <img class="s-img" :src="dummy.profileimg_path" alt="책 이미지" />
+        <img class="s-img" :src="backDummy.profileimg_path" alt="책 이미지" />
       </div>
       <div class="info-box-right">
-        <h2>{{ dummy.title }}</h2>
-        <p>작 가: {{ dummy.author }}</p>
-        <p>출판사: {{ dummy.company }}</p>
-        <p>정 가: {{ dummy.price }}원</p>
-        <p>평 균: {{ dummy.grade }}</p>
+        <h2>{{ backDummy.title }}</h2>
+        <p>작 가: {{ backDummy.author }}</p>
+        <p>출판사: {{ backDummy.company }}</p>
+        <p>정 가: {{ backDummy.price }}원</p>
+        <p>평 균: {{ backDummy.grade }}</p>
       </div>
     </div>
     <hr />
     <div class="desc-container">
       <div class="desc-box">
         <h3 class="d-title">책 소개</h3>
-        <p class="d-content">{{ dummy.desc }}</p>
+        <p class="d-content">{{ backDummy.desc }}</p>
       </div>
       <div class="desc-box">
         <h3 class="d-title">저자 소개</h3>
         <div class="d-content">
-          <p>{{ dummy.author }}</p>
+          <p>{{ backDummy.author }}</p>
           <p>{{ dummy.desc }}</p>
         </div>
       </div>
@@ -34,6 +34,7 @@ export default {
   name: "Info",
   props: {
     dummy: Object,
+    backDummy: Object,
   },
   data() {
     return {};

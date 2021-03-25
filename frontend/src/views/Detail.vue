@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Cover :dummy="dummy" />
-    <Info :dummy="dummy" />
+    <Info :dummy="dummy" :backDummy="backDummy" />
     <hr />
     <Comment :dummy="dummy" />
     <hr />
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Cover from "@/components/detail/Cover.vue";
 import Info from "@/components/detail/Info.vue";
 import Comment from "@/components/detail/Comment.vue";
@@ -33,6 +34,7 @@ export default {
   },
   data() {
     return {
+      backDummy: null,
       dummy: {
         user_id: 1,
         book_id: 1,
@@ -63,8 +65,52 @@ export default {
               "처음에 인스타를 통해 감정적인 소모로 인한 저의 마음을 잘 정리된 피드로 위로를 많이 받았어요",
           },
         ],
+        librarys: [
+          {
+            library: "구암 도서관",
+            stock: 2,
+            telephone: "042 - 601 - 6630",
+            address: "대전광역시 유성구 구암동 128",
+          },
+          {
+            library: "유성 도서관",
+            stock: 1,
+            telephone: "042 - 601 - 6630",
+            address: "대전광역시 유성구 구암동 128",
+          },
+          {
+            library: "문정 도서관",
+            stock: 1,
+            telephone: "042 - 601 - 6630",
+            address: "대전광역시 유성구 구암동 128",
+          },
+          {
+            library: "석범 도서관",
+            stock: 1,
+            telephone: "042 - 601 - 6630",
+            address: "대전광역시 유성구 구암동 128",
+          },
+        ],
       },
     };
+  },
+  created() {
+    var ISBN = this.$route.params.ISBN;
+    axios({
+      // url: `http://localhost:8080/book/${this.dummy.ISBN}/`,
+      url: "http://j4b206.p.ssafy.io/book/" + ISBN,
+      method: "GET",
+    })
+      .then((res) => {
+        console.log(`=================책detail응답 ${res.object}`);
+        this.backDummy = res.object;
+        console.log("@@@@@@@@@@@@@BackDummy");
+        console.log(this.backDummy);
+      })
+      .catch((err) => {
+        console.log("@@@@@@@@@@@@@@@@@@@책detail응답 에러");
+        console.error(err);
+      });
   },
 };
 </script>
