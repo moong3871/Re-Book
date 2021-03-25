@@ -47,7 +47,7 @@
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
-      <div>asdklfjlasd</div>
+      <!-- <div>asdklfjlasd</div> -->
     </v-app>
   </div>
 </template>
