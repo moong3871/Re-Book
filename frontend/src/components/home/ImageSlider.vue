@@ -1,103 +1,184 @@
 <template>
-  <div class="mb-6" style="border: 1px solid transparent;">
-    <v-carousel :height="400" show-arrows-on-hover>
-      <v-carousel-item
-        width="50vw"
-        style="margin-left:25vw;"
-        v-for="(image,i) in images"
-        :key="i"
-        :src="image.src"
-        reverse-transition="fade-transition"
-        transition="fade-transition">
-        <div class="carousel-item-wrapper">
-          <!-- <div class="seperate-line"></div> -->
-          <!-- <div class="carousel-body">{{ image.contents.body }}</div> -->
-        </div>
-      </v-carousel-item>
-    </v-carousel>
+  <div id="app" style="margin-top: 100px">
+    <v-app id="inspire">
+      <v-carousel
+        height="750"
+        hide-delimiter-background
+        show-arrows-on-hover
+        style="margin: 0 auto"
+      >
+        <v-carousel-item v-for="(recommended, i) in recommended_books" :key="i">
+          <v-sheet
+            :color="recommended.contents.color"
+            height="100%"
+            style="padding-top: 0px"
+          >
+            <v-row class="fill-height" align="center" justify="center">
+              <div class="recommend-text">박성준님을 위한 추천도서</div>
+              <div class="content-container" v-if="i % 2 == 0">
+                <img :src="recommended.src" alt="" class="book-cover1" />
+                <div class="book-content1">
+                  <h2 class="content-text1 content-text-title">
+                    {{ recommended.contents.title }}
+                  </h2>
+                  <h2 class="content-text1">
+                    저자 : {{ recommended.contents.author }}
+                  </h2>
+                  <h2 class="content-text1">
+                    장르 : {{ recommended.contents.genre }}
+                  </h2>
+                </div>
+              </div>
+              <div class="content-container" v-if="i % 2 == 1">
+                <img :src="recommended.src" alt="" class="book-cover2" />
+                <div class="book-content2">
+                  <h2 class="content-text content-text-title">
+                    {{ recommended.contents.title }}
+                  </h2>
+                  <h2 class="content-text">
+                    저자 : {{ recommended.contents.author }}
+                  </h2>
+                  <h2 class="content-text">
+                    장르 : {{ recommended.contents.genre }}
+                  </h2>
+                </div>
+              </div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+      <div>asdklfjlasd</div>
+    </v-app>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ImageSlider',
+  name: "ImageSlider",
   data() {
     return {
-      images: [
+      recommended_books: [
         {
-          src: 'https://www.incimages.com/uploaded_files/image/970x450/getty_496612468_2000138820009280460_336567.jpg',
+          src:
+            "https://image.aladin.co.kr/product/26613/43/cover500/k192739031_1.jpg",
           contents: {
-            title: 'Book_U_Love',
-            body: 'We recommend you a book that you might like.'
-          }
+            title: "아르센 벵거 자서전",
+            author: "아르센 벵거",
+            genre: "건강/취미/레저",
+            color: "rgb(48, 46, 43)",
+          },
         },
         {
-          src: 'https://cdn.lagerbox.com/thumb/media/758/how-books-age-and-what-harms-them_e928f0b8_11fcba1d_1_s1150-l85--s2300-l85.jpg',
+          src:
+            "https://image.aladin.co.kr/product/24512/70/cover500/k392630952_2.jpg",
           contents: {
-            title: 'Book Recommendation',
-            body: 'We recommend you a book considering your age, interests, writers, etc.'
-          }
+            title: "달러구트 꿈 백화점",
+            author: "이미예",
+            genre: "판타지/환상문학",
+            color: "brown",
+          },
         },
         {
-          src: 'http://www.p-lib.es/wp-content/uploads/2017/05/Libros-Parque-alargada-1024x512.jpg',
+          src:
+            "https://image.aladin.co.kr/product/26722/17/cover500/k712730188_1.jpg",
           contents: {
-            title: 'Best Sellers',
-            body: 'We introduce you to the bestseller.'
-          }
+            title: "진격의 거인 33",
+            author: "이사야마 하지메",
+            genre: "본격장르만화",
+            color: "grey",
+          },
         },
-      ]
-    }
-  }
-}
+        {
+          src:
+            "https://image.aladin.co.kr/product/25964/44/cover500/8933871551_3.jpg",
+          contents: {
+            title: "모래알만 한 진실이라도",
+            author: "박완서",
+            genre: "한국에세이",
+            color: "rgb(35, 123, 199)",
+          },
+        },
+      ],
+      bcolor: "white",
+    };
+  },
+};
 </script>
 
 <style scoped>
-.carousel-item-wrapper {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  transform: translate(-50%, -50%);
-  font-family: 'Inria Serif';
-  color: #fff;
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+.contents {
+  /* border: 3px solid blue !important; */
+  width: 60vw;
+  height: 100%;
+  z-index: 0;
+}
+.recommend-text {
   text-align: center;
-  text-shadow: 3px 5px 5px rgba(0, 0, 0, 0.3);
+  margin-top: 30px;
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 40px;
 }
-
-.carousel-item-wrapper .carousel-title {
-  font-size: 4em;
-  font-weight: 600;
+.content-container {
+  margin: 0 auto;
+  margin-bottom: 40px;
+  /* border: 3px solid blue; */
+  width: 100%;
+  height: 75%;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* opacity: 0.5; */
+  z-index: 0;
 }
-
-.carousel-item-wrapper .seperate-line {
-  margin: 0.9em auto;
-  border-bottom: 1px solid lightgray;
-  box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.3);
-  width: 70%;
+.book-cover1 {
+  float: left;
+  height: 90%;
+  margin-left: 1030px;
+  margin-top: 1.25%;
 }
-
-.carousel-item-wrapper .carousel-body {
-  font-size: 1.5em;
-  margin: 0.8em 0;
+.book-content1 {
+  position: absolute;
+  padding: 40px;
+  height: 70%;
+  width: 580px;
+  margin-left: 450px;
+  margin-top: 1.25%;
+  /* border: 5px white solid; */
+  /* border: 5px solid white; */
 }
-
-@media (min-width: 600px) and (max-width: 960px) {
-  .carousel-item-wrapper .carousel-title {
-    font-size: 3em;
-  }
-
-  .carousel-item-wrapper .carousel-body {
-    font-size: 1.25em;
-  }
+.book-cover2 {
+  float: left;
+  height: 90%;
+  margin-left: 670px;
+  margin-top: 1.25%;
 }
-
-@media (max-width: 600px) {
-  .carousel-item-wrapper .carousel-title {
-    font-size: 2em;
-  }
-
-  .carousel-item-wrapper .carousel-body {
-    font-size: 0.9em;
-  }
+.book-content2 {
+  /* border: 5px white solid; */
+  position: absolute;
+  padding: 40px;
+  height: 70%;
+  width: 700px;
+  margin-left: 1020px;
+  margin-top: 1.25%;
+}
+.content-text {
+  margin-top: 40px;
+  margin-bottom: 80px;
+  font-size: 32px;
+  color: white;
+  font-family: "Nanum Myeongjo", serif;
+}
+.content-text1 {
+  margin-top: 40px;
+  margin-bottom: 80px;
+  font-size: 32px;
+  color: white;
+  text-align: right;
+  font-family: "Nanum Myeongjo", serif;
+}
+.content-text-title {
+  font-size: 42px;
 }
 </style>
