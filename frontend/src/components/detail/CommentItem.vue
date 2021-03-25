@@ -1,31 +1,52 @@
 <template>
-  <div>
-    <li v-for="(comment, index) in dummy[comments]" v-bind:key="index">
+  <li class="c-item">
+    <div class="c-header">
       {{ comment.nickname }}
-      {{ comment.rating }}
+      <div class="c-rating">
+        <v-icon large> mdi-star-outline </v-icon>
+        <p>{{ comment.rating }}</p>
+      </div>
+      <hr />
+    </div>
+    <p class="c-review">
       {{ comment.review }}
-    </li>
-  </div>
-  <!-- <v-card class="mx-auto" max-width="1610">
-    <v-card-title>Card title</v-card-title>
-    <v-card-text>
-      Phasellus magna. Quisque rutrum. Nunc egestas, augue at pellentesque
-      laoreet, felis eros vehicula leo, at malesuada velit leo quis pede.
-      Aliquam lobortis. Quisque libero metus, condimentum nec, tempor a, commodo
-      mollis, magna. In turpis. In dui magna, posuere eget, vestibulum et,
-      tempor auctor, justo. In turpis. Pellentesque dapibus hendrerit tortor. Ut
-      varius tincidunt libero.
-    </v-card-text>
-  </v-card> -->
+    </p>
+  </li>
 </template>
 
 <script>
 export default {
   name: "CommentItem",
   props: {
-    dummy: Object,
+    comment: Object,
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.c-item {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: rgb(238, 236, 236);
+}
+.c-header {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  /* background-color: red; */
+}
+.c-rating {
+  width: 90px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border-radius: 10%;
+  font-size: 25px;
+  background-color: white;
+}
+.c-review {
+  text-align: left;
+  font-size: 20px;
+}
+</style>
