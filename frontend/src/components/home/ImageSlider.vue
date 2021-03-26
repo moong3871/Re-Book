@@ -4,8 +4,7 @@
       <v-carousel
         height="750"
         hide-delimiter-background
-        show-arrows-on-hover
-        style="margin: 0 auto"
+        style="margin: 0 auto; width: 1900px"
       >
         <v-carousel-item v-for="(recommended, i) in recommended_books" :key="i">
           <v-sheet
