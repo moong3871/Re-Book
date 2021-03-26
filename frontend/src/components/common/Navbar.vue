@@ -75,11 +75,15 @@ export default {
       this.$router.push("/");
     },
     search() {
-      this.$router.push({
-        name: "BookSearch",
-        query: { keyword: this.bookSearch },
-      });
-      location.reload();
+      if (this.bookSearch.length < 2) {
+        alert("2글자 이상으로 입력해주세요!");
+      } else {
+        this.$router.push({
+          name: "BookSearch",
+          query: { keyword: this.bookSearch },
+        });
+        location.reload();
+      }
     },
   },
 };
@@ -133,7 +137,4 @@ export default {
   font-size: 30px !important;
   color: white !important;
 }
-/* .search-input .v-input {
-  color: blue !important;
-} */
 </style>

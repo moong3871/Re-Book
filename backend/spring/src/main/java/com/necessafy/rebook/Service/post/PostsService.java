@@ -1,4 +1,4 @@
-package com.necessafy.rebook.Service;
+package com.necessafy.rebook.Service.post;
 
 
 import com.necessafy.rebook.dao.PostDao;

@@ -16,30 +16,41 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group 'com.jojoldu.book'
+group 'com.necessafy.rebook'
 version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = 1.8
 
+jar{
+    manifest{
+        attributes "Main-Class":"com.necessafy.rebook.WebRecommendationApplication"
+    }
+    from{
+        configurations.compile.collect{
+            it.isDirectory() ? it: zipTree(it)
+        }
+    }
+}
 repositories {
     mavenCentral()
     jcenter()
 }
+
 dependencies {
 
     implementation 'io.springfox:springfox-swagger2:2.9.2'
-    implementation 'io.springfox:springfox-swagger-ui:2.6.1'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.projectlombok:lombok')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-mustache')
     compile('com.h2database:h2')
-
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
     runtimeOnly 'mysql:mysql-connector-java:8.0.18'
     compile("org.mariadb.jdbc:mariadb-java-client")
     implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.2.2.RELEASE'
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile("org.springframework.security:spring-security-test")
+//    testCompile("org.springframework.security:spring-security-test")
     annotationProcessor('org.projectlombok:lombok')
     testAnnotationProcessor('org.projectlombok:lombok')
+    compile 'io.jsonwebtoken:jjwt:0.9.0'
 }

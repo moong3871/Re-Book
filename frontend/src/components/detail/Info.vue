@@ -2,26 +2,27 @@
   <div>
     <div class="info-container">
       <div class="s-img-box">
-        <img class="s-img" :src="backDummy.profileimg_path" alt="책 이미지" />
+        <img class="s-img" :src="backDummy.bookImagePath" alt="책 이미지" />
+        {{ backDummy.book_image_path }}
       </div>
       <div class="info-box-right">
         <h2>{{ backDummy.title }}</h2>
-        <p>작 가: {{ backDummy.author }}</p>
-        <p>출판사: {{ backDummy.company }}</p>
+        <p>작 가: {{ backDummy.writer }}</p>
+        <p>출판사: {{ backDummy.publisher }}</p>
         <p>정 가: {{ backDummy.price }}원</p>
-        <p>평 균: {{ backDummy.grade }}</p>
+        <p>평 균: {{ backDummy.evaluation }}</p>
       </div>
     </div>
     <hr />
     <div class="desc-container">
       <div class="desc-box">
         <h3 class="d-title">책 소개</h3>
-        <p class="d-content">{{ backDummy.desc }}</p>
+        <p class="d-content">{{ backDummy.bookSummary }}</p>
       </div>
       <div class="desc-box">
         <h3 class="d-title">저자 소개</h3>
         <div class="d-content">
-          <p>{{ backDummy.author }}</p>
+          <p>{{ backDummy.writer }}</p>
           <p>{{ dummy.desc }}</p>
         </div>
       </div>
