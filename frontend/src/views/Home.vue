@@ -1,17 +1,20 @@
 <template>
   <div class="home">
-    <Carousel />
+    <!-- <BodyTop /> -->
+    <ImageSlider />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Carousel from "@/components/home/Carousel.vue";
+// import BodyTop from "@/components/home/BodyTop.vue";
+import ImageSlider from "@/components/home/ImageSlider";
 
 export default {
   name: "Home",
   components: {
-    Carousel,
+    // BodyTop,
+    ImageSlider,
   },
 };
 </script>

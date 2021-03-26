@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.db.models import Avg, Count, Sum
 
 class BookSerializer(serializers.ModelSerializer):
+
+    # CID = serializers.SerializerMethodField()
     class Meta:
         model = Book
         # fields = [
@@ -18,3 +20,8 @@ class BookSerializer(serializers.ModelSerializer):
         #     "genre",
         # ]
         fields = '__all__'
+
+
+# class BookDetailSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = 
