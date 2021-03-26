@@ -5,18 +5,21 @@ import About from "../views/About.vue";
 import Category from "../views/Category.vue";
 import Market from "../views/Market.vue";
 import MyLibrary from "../views/MyLibrary.vue";
+import Login from "../views/Login.vue";
+import Signup from "../views/Signup.vue";
 import Detail from "../views/Detail.vue";
+import BookSearch from "../views/BookSearch.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: Home,
   },
   {
-    path: "/about",
+    path: "/",
     name: "About",
     component: About,
   },
@@ -36,9 +39,29 @@ const routes = [
     component: MyLibrary,
   },
   {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
+  },
+  {
     path: "/detail",
     name: "Detail",
     component: Detail,
+  },
+  {
+    path: "/temp",
+    name: "Temp",
+    component: Detail,
+  },
+  {
+    path: "/booksearch",
+    name: "BookSearch",
+    component: BookSearch,
   },
 ];
 

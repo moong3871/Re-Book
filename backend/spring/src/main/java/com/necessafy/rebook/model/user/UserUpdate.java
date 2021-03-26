@@ -10,6 +10,10 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserUpdate {
-    String name;
-    String picture;
+    String UserId;
+    String email;
+    String password;
+    String nickname;
+    String description;
+    String profileImagePath;
 }

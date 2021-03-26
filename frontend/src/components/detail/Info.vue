@@ -1,30 +1,28 @@
 <template>
   <div>
-    <div class="b-img-box">
-      <img class="b-img" :src="dummy.profileimg_path" alt="책 이미지" />
-    </div>
     <div class="info-container">
       <div class="s-img-box">
-        <img class="s-img" :src="dummy.profileimg_path" alt="책 이미지" />
+        <img class="s-img" :src="backDummy.bookImagePath" alt="책 이미지" />
+        {{ backDummy.book_image_path }}
       </div>
       <div class="info-box-right">
-        <h2>{{ dummy.title }}</h2>
-        <p>작 가: {{ dummy.author }}</p>
-        <p>출판사: {{ dummy.company }}</p>
-        <p>정 가: {{ dummy.price }}원</p>
-        <p>평 균: {{ dummy.grade }}</p>
+        <h2>{{ backDummy.title }}</h2>
+        <p>작 가: {{ backDummy.writer }}</p>
+        <p>출판사: {{ backDummy.publisher }}</p>
+        <p>정 가: {{ backDummy.price }}원</p>
+        <p>평 균: {{ backDummy.evaluation }}</p>
       </div>
     </div>
     <hr />
     <div class="desc-container">
       <div class="desc-box">
         <h3 class="d-title">책 소개</h3>
-        <p class="d-content">{{ dummy.desc }}</p>
+        <p class="d-content">{{ backDummy.bookSummary }}</p>
       </div>
       <div class="desc-box">
         <h3 class="d-title">저자 소개</h3>
         <div class="d-content">
-          <p>{{ dummy.author }}</p>
+          <p>{{ backDummy.writer }}</p>
           <p>{{ dummy.desc }}</p>
         </div>
       </div>
@@ -37,6 +35,7 @@ export default {
   name: "Info",
   props: {
     dummy: Object,
+    backDummy: Object,
   },
   data() {
     return {};
@@ -45,19 +44,6 @@ export default {
 </script>
 
 <style scoped>
-.b-img-box {
-  width: 100%;
-  height: 40%;
-  display: flex;
-  justify-content: center;
-  background-color: green;
-  margin: 1rem 0 3rem;
-  padding: 2.5%;
-}
-.b-img {
-  width: 445px;
-  height: 656px;
-}
 .info-container {
   width: 100%;
   height: 100%;
@@ -71,7 +57,7 @@ export default {
   height: 617px;
   display: flex;
   justify-content: center;
-  background-color: green;
+  background-color: #445b54;
   margin-right: 1%;
 }
 .s-img {

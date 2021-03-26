@@ -4,12 +4,10 @@ from api import views
 
 
 router = DefaultRouter(trailing_slash=False)
-router.register(r"books", views.BookViewSet, basename="books")
-<<<<<<< HEAD
-# router.register(r"")
-=======
+router.register(r"category", views.CategoryViewSet, basename="Category")
+# router.register(r"bookDetail", views.BookDetailViewSet, basename="bookdetail")
+# router.register(r"bookSearch", views.BookSearchViewSet, 'booksearch')
 # router.register(r"book/(?P<id>.+)",views.BookDetailViewSet,basename="book")
->>>>>>> d3fca2d... [ADD] django
 
 
 urlpatterns = router.urls
