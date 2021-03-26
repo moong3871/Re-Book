@@ -18,7 +18,10 @@
           placeholder="비밀번호를 입력하세요."
           clearable
         ></v-text-field>
-        <v-btn width="400" height="48">로그인</v-btn>
+        <!-- 여기 home으로 router 연결해놓은것도 임시 방편 -->
+        <v-btn width="400" height="48" @click="$router.push('/home')"
+          >로그인</v-btn
+        >
         <v-btn width="400" height="48">
           <GoogleLogin :params="params" b :onSuccess="onSuccess">
             <img
@@ -28,6 +31,10 @@
             <span class="google-login-text">Google 계정으로 계속하기</span>
           </GoogleLogin>
         </v-btn>
+        <!-- 이 아래에 회원가입 부분은 임시방편 -->
+        <v-btn width="400" height="48" @click="$router.push('/signup')"
+          >회원가입</v-btn
+        >
       </v-col>
     </v-row>
   </v-container>
