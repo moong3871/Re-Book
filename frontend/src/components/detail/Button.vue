@@ -11,7 +11,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .ma-2 {
   outline: none;
   box-shadow: 0 0 0 1px black;
