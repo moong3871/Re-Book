@@ -63,7 +63,7 @@ export default {
       bookSearch: "",
       // sidebar: false,
       menuItems: [
-        { title: "사이트소개", path: "/introduce" },
+        { title: "사이트소개", path: "/about" },
         { title: "카테고리", path: "/category" },
         { title: "장터", path: "/market" },
         { title: "내 서재", path: "/mylibrary" },
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     toHome() {
-      this.$router.push("/");
+      this.$router.push("/home");
     },
     search() {
       if (this.bookSearch.length < 2) {
