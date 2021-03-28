@@ -21,7 +21,13 @@
       </div>
       <!-- 여기까지가 top-header -->
       <div>
-        <v-app-bar class="navbar" color="#345656" height="100px" width="100vw">
+        <v-app-bar
+          class="navbar"
+          color="#345656"
+          height="100px"
+          width="100vw"
+          style="min-width: 1400px !important"
+        >
           <v-tabs class="tabs" style="margin-left: 50px">
             <v-tab
               v-for="(item, i) in menuItems"

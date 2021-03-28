@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .progress-circle {
   background-color: #ddd;
   border-radius: 50%;

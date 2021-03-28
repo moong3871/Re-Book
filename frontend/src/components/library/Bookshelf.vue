@@ -66,7 +66,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .bookshelf {
   width: 100%;
   margin: 50px 0;
