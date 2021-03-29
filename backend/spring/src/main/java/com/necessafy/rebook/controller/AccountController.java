@@ -41,8 +41,8 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping
-    @ApiOperation(value="SignUp")
+    @PostMapping("/signup")
+    @ApiOperation(value="회원가입",notes = "이메일, 닉네임, 비밀번호를 입력합니다.")
     public Object signup(@Valid @RequestBody @ApiParam(value = "회원가입시 필요한 정보 (이메일, 별명, 비밀번호)"
             ,required=true)SignupRequest request){
         String email = request.getEmail().trim();
