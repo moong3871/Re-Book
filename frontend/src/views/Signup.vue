@@ -2,7 +2,7 @@
   <v-container fill-height fluid class="signup-bg">
     <v-row align="center" justify="center">
       <v-col align="center">
-        <h2 class="title">회원가입</h2>
+        <h1 class="title">회원가입</h1>
         <form @submit.prevent="submit">
           <div
             class="form-group"
@@ -10,12 +10,9 @@
           >
             <v-text-field
               type="email"
-              name="email"
               v-model.trim="$v.email.$model"
               solo
-              autofocus
-              placeholder="email를 입력하세요."
-              @input="validateEmail"
+              placeholder="email를 입력해주세요."
             ></v-text-field>
           </div>
           <div class="error" v-if="!$v.email.required">
@@ -24,25 +21,49 @@
           <div class="error" v-if="!$v.email.email">
             email을 올바르게 입력해주세요.
           </div>
-          <v-text-field
-            type="password"
-            v-model.trim="$v.password.$model"
-            solo
-            placeholder="비밀번호를 입력하세요."
-          ></v-text-field>
-          <v-text-field
-            type="password"
-            v-model.trim="$v.repeatPassword.$model"
-            solo
-            placeholder="비밀번호를 다시 한 번 입력하세요."
-          ></v-text-field>
-          <span v-if="!isConfirmed">패스워드가 다릅니다.</span>
-          <v-text-field
-            type="name"
-            v-model.trim="$v.nickname.$model"
-            solo
-            placeholder="닉네임을 입력해주세요"
-          ></v-text-field>
+          <div
+            class="form-group"
+            :class="{ 'form-group--error': $v.password.$error }"
+          >
+            <v-text-field
+              type="password"
+              v-model.trim="$v.password.$model"
+              solo
+              placeholder="비밀번호를 입력해주세요."
+            ></v-text-field>
+          </div>
+          <div class="error" v-if="!$v.password.required">
+            비밀번호를 입력해주세요.
+          </div>
+          <div class="error" v-if="!$v.password.minLength">
+            비밀번호는 적어도
+            {{ $v.password.$params.minLength.min }}글자 이상이어야합니다.
+          </div>
+          <div
+            class="form-group"
+            :class="{ 'form-group--error': $v.repeatPassword.$error }"
+          >
+            <v-text-field
+              type="password"
+              v-model.trim="$v.repeatPassword.$model"
+              solo
+              placeholder="비밀번호를 다시 한 번 입력해주세요."
+            ></v-text-field>
+          </div>
+          <div class="error" v-if="!$v.repeatPassword.sameAsPassword">
+            비밀번호는 동일해야합니다.
+          </div>
+          <div
+            class="form-group"
+            :class="{ 'form-group--error': $v.nickname.$error }"
+          >
+            <v-text-field
+              type="name"
+              v-model.trim="$v.nickname.$model"
+              solo
+              placeholder="닉네임을 입력해주세요."
+            ></v-text-field>
+          </div>
           <div class="error" v-if="!$v.nickname.required">
             별명을 입력해주세요!
           </div>
@@ -50,27 +71,20 @@
             별명은 적어도 {{ $v.nickname.$params.minLength.min }} 글자
             이상이어야 합니다.
           </div>
-          <button
-            class="button"
-            type="submit"
-            :disabled="submitStatus === 'PENDING'"
-          >
-            Submit!
-          </button>
-          <!-- <v-btn
+          <v-btn
             width="400"
             height="48"
             color="#FFFFFF"
             type="submit"
-            @click="signup"
+            :disabled="submitStatus === 'PENDING'"
             class="signup-btn"
             >회원가입</v-btn
-          > -->
+          >
           <p class="typo__p" v-if="submitStatus === 'OK'">
             Thanks for your submission!
           </p>
           <p class="typo__p" v-if="submitStatus === 'ERROR'">
-            Please fill the form correctly.
+            모든 항목을 입력해주세요.
           </p>
           <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
         </form>
@@ -103,8 +117,7 @@ export default {
       password: "",
       repeatPassword: "",
       nickname: "",
-      isEmail: true,
-      isConfirmed: true,
+      submitStatus: null,
     };
   },
   validations: {
@@ -125,21 +138,21 @@ export default {
     },
   },
   methods: {
-    // validateEmail() {
-    //   if (
-    //     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-    //       this.credentials.email
-    //     )
-    //   ) {
-    //     this.isEmail = false;
-    //   } else {
-    //     this.isEmail = true;
-    //   }
-    // },
-    // isPasswordConfirmed() {
-    //   this.isConfirmed =
-    //     this.credentials.password === this.credentials.password_confirm;
-    // },
+    signup() {
+      axios
+        .post(`http://j4b206.p.ssafy.io/api/account/signup/`, {
+          email: this.email,
+          password: this.password,
+          nickname: this.nickname,
+        })
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ name: "Login" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     submit() {
       console.log("submit!");
       this.$v.$touch();
@@ -150,30 +163,8 @@ export default {
         this.submitStatus = "PENDING";
         setTimeout(() => {
           this.submitStatus = "OK";
+          this.signup();
         }, 500);
-      }
-    },
-    signup() {
-      if (this.credentials.email === "") {
-        alert("닉네임을 입력해주세요!");
-      } else if (this.credentials.password_confirm === "") {
-        alert("닉네임을 입력해주세요!");
-      } else if (this.credentials.nickname === "") {
-        alert("닉네임을 입력해주세요!");
-      } else {
-        axios
-          .post(`http://j4b206.p.ssafy.io/api/account/signup/`, {
-            email: this.credentials.email,
-            password: this.credentials.password,
-            nickname: this.credentials.nickname,
-          })
-          .then((res) => {
-            console.log(res);
-            this.$router.push({ name: "Login" });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
       }
     },
   },
@@ -188,12 +179,32 @@ export default {
   margin: 0;
 }
 
+.title {
+  margin: 50px;
+}
+
 .v-input {
   width: 400px;
+  margin: 1rem;
 }
 
 .v-btn {
   display: block;
-  margin-bottom: 30px;
+  margin: 1rem;
+}
+
+.form-group__message,
+.error {
+  font-size: 1rem;
+  line-height: 1;
+  display: none;
+  margin-left: 14px;
+  margin-top: -1.9375rem;
+  margin-bottom: 0.9375rem;
+}
+
+.form-group--error + .error {
+  display: block;
+  color: #fb3232d2;
 }
 </style>
