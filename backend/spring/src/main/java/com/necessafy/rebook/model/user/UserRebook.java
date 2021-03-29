@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
+//import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ public class UserRebook {
     @Column(name="USER_EMAIL")
     private String email;
 
-    @JsonIgnore
+    //@JsonIgnore
     private String password;
     private String nickname;
     private String salt;

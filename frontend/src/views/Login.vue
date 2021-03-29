@@ -23,7 +23,8 @@
           >로그인</v-btn
         >
         <v-btn width="400" height="48">
-          <GoogleLogin :params="params" b :onSuccess="onSuccess">
+          <!-- <GoogleLogin :params="params" b :onSzuccess="onSuccess"> -->
+          <GoogleLogin>
             <img
               alt="googleLogin"
               src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
@@ -31,10 +32,6 @@
             <span class="google-login-text">Google 계정으로 계속하기</span>
           </GoogleLogin>
         </v-btn>
-        <!-- 이 아래에 회원가입 부분은 임시방편 -->
-        <v-btn width="400" height="48" @click="$router.push('/signup')"
-          >회원가입</v-btn
-        >
       </v-col>
     </v-row>
   </v-container>
@@ -45,7 +42,7 @@ import axios from "axios";
 // import { mapActions } from 'vuex'
 import GoogleLogin from "vue-google-login";
 
-const URL = "http://j4b206.p.ssafy.io/oauth2/authorization/google";
+// const URL = "http://j4b206.p.ssafy.io/login/oauth2/code/google";
 
 export default {
   name: "Login",
@@ -56,7 +53,7 @@ export default {
         password: "",
       },
       params: {
-        client_id: "xxxxxx",
+        client_id: "rebook.manager@gmail.com",
       },
     };
   },
@@ -80,27 +77,6 @@ export default {
         });
     },
     // ...mapActions(serviceStore, ['updateAccess']),
-    onSuccess(googleUser) {
-      this.updateAccess({ access: googleUser.wc.access_token });
-      axios
-        .post(URL, {
-          access_token: googleUser.wc.access_token,
-        })
-        .then(console.log("GOOGLE", googleUser.wc.access_token))
-        .then((googleUser) => {
-          localStorage.setItem("access_token", googleUser.data.access_token);
-          console.log("Google Login Success");
-          alert("Google Login Success");
-          this.$router.push("/");
-        })
-        .then((res) => console.log(res))
-        .catch((error) => {
-          if (error.response.status === 401) {
-            alert("비회원이므로 회원가입 페이지로 이동합니다!");
-            this.$router.push("/signup");
-          }
-        });
-    },
   },
 };
 </script>

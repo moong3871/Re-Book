@@ -32,3 +32,8 @@ build/
 
 ### 보안파일 google ###
 application-oauth.properties
+
+###.gradle###
+.gradle
+/build/
+
