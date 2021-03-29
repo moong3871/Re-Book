@@ -100,8 +100,8 @@ export default {
     console.log("안녕하세요 isbn입니다");
     console.log(ISBN);
     axios({
-      url: "http://localhost:8080/book/8954655971",
-      // url: "http://j4b206.p.ssafy.io/book/" + 9788901249872,
+      //url: "http://localhost:8080/book/8954655971",
+      url: "http://j4b206.p.ssafy.io/book/" + ISBN,
       method: "GET",
       // headers: {
       //   Authorization: `JWT ${localStorage.getItem("jwt")}`,

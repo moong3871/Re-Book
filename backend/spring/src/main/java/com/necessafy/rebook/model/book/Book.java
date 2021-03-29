@@ -16,16 +16,18 @@ import javax.persistence.Id;
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class Book {
-    private String category;
     private String publisher;
     private String bookSummary;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String isbn;
+    private String subcategory;
     private String title;
+    private String country;
     private int price;
     private String writer;
     private String bookImagePath;
+    private String mainCategory;
     private String publishDate;
     private int evaluation;
     private int categoryId;
