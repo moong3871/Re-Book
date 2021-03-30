@@ -5,58 +5,23 @@
         <div class="logo" @click="toHome">
           <img src="@/assets/images/logo.png" style="height: 60px" />
         </div>
-        <div class="hello-user-container">
-          <div class="hello-user">박성준님 환영합니다.</div>
-        </div>
-        <div class="profile-container" style="margin-left: 0px">
-          <v-avatar
-            class="my-profile"
-            color="green"
-            size="50px"
-            @click="toMyInfo"
-          >
-            <v-icon dark size="48px"> mdi-account-circle </v-icon>
-          </v-avatar>
+        <div class="myinfo-container">
+          <div class="hello-user-container">
+            <div class="hello-user">박성준님 환영합니다.</div>
+          </div>
+          <div class="profile-container">
+            <v-avatar
+              class="my-profile"
+              color="green"
+              size="50px"
+              @click="toMyInfo"
+            >
+              <v-icon dark size="48px"> mdi-account-circle </v-icon>
+            </v-avatar>
+          </div>
         </div>
       </div>
-      <!-- 여기까지가 top-header -->
-      <!-- <div>
-        <v-app-bar
-          class="navbar"
-          color="#345656"
-          height="100px"
-          width="100vw"
-          style="min-width: 1400px !important"
-        >
-          <v-tabs class="tabs" style="margin-left: 50px">
-            <v-tab
-              v-for="(item, i) in menuItems"
-              :key="i"
-              class="tab"
-              @click="$router.push(item.path)"
-              >{{ item.title }}
-            </v-tab>
-            <div style="display: flex; align-items: center">
-              <v-text-field
-                class="search-input"
-                solo-inverted
-                flat
-                hide-details
-                label="검색어를 입력해주세요"
-                v-model="bookSearch"
-                @keyup.enter="search"
-                style="
-                  margin-left: 4vw;
-                  width: 40vw;
-                  font-size: 26px;
-                  color: red;
-                "
-              >
-              </v-text-field>
-            </div>
-          </v-tabs>
-        </v-app-bar>
-      </div> -->
+
       <div class="navbar-container">
         <div class="tab-container">
           <div
@@ -154,11 +119,21 @@ export default {
 .logo:hover {
   cursor: pointer;
 }
+.myinfo-container {
+  height: 80%;
+  display: flex;
+  align-items: center;
+  /* float: right; */
+  /* width: 1200px; */
+  margin-left: auto;
+  padding-right: 5vw;
+}
 .hello-user-container {
   display: flex;
   align-items: center;
   float: right;
-  margin-left: 75vw;
+  margin-left: auto;
+  /* margin-left: 75vw; */
   height: 100%;
   width: 250px;
 }
