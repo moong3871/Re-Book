@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import bookdata from "@/assets/bookdata/book_domestic.json";
+// import bookdata from "@/assets/bookdata/book_domestic.json";
+import bookdata from "@/assets/bookdata/bookdata.json";
 export default {
   data() {
     return {

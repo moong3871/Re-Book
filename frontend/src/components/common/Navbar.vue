@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <v-app id="header" style="height: 180px">
+    <v-app id="header" style="height: 180px; min-height: 180px !important">
       <div class="top-header">
         <div class="logo" @click="toHome">
           <img src="@/assets/images/logo.png" style="height: 60px" />
@@ -94,7 +94,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 #header {
   /* position: fixed; */
@@ -227,5 +227,8 @@ export default {
   text-align: center;
   border-radius: 0 10px 10px 0;
   cursor: pointer;
+}
+.v-application--wrap {
+  min-height: 0px !important;
 }
 </style>
