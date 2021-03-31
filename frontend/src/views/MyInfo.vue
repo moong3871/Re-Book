@@ -1,8 +1,8 @@
 <template>
-  <v-container fill-height fluid class="login-bg">
+  <v-container fill-height fluid class="signup-bg">
     <v-row align="center" justify="center">
       <v-col align="center">
-        <h1 class="title">로그인</h1>
+        <h1 class="title">회원정보 수정</h1>
         <form @submit.prevent="submit">
           <div
             class="form-group"
@@ -12,7 +12,7 @@
               type="email"
               v-model.trim="$v.email.$model"
               solo
-              placeholder="email을 입력해주세요."
+              placeholder="email를 입력해주세요."
             ></v-text-field>
           </div>
           <div class="error" v-if="!$v.email.required">
@@ -39,14 +39,46 @@
             비밀번호는 적어도
             {{ $v.password.$params.minLength.min }}글자 이상이어야합니다.
           </div>
+          <div
+            class="form-group"
+            :class="{ 'form-group--error': $v.repeatPassword.$error }"
+          >
+            <v-text-field
+              type="password"
+              v-model.trim="$v.repeatPassword.$model"
+              solo
+              placeholder="비밀번호를 다시 한 번 입력해주세요."
+            ></v-text-field>
+          </div>
+          <div class="error" v-if="!$v.repeatPassword.sameAsPassword">
+            비밀번호는 동일해야합니다.
+          </div>
+          <div
+            class="form-group"
+            :class="{ 'form-group--error': $v.nickname.$error }"
+          >
+            <v-text-field
+              type="name"
+              v-model.trim="$v.nickname.$model"
+              solo
+              placeholder="닉네임을 입력해주세요."
+            ></v-text-field>
+          </div>
+          <div class="error" v-if="!$v.nickname.required">
+            별명을 입력해주세요!
+          </div>
+          <div class="error" v-if="!$v.nickname.minLength">
+            별명은 적어도 {{ $v.nickname.$params.minLength.min }} 글자
+            이상이어야 합니다.
+          </div>
           <v-btn
             width="400"
             height="48"
             color="#FFFFFF"
             type="submit"
             :disabled="submitStatus === 'PENDING'"
-            class="login-btn"
-            >로그인</v-btn
+            class="signup-btn"
+            >회원가입</v-btn
           >
           <p class="typo__p" v-if="submitStatus === 'OK'">
             Thanks for your submission!
@@ -55,16 +87,6 @@
             모든 항목을 입력해주세요.
           </p>
           <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-          <v-btn width="400" height="48">
-            <!-- <GoogleLogin :params="params" b :onSzuccess="onSuccess"> -->
-            <GoogleLogin>
-              <img
-                alt="googleLogin"
-                src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
-              />
-              <span class="google-login-text">Google 계정으로 계속하기</span>
-            </GoogleLogin>
-          </v-btn>
         </form>
       </v-col>
     </v-row>
@@ -73,21 +95,20 @@
 
 <script>
 import axios from "axios";
-import GoogleLogin from "vue-google-login";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 
 export default {
-  name: "Login",
+  name: "MyInfo",
   data() {
     return {
       email: "",
       password: "",
-      params: {
-        client_id: "xxxxxx",
-      },
+      repeatPassword: "",
+      nickname: "",
+      submitStatus: null,
     };
   },
   validations: {
@@ -99,27 +120,28 @@ export default {
       required,
       minLength: minLength(6),
     },
-  },
-  components: {
-    GoogleLogin,
+    repeatPassword: {
+      sameAsPassword: sameAs("password"),
+    },
+    nickname: {
+      required,
+      minLength: minLength(4),
+    },
   },
   methods: {
-    login() {
+    signup() {
       axios
-        .post(`http://j4b206.p.ssafy.io/api/account/login/`, {
+        .put(`http://j4b206.p.ssafy.io/api/account/update/`, {
           email: this.email,
           password: this.password,
+          nickname: this.nickname,
         })
         .then((res) => {
-          var data = JSON.parse(res.data.data);
-          localStorage.setItem("jwt", data.token);
-          // this.$emit("login");
-          // this.$router.push({ name: "Home" });
-          // location.reload();
+          console.log(res);
+          this.$router.push({ name: "Login" });
         })
         .catch((err) => {
           console.log(err);
-          alert("email과 비밀번호를 확인해주세요.");
         });
     },
     submit() {
@@ -132,39 +154,15 @@ export default {
         this.submitStatus = "PENDING";
         setTimeout(() => {
           this.submitStatus = "OK";
-          this.login();
+          this.signup();
         }, 500);
       }
-    },
-    // ...mapActions(serviceStore, ['updateAccess']),
-    onSuccess(googleUser) {
-      console.log(googleUser);
-      // this.updateAccess({ access: googleUser.wc.access_token });
-      // axios
-      //   .post(URL, {
-      //     access_token: googleUser.wc.access_token,
-      //   })
-      //   .then(console.log("GOOGLE", googleUser.wc.access_token))
-      //   .then((googleUser) => {
-      //     localStorage.setItem("access_token", googleUser.data.access_token);
-      //     console.log("Google Login Success");
-      //     alert("Google Login Success");
-      //     this.$router.push("/");
-      //   })
-      //   .then((res) => console.log(res))
-      //   .catch((error) => {
-      //     if (error.response.status === 401) {
-      //       alert("비회원이므로 회원가입 페이지로 이동합니다!");
-      //       this.$router.push("/signup");
-      //     }
-      //   });
     },
   },
 };
 </script>
-
 <style scoped>
-.login-bg {
+.signup-bg {
   background-color: #d9d9d9;
   opacity: 0.8;
   max-width: 100%;
@@ -199,17 +197,5 @@ export default {
 .form-group--error + .error {
   display: block;
   color: #fb3232d2;
-}
-
-.google-login-button {
-  width: 400px;
-  height: 100px;
-  padding: 10px;
-  margin: 1rem;
-}
-
-.google-login-text {
-  vertical-align: middle;
-  margin: 0 10px;
 }
 </style>
