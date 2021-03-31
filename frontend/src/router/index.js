@@ -11,17 +11,18 @@ import Detail from "../views/Detail.vue";
 import BookSearch from "../views/BookSearch.vue";
 import MyInfo from "../views/MyInfo.vue";
 import UserPage from "../views/UserPage.vue";
+import Chat from "../views/Chat.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     component: Home,
   },
   {
-    path: "/about",
+    path: "/",
     name: "About",
     component: About,
   },
@@ -74,6 +75,11 @@ const routes = [
     path: "/userpage",
     name: "UserPage",
     component: UserPage,
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    component: Chat,
   },
 ];
 
