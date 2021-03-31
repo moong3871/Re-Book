@@ -9,6 +9,8 @@ import Login from "../views/Login.vue";
 import Signup from "../views/Signup.vue";
 import Detail from "../views/Detail.vue";
 import BookSearch from "../views/BookSearch.vue";
+import MyInfo from "../views/MyInfo.vue";
+import UserPage from "../views/UserPage.vue";
 import Chat from "../views/Chat.vue";
 
 Vue.use(VueRouter);
@@ -63,6 +65,16 @@ const routes = [
     path: "/booksearch",
     name: "BookSearch",
     component: BookSearch,
+  },
+  {
+    path: "/myinfo",
+    name: "MyInfo",
+    component: MyInfo,
+  },
+  {
+    path: "/userpage",
+    name: "UserPage",
+    component: UserPage,
   },
   {
     path: "/chat",

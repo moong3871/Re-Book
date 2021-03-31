@@ -1,0 +1,465 @@
+<template>
+  <v-dialog transition="dialog-bottom-transition" max-width="80em">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn color="#000000" v-bind="attrs" v-on="on" class="btn"
+        >자세히보기</v-btn
+      >
+    </template>
+    <template v-slot:default="dialog">
+      <div id="wrapper">
+        <div id="container">
+          <section class="open-book">
+            <header>
+              <h1>코멘트</h1>
+              <h1><button @click="dialog.value = false">닫기 X</button></h1>
+            </header>
+            <article>
+              <img
+                src="http://image.yes24.com/momo/TopCate2227/MidCate003/222620895.jpg"
+                class="modal-img"
+              />
+              <h2>책 제목</h2>
+              <h3>작성자 : SBS</h3>
+              <hr />
+              <p>
+                이 책에서 ‘회복탄력성’ 이란 원래 제자리로 되돌아오는 힘을 일컫는
+                말로 회복력 혹은 높이 되튀어오르는 탄력성을 뜻한다고 한다. 또한
+                회복탄력성은 성공에 대한 강한 집념에서 나오는 것이 아닌 실패에
+                대한 두려움 없음에서 나온다. 그리고 이 책에서 다양한 사례에서
+                계속 강조하듯이 회복탄력성에서 제일 중요한 것은 ‘긍정성’ 이다.
+                삶에서 일어나는 모든 사건들을 보다 더 긍정적으로 받아들이는 뇌가
+                회복탄력성을 높이는 것처럼. 긍정적인 뇌, 긍정적인 습관을 키울 수
+                있는 것이 중요하다. 이 책의 PART 2 에서는 회복탄력성의 지수를
+                알아볼 수 있는 KRQ-53 테스트가 있다. 테스트를 하기 전 부터 사실
+                걱정이 좀 되었지만, 내 예상대로 자기조절능력, 대인관계능력,
+                긍정성 까지 평균보다 낮아버렸다. (이 세가지 점수의 총합이
+                회복탄력성 지수인데, 나는 160점대가 나왔다.) 즉 나는 깨지기 쉬운
+                유리 같은 존재라고. 사실 최근들어 힘든 일이 너무 많아서 멘탈이
+                무너지고 있었다. 무슨 일을 하기 전부터 부정적인 생각이 나를 더
+                강하게 지배하고 있었다. 짧은 시간 안에 바꾸기는 힘들겠지만 조금
+                더 나은 나의 삶을 위해서 긍정적인 힘을 믿어보기로 했다. 3주가량
+                노력하면 의식하지 않아도 습관이 들기 시작하고, 3개월 정도 지나면
+                완전히 내 것으로 만들 수 있다니까! 회복탄력성을 내 것으로
+                만들어보자.
+              </p>
+            </article>
+            <footer>
+              <ol id="page-numbers">
+                <li>1</li>
+                <li>2</li>
+              </ol>
+            </footer>
+          </section>
+        </div>
+      </div>
+    </template>
+  </v-dialog>
+</template>
+
+<script>
+export default {
+  name: "BookModal",
+};
+</script>
+
+<style scoped>
+@import url(https://fonts.googleapis.com/css?family=Crimson+Text:400,700,900,400italic,700italic,900italic|Playfair+Display:400,700,900,400italic,700italic,900italic|Rock+Salt:400);
+
+*,
+:before,
+:after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1d1f20;
+  color: #e5e5e5;
+  font: 16px/1.25 "Crimson Text", sans-serif;
+  margin: 0;
+}
+
+#wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80em;
+}
+
+#container {
+  float: left;
+  padding: 1em;
+  width: 100%;
+}
+
+/*** OPEN BOOK ***/
+.open-book {
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 1em 3em;
+  color: #000;
+  padding: 2em;
+}
+
+.open-book * {
+  position: relative;
+}
+
+/* Highlight */
+.open-book *::-moz-selection {
+  background: rgba(222, 255, 0, 0.75);
+}
+
+.open-book *::selection {
+  background: rgba(222, 255, 0, 0.75);
+}
+
+/* Header/Footer */
+.open-book header {
+  padding-bottom: 1em;
+}
+
+.open-book header *,
+.open-book footer * {
+  font: 700 1em/1.25 "Playfair Display", sans-serif;
+  letter-spacing: 0.125em;
+  margin: 0;
+}
+
+.open-book header * {
+  font-size: 0.75em;
+  text-transform: uppercase;
+}
+
+.open-book footer {
+  padding-top: 1em;
+}
+
+.open-book footer #page-numbers {
+  display: none;
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.open-book footer #page-numbers > li:last-child {
+  text-align: right;
+}
+
+/* Chapter Title */
+.open-book .chapter-title {
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCA2NCA2NCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQgNjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCiAgICA8Zz4NCiAgICAJPHBhdGggZD0iTTAsMzJMMzIsMGwzMiwzMkwzMiw2NEwwLDMyeiBNOCwzMmwyNCwyNGwyNC0yNEwzMiw4TDgsMzJ6IE0xNiwzMmwxNi0xNmwxNiwxNkwzMiw0OEwxNiwzMnogTTI0LDMybDgsOGw4LThsLTgtOEwyNCwzMnoiIC8+DQogICAgPC9nPg0KPC9zdmc+)
+    bottom center no-repeat;
+  background-size: 0.5em 0.5em;
+  font: 700 7vw/1.25 "Playfair Display", sans-serif;
+  letter-spacing: 0.125em;
+  margin: 0 0 1em 0;
+  padding: 1em 0;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.open-book .chapter-title:before,
+.open-book .chapter-title:after {
+  border: solid 0 #000;
+  border-width: 0.05em 0;
+  bottom: calc((0.125em / 2) * 3);
+  content: "";
+  height: 0.15em;
+  position: absolute;
+  width: calc(50% - (1em / 2));
+}
+
+.open-book .chapter-title:before {
+  left: 0;
+}
+
+.open-book .chapter-title:after {
+  right: 0;
+}
+
+/* Body Copy */
+.open-book article {
+  line-height: 2;
+}
+
+.open-book article *:not(.chapter-title):not(hr):not(dl):not(img) {
+  margin: 0 auto;
+  max-width: 28.125em;
+}
+
+/* .open-book article p {
+  text-indent: 2em;
+} */
+
+.open-book .chapter-title + p:first-of-type {
+  text-indent: 0;
+}
+
+.open-book .chapter-title + p:first-of-type:first-letter {
+  float: left;
+  font: 700 3em/0.65 "Playfair Display", sans-serif;
+  padding: 0.15em 0.05em 0 0;
+  text-transform: uppercase;
+}
+
+.open-book article > ul,
+.open-book article > ol {
+  padding-left: 3em;
+}
+
+.open-book article > ul ul {
+  padding-left: 1em;
+}
+
+.open-book sup {
+  color: #cc0000;
+  font-family: "Rock Salt", cursive;
+  left: 0;
+  margin-top: -1em !important;
+  max-width: 100% !important;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.open-book mark {
+  background: linear-gradient(
+    to bottom,
+    rgba(222, 255, 0, 1) 0%,
+    rgba(222, 255, 0, 0.5) 60%,
+    rgba(222, 255, 0, 1) 100%
+  );
+}
+
+.open-book mark.pink {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 69, 190, 1) 0%,
+    rgba(255, 107, 203, 0.5) 60%,
+    rgba(255, 107, 203, 1) 100%
+  );
+}
+
+.open-book mark.blue {
+  background: linear-gradient(
+    to bottom,
+    rgba(73, 179, 255, 1) 0%,
+    rgba(107, 193, 255, 0.5) 60%,
+    rgba(107, 193, 255, 1) 100%
+  );
+}
+
+.open-book mark.green {
+  background: linear-gradient(
+    to bottom,
+    rgba(67, 226, 15, 1) 0%,
+    rgba(39, 229, 54, 0.5) 60%,
+    rgba(39, 229, 54, 1) 100%
+  );
+}
+
+.open-book mark.orange {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 134, 9, 1) 0%,
+    rgba(255, 177, 34, 0.5) 60%,
+    rgba(255, 177, 34, 1) 100%
+  );
+}
+
+.open-book hr {
+  background-color: #000;
+  border: 0;
+  height: 2px;
+  margin: 1em 0;
+}
+
+.open-book dl {
+  border: solid 0 #ccc;
+  border-width: 0.0625em 0;
+  break-inside: avoid-column;
+  margin: 1em auto;
+  padding: 1em 0;
+}
+
+/*** MEDIA QUERIES ***/
+@media only screen and (min-width: 50em) {
+  .open-book {
+    margin: 1em;
+    position: relative;
+  }
+
+  .open-book:before {
+    /* background-color: #8b4513; */
+    border-radius: 0.25em;
+    bottom: -1em;
+    content: "";
+    left: -1em;
+    position: absolute;
+    right: -1em;
+    top: -1em;
+    z-index: -1;
+  }
+
+  .open-book:after {
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.2) 46%,
+      rgba(0, 0, 0, 0.5) 49%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.5) 51%,
+      rgba(0, 0, 0, 0.2) 52%,
+      transparent 100%
+    );
+    bottom: -1em;
+    content: "";
+    left: 50%;
+    position: absolute;
+    top: -1em;
+    transform: translate(-50%, 0);
+    width: 4em;
+    z-index: 1;
+  }
+
+  .open-book > * {
+    column-count: 2;
+    column-gap: 6em;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header/Footer */
+  .open-book header:before,
+  .open-book header:after,
+  .open-book footer:before,
+  .open-book footer:after {
+    background: #fff;
+    border-radius: 25%;
+    content: "";
+    height: 2em;
+    position: absolute;
+    z-index: -1;
+    width: calc(50% + 2em);
+  }
+
+  .open-book header:before,
+  .open-book footer:before,
+  .open-book footer:after {
+    border-top-left-radius: 0;
+  }
+
+  .open-book header:after,
+  .open-book footer:before,
+  .open-book footer:after {
+    border-top-right-radius: 0;
+  }
+
+  .open-book header:before,
+  .open-book header:after,
+  .open-book footer:after {
+    border-bottom-right-radius: 0;
+  }
+
+  .open-book header:before,
+  .open-book header:after,
+  .open-book footer:before {
+    border-bottom-left-radius: 0;
+  }
+
+  .open-book header:before,
+  .open-book header:after {
+    top: -2.65em;
+  }
+
+  .open-book header:before,
+  .open-book footer:before {
+    right: 50%;
+  }
+
+  .open-book header:before {
+    transform: rotate(-2deg);
+  }
+
+  .open-book header:after,
+  .open-book footer:after {
+    left: 50%;
+  }
+
+  .open-book header:after {
+    transform: rotate(2deg);
+  }
+
+  .open-book footer:before,
+  .open-book footer:after {
+    bottom: -2.65em;
+  }
+
+  .open-book footer:before {
+    transform: rotate(2deg);
+  }
+
+  .open-book footer:after {
+    transform: rotate(-2deg);
+  }
+
+  .open-book header > *:last-child,
+  .open-book footer > *:last-child {
+    text-align: right;
+  }
+
+  .open-book button {
+    text-align: right;
+  }
+
+  .open-book footer #page-numbers {
+    display: block;
+  }
+
+  /* Chapter Title */
+  .open-book .chapter-title {
+    font-size: 3em;
+  }
+
+  .open-book .chapter-title:before,
+  .open-book .chapter-title:after {
+    height: 0.125em;
+  }
+
+  /* Body Copy */
+  /* .open-book article p {
+    text-indent: 3em;
+  } */
+
+  .open-book article > ul,
+  .open-book article > ol {
+    padding-left: 4em;
+  }
+}
+
+.book-img {
+  display: block;
+}
+
+.btn {
+  cursor: pointer;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+  color: white;
+  border: none;
+}
+.btn:hover {
+  background-color: black;
+}
+.btn:focus {
+  outline: 1px dashed yellow;
+  outline-offset: 3px;
+}
+
+.modal-img {
+  width: 100%;
+}
+</style>
