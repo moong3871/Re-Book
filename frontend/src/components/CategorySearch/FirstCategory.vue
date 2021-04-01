@@ -104,16 +104,32 @@
           {{ thirdcategory }}
         </button>
       </div>
-      <!-- <div class="search-button-container">
-        <button class="search-button">검색</button>
-      </div> -->
     </div>
-    <div v-if="domestic_count === 3" class="search-container"></div>
+
+    <!-- 여기서부터가 이제 마지막으로 최종 나오는 결과물 부분 -->
+    <div v-if="domestic_count === 3" class="search-container">
+      <div
+        class="search-wrapper"
+        v-for="(book, i) in categorized_books"
+        :key="i"
+      >
+        <div class="image-box">
+          <img :src="book.book_image_path" alt="" class="cover-image" />
+        </div>
+        <div class="title-box">
+          <div class="title">
+            {{ book.title }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import secondcategoryset from "@/assets/bookdata/second-category.json";
 import allcategoryset from "@/assets/bookdata/categorystructure.json";
+import allbookdatas from "@/assets/bookdata/bookdata.json";
+
 export default {
   data() {
     return {
@@ -128,6 +144,8 @@ export default {
       third_category: [],
       allcategoryset: allcategoryset,
       back_colors: {},
+      categorized_books: [],
+      allbookdatas: allbookdatas,
     };
   },
   computed: {
@@ -181,7 +199,14 @@ export default {
     find_result() {
       if (this.third_category.length === 0) {
         alert("소분류를 선택해주세요!");
-      } else this.domestic_count++;
+      } else {
+        this.domestic_count++;
+        this.categorized_books = this.allbookdatas.filter((data) => {
+          // return data.title.replace(/ /g, "").includes(this.keyword);
+          return this.third_category.includes(data.subcategory);
+        });
+        console.log(this.categorized_books);
+      }
     },
   },
 };
@@ -189,6 +214,7 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 
 .first-category-container {
   margin-left: 13%;
@@ -199,20 +225,21 @@ export default {
   align-items: center;
 }
 .result-container {
-  margin-left: 15%;
-  width: 70%;
+  margin-left: 13%;
+  width: 80%;
   /* background-color: rgb(112, 153, 240); */
   border-bottom: 2px solid green;
-  min-width: 1030px;
+  min-width: 1700px;
   height: 100px;
   animation: fadein 1s;
   display: flex;
   align-items: center;
   padding: 20px;
   margin-bottom: 30px;
+  font-family: "Jua", sans-serif;
 }
 .result-category {
-  margin-right: 15px;
+  margin-right: 20px;
   float: left;
   height: 40px;
   font-size: 30px;
@@ -294,17 +321,56 @@ export default {
   border-radius: 20px;
 }
 .search-container {
-  background-color: black;
-  width: 80vw;
-  min-width: 1200px;
-  margin-left: 10vw;
+  /* background-color: beige; */
+  width: 90vw;
+  min-width: 1500px;
+  margin-left: 5vw;
+  height: 1500px;
+  animation: fadein 1.5s;
+}
+.search-wrapper {
+  width: 17%;
+  border-radius: 15px;
+  min-width: 300px;
+  max-width: 380px;
+  margin: 1.5%;
   height: 500px;
+  background-color: white;
+  float: left;
+  box-shadow: 0 1.4px 1.7px rgba(0, 0, 0, 0.017),
+    0 3.3px 4px rgba(0, 0, 0, 0.024), 0 6.3px 7.5px rgba(0, 0, 0, 0.1),
+    0 11.2px 13.4px rgba(0, 0, 0, 0.3), 0 20.9px 25.1px rgba(0, 0, 0, 0.2),
+    0 50px 60px rgba(0, 0, 0, 0.06);
 }
-/* .search-books {
-  width: ;
+.image-box {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 80%;
+  border-bottom: 2px solid brown;
+  background-color: beige;
 }
-.search-book {
-} */
+.cover-image {
+  height: 100%;
+  max-width: 95%;
+  /* border: 1px solid black; */
+}
+.title-box {
+  background-color: rgb(241, 241, 207);
+  height: 20%;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.title {
+  font-size: 18px;
+  text-align: center;
+  font-family: "Noto Serif KR", serif;
+  max-height: 100%;
+}
 @keyframes fadein {
   from {
     opacity: 0;
