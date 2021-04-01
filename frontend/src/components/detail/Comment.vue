@@ -2,7 +2,9 @@
   <div class="container">
     <div class="c-header">
       <h3>코멘트</h3>
-      <Button :title="title" />
+      <div class="btn-box" @click="$emit('open-modal')">
+        <Button :title="title" />
+      </div>
     </div>
     <!-- 나중에 아래부분 backDummy로 바꾸기 -->
     <div v-if="dummy.comments == null" class="item">
@@ -43,6 +45,11 @@ export default {
       title: "+ 코멘트 남기기",
     };
   },
+  methods: {
+    openModal: function () {
+      this.$emit("open-modal");
+    },
+  },
 };
 </script>
 
@@ -66,5 +73,8 @@ ul {
 }
 .item {
   display: block;
+}
+.btn-box {
+  background-color: red;
 }
 </style>
