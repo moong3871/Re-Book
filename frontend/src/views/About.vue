@@ -2,7 +2,12 @@
   <div class="about">
     <h1>This is an about page</h1>
     <div class="cover" @mouseover="activarOver" @mouseleave="resetOver">
-      <div v-if="countMouseOver === 1">abcdefg</div>
+      <!-- <div
+        v-if="countMouseOver === 1"
+        style="height: 500px; width: 500px; background-color: red"
+      >
+        abcdefg
+      </div> -->
     </div>
   </div>
 </template>
@@ -15,10 +20,18 @@ export default {
   },
   methods: {
     activarOver() {
+      this.countMouseOver = 1;
       setTimeout(() => {
-        this.countMouseOver = 1;
-      }, 1000);
-      console.log(this.countMouseOver);
+        this.dolt();
+      }, 2000);
+    },
+    resetOver() {
+      this.countMouseOver = 0;
+    },
+    dolt() {
+      if (this.countMouseOver == 1) {
+        console.log("진짜 성공이다");
+      }
     },
   },
 };
@@ -62,9 +75,9 @@ export default {
 }
 .cover {
   height: 500px;
-  width: 200px;
+  width: 400px;
   background-image: url("https://image.aladin.co.kr/product/26722/17/cover500/k712730188_1.jpg");
-  background-size: 100%;
+  background-size: 80%;
   border: 1px solid black;
 }
 

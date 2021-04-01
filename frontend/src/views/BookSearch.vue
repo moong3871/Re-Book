@@ -7,12 +7,6 @@
       </div>
       <div class="wrapper" v-for="(book, i) in books" :key="i">
         <div class="box">
-          <!-- <div
-            class="cover-image"
-            @click="
-              $router.push({ name: 'Detail', params: { ISBN: book.isbn } })
-            "
-          ></div> -->
           <img
             :src="book.book_image_path"
             alt=""
@@ -85,10 +79,10 @@ export default {
   width: 90%;
   height: 410px;
   border-radius: 5px;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 1.4px 1.7px rgba(0, 0, 0, 0.017),
-    0 3.3px 4px rgba(0, 0, 0, 0.024), 0 6.3px 7.5px rgba(0, 0, 0, 0.03),
-    0 11.2px 13.4px rgba(0, 0, 0, 0.6), 0 20.9px 25.1px rgba(0, 0, 0, 0.5),
+    0 3.3px 4px rgba(0, 0, 0, 0.024), 0 6.3px 7.5px rgba(0, 0, 0, 0.1),
+    0 11.2px 13.4px rgba(0, 0, 0, 0.3), 0 20.9px 25.1px rgba(0, 0, 0, 0.2),
     0 50px 60px rgba(0, 0, 0, 0.06);
 }
 .cover-image {
