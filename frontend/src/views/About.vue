@@ -1,11 +1,27 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <div class="cover"><div>abcdefg</div></div>
+    <div class="cover" @mouseover="activarOver" @mouseleave="resetOver">
+      <div v-if="countMouseOver === 1">abcdefg</div>
+    </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      countMouseOver: 0,
+    };
+  },
+  methods: {
+    activarOver() {
+      setTimeout(() => {
+        this.countMouseOver = 1;
+      }, 1000);
+      console.log(this.countMouseOver);
+    },
+  },
+};
 </script>
 <style scoped>
 .wrap {

@@ -53,7 +53,9 @@
               <div class="stylish-input-group">
                 <input type="text" class="search-bar" placeholder="Search" />
                 <span class="input-group-addon">
-                  <button type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  <button type="button">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
                 </span>
               </div>
             </div>
@@ -61,19 +63,35 @@
           <div class="inbox_chat">
             <div class="chat_list active_chat">
               <div class="chat_people">
-                <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" /></div>
+                <div class="chat_img">
+                  <img
+                    src="https://ptetutorials.com/images/user-profile.png"
+                    alt="sunil"
+                  />
+                </div>
                 <div class="chat_ib">
                   <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions astrology under one roof.</p>
+                  <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                  </p>
                 </div>
               </div>
             </div>
             <div class="chat_list">
               <div class="chat_people">
-                <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png" alt="sunil" /></div>
+                <div class="chat_img">
+                  <img
+                    src="https://ptetutorials.com/images/user-profile.png"
+                    alt="sunil"
+                  />
+                </div>
                 <div class="chat_ib">
                   <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions astrology under one roof.</p>
+                  <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                  </p>
                 </div>
               </div>
             </div>
@@ -84,7 +102,11 @@
             <div v-for="(message, i) in messages" :key="i" class="incoming_msg">
               <div class="incoming_msg" v-if="message.message == 'hello'">
                 <div class="incoming_msg_img">
-                  <img class="ml-3" src="https://www.flaticon.com/svg/static/icons/svg/3135/3135789.svg" alt="sunil" />
+                  <img
+                    class="ml-3"
+                    src="https://www.flaticon.com/svg/static/icons/svg/3135/3135789.svg"
+                    alt="sunil"
+                  />
                 </div>
                 <div class="received_msg mb-4">
                   <div class="received_withd_msg ml-3">
@@ -105,8 +127,18 @@
           </div>
           <div class="type_msg">
             <div class="input_msg_write">
-              <input @keyup.enter="saveMessage" v-model="message" type="text" class="write_msg px-3" placeholder="메세지를 입력해주세요." />
-              <button @keyup.enter="saveMessage" class="msg_send_btn mr-4" type="button">
+              <input
+                @keyup.enter="saveMessage"
+                v-model="message"
+                type="text"
+                class="write_msg px-3"
+                placeholder="메세지를 입력해주세요."
+              />
+              <button
+                @keyup.enter="saveMessage"
+                class="msg_send_btn mr-4"
+                type="button"
+              >
                 <i aria-hidden="true">✏️</i>
               </button>
             </div>
@@ -141,7 +173,9 @@ export default {
       });
       this.message = null;
       setTimeout(() => {
-        document.querySelector(".msg_history").scrollTop = document.querySelector(".msg_history").scrollHeight;
+        document.querySelector(
+          ".msg_history"
+        ).scrollTop = document.querySelector(".msg_history").scrollHeight;
       }, 100);
     },
     fetchMessages() {
