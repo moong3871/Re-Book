@@ -55,6 +55,7 @@ const routes = [
     path: "/detail",
     name: "Detail",
     component: Detail,
+    props: true, // params로 전달한 데이터를 props로 받을 수 있다.
   },
   {
     path: "/temp",
