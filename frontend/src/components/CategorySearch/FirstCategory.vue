@@ -113,7 +113,10 @@
         v-for="(book, i) in categorized_books"
         :key="i"
       >
-        <div class="image-box">
+        <div
+          class="image-box"
+          @click="$router.push({ name: 'Detail', params: { book: book } })"
+        >
           <img :src="book.book_image_path" alt="" class="cover-image" />
         </div>
         <div class="title-box">
@@ -342,6 +345,7 @@ export default {
     0 11.2px 13.4px rgba(0, 0, 0, 0.3), 0 20.9px 25.1px rgba(0, 0, 0, 0.2),
     0 50px 60px rgba(0, 0, 0, 0.06);
 }
+
 .image-box {
   display: flex;
   justify-content: center;
@@ -354,6 +358,10 @@ export default {
   height: 100%;
   max-width: 95%;
   /* border: 1px solid black; */
+}
+.cover-image:hover {
+  cursor: pointer;
+  opacity: 0.35;
 }
 .title-box {
   background-color: rgb(241, 241, 207);
