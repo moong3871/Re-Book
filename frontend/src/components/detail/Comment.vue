@@ -2,15 +2,28 @@
   <div class="container">
     <div class="c-header">
       <h3>코멘트</h3>
-      <Button :title="title" />
+      <div class="btn-box" @click="$emit('open-modal')">
+        <Button :title="title" />
+      </div>
     </div>
-    <ul
-      class="item"
-      v-for="(comment, index) in dummy.comments"
-      v-bind:key="index"
-    >
-      <CommentItem :comment="comment" />
-    </ul>
+    <!-- 나중에 아래부분 backDummy로 바꾸기 -->
+    <div v-if="dummy.comments == null" class="item">
+      아직 코멘트가 없습니다.
+    </div>
+    <div v-else>
+      <ul
+        class="item"
+        v-for="(comment, index) in dummy.comments"
+        v-bind:key="index"
+      >
+        <!-- <ul
+        class="item"
+        v-for="(comment, index) in backDummy.comments"
+        v-bind:key="index"
+      > -->
+        <CommentItem :comment="comment" />
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -25,11 +38,17 @@ export default {
   },
   props: {
     dummy: Object,
+    backDummy: Object,
   },
   data() {
     return {
       title: "+ 코멘트 남기기",
     };
+  },
+  methods: {
+    openModal: function () {
+      this.$emit("open-modal");
+    },
   },
 };
 </script>
@@ -54,5 +73,8 @@ ul {
 }
 .item {
   display: block;
+}
+.btn-box {
+  background-color: red;
 }
 </style>
