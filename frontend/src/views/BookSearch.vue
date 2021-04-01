@@ -17,9 +17,7 @@
             :src="book.book_image_path"
             alt=""
             class="cover-image"
-            @click="
-              $router.push({ name: 'Detail', params: { ISBN: book.isbn } })
-            "
+            @click="$router.push({ name: 'Detail', params: { book: book } })"
           />
         </div>
       </div>
