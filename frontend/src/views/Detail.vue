@@ -54,6 +54,9 @@ export default {
   props: {
     book: Object,
   },
+  props: {
+    book: Object,
+  },
   data() {
     return {
       isModal: false,
