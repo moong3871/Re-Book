@@ -48,6 +48,14 @@
             class="login-btn"
             >로그인</v-btn
           >
+          <v-btn
+            width="400"
+            height="48"
+            color="#FFFFFF"
+            class="signup-btn"
+            @click="goSignup"
+            >회원가입</v-btn
+          >
           <p class="typo__p" v-if="submitStatus === 'OK'">
             Thanks for your submission!
           </p>
@@ -112,10 +120,13 @@ export default {
         })
         .then((res) => {
           var data = JSON.parse(res.data.data);
+          console.log(data);
           localStorage.setItem("jwt", data.token);
+          localStorage.setItem("nickname", data.user.nickname);
+
           // this.$emit("login");
           // this.$router.push({ name: "Home" });
-          // location.reload();
+          // alert("정상적으로 로그인 되었습니다.");
         })
         .catch((err) => {
           console.log(err);
@@ -135,6 +146,9 @@ export default {
           this.login();
         }, 500);
       }
+    },
+    goSignup() {
+      this.$router.push("/signup");
     },
     // ...mapActions(serviceStore, ['updateAccess']),
     onSuccess(googleUser) {
