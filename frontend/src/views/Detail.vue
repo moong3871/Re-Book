@@ -4,7 +4,14 @@
     <Cover :book="book" />
     <Info :dummy="dummy" :book="book" />
     <hr />
-    <Comment :dummy="dummy" :backDummy="backDummy" />
+    <Comment
+      :dummy="dummy"
+      :backDummy="backDummy"
+      @open-modal="isModal = true"
+    />
+    <Modal v-if="isModal" @close-modal="isModal = false" :dummy="dummy">
+      <ModalContent />
+    </Modal>
     <hr />
     <Recommend :dummy="dummy" :backDummy="backDummy" />
     <hr />
@@ -23,6 +30,8 @@ import Comment from "@/components/detail/Comment.vue";
 import Recommend from "@/components/detail/Recommend.vue";
 import Library from "@/components/detail/Library.vue";
 import OneBookMarket from "@/components/detail/OneBookMarket.vue";
+import Modal from "@/components/detail/Modal.vue";
+import ModalContent from "@/components/detail/ModalContent.vue";
 export default {
   name: "Detal",
   components: {
@@ -32,12 +41,15 @@ export default {
     Recommend,
     Library,
     OneBookMarket,
+    Modal,
+    ModalContent,
   },
   props: {
     book: Object,
   },
   data() {
     return {
+      isModal: false,
       backDummy: null,
       dummy: {
         user_id: 1,
