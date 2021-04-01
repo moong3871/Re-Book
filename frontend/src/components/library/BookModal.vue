@@ -1,5 +1,5 @@
 <template>
-  <v-dialog transition="dialog-bottom-transition" max-width="80em">
+  <v-dialog transition="dialog-bottom-transition" max-width="75em">
     <template v-slot:activator="{ on, attrs }">
       <v-btn color="#000000" v-bind="attrs" v-on="on" class="btn"
         >자세히보기</v-btn
@@ -442,7 +442,7 @@ body {
 
 .btn {
   cursor: pointer;
-  margin-top: 1.5rem;
+  margin-top: 10px;
   padding: 0.75rem 1.5rem;
   font-size: 0.65rem;
   font-weight: bold;
