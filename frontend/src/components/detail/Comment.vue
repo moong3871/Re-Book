@@ -24,6 +24,24 @@
         <CommentItem :comment="comment" />
       </ul>
     </div>
+    <!-- 나중에 아래부분 backDummy로 바꾸기 -->
+    <div v-if="dummy.comments == null" class="item">
+      아직 코멘트가 없습니다.
+    </div>
+    <div v-else>
+      <ul
+        class="item"
+        v-for="(comment, index) in dummy.comments"
+        v-bind:key="index"
+      >
+        <!-- <ul
+        class="item"
+        v-for="(comment, index) in backDummy.comments"
+        v-bind:key="index"
+      > -->
+        <CommentItem :comment="comment" />
+      </ul>
+    </div>
   </div>
 </template>
 
