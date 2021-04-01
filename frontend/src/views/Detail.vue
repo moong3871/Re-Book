@@ -14,9 +14,14 @@
       :backDummy="backDummy"
       @open-modal="isModal = true"
     />
-    <Modal v-if="isModal" @close-modal="isModal = false" :dummy="dummy">
-      <ModalContent />
-    </Modal>
+    <Modal
+      v-if="isModal"
+      @close-modal="isModal = false"
+      :dummy="dummy"
+      :book="book"
+    />
+    <!-- <ModalContent @close-modal="this.$emit('close-modal')"/>
+    </Modal> -->
     <hr />
     <Recommend :dummy="dummy" :backDummy="backDummy" />
     <hr />
@@ -45,7 +50,7 @@ import OneBookMarket from "@/components/detail/OneBookMarket.vue";
 import Modal from "@/components/detail/Modal.vue";
 import ModalContent from "@/components/detail/ModalContent.vue";
 export default {
-  name: "Detal",
+  name: "Detail",
   components: {
     Cover,
     Info,
@@ -117,11 +122,19 @@ export default {
       // var ISBN = this.$route.params.book.isbn;
       const email = localStorage.getItem("email");
       axios
-        .put(`http://j4b206.p.ssafy.io/api/book/${email}`, {
-          userToken: localStorage.getItem("jwt"),
-          status: status,
-          book: this.book,
-        })
+        .put(
+          `http://j4b206.p.ssafy.io/api/book/${email}`,
+          {
+            userToken: localStorage.getItem("jwt"),
+            status: status,
+            book: this.book,
+          },
+          {
+            headers: {
+              Authorization: `jwt ${localStorage.getItem("jwt")}`,
+            },
+          }
+        )
         .then(() => {
           console.log("성공");
         })
