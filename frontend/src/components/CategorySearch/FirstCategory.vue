@@ -25,14 +25,14 @@
         @click="finddomestic"
         :style="{ background: first_category_color }"
       >
-        한글도서
+        국내도서
       </button>
       <button
         class="first-category"
         style="margin-right: 10%"
         @click="findforeign"
       >
-        외국어도서
+        외국도서
       </button>
     </div>
     <!-- 1st depth 선택 후 나타는 부분 -->
@@ -117,7 +117,13 @@
           class="image-box"
           @click="$router.push({ name: 'Detail', params: { book: book } })"
         >
-          <img :src="book.book_image_path" alt="" class="cover-image" />
+          <img
+            :src="book.book_image_path"
+            alt=""
+            class="cover-image"
+            @mouseover="activarOver"
+            @mouseleave="resetOver"
+          />
         </div>
         <div class="title-box">
           <div class="title">
@@ -126,6 +132,7 @@
         </div>
       </div>
     </div>
+    <div v-if="modalcheck === 1" class="modal-full">modal</div>
   </div>
 </template>
 <script>
@@ -149,6 +156,8 @@ export default {
       back_colors: {},
       categorized_books: [],
       allbookdatas: allbookdatas,
+      countMouseOver: 0,
+      modalcheck: 0,
     };
   },
   computed: {
@@ -159,18 +168,18 @@ export default {
   methods: {
     finddomestic() {
       this.second_categories = this.secondcategoryset.국내도서;
-      this.first_category = "한글도서";
+      this.first_category = "국내도서";
       this.domestic_count++;
     },
     findforeign() {
       this.second_categories = this.secondcategoryset.외국도서;
-      this.first_category = "외국어도서";
+      this.first_category = "외국도서";
       this.domestic_count++;
     },
     determine_second(value) {
       this.second_category = value;
       this.domestic_count++;
-      if (this.first_category === "한글도서") {
+      if (this.first_category === "국내도서") {
         this.third_categories = this.allcategoryset.국내도서[
           this.second_category
         ];
@@ -182,21 +191,21 @@ export default {
       for (let i = 0; i < this.third_categories.length; i++) {
         this.back_colors[this.third_categories[i]] = "";
       }
-      console.log(this.back_colors);
+      // console.log(this.back_colors);
     },
     category_check(value) {
       console.log(value);
       if (this.third_category.includes(value)) {
         this.third_category.splice(this.third_category.indexOf(value), 1);
-        console.log(this.third_category);
+        // console.log(this.third_category);
         this.back_colors[value] = "";
       } else if (this.third_category.length === 3) {
         alert("3개 초과로 선택하실 수 없습니다.");
       } else {
         this.third_category.push(value);
         this.back_colors[value] = "red";
-        console.log(this.third_category);
-        console.log(this.back_colors);
+        // console.log(this.third_category);
+        // console.log(this.back_colors);
       }
     },
     find_result() {
@@ -208,7 +217,22 @@ export default {
           // return data.title.replace(/ /g, "").includes(this.keyword);
           return this.third_category.includes(data.subcategory);
         });
-        console.log(this.categorized_books);
+        // console.log(this.categorized_books);
+      }
+    },
+    activarOver() {
+      this.countMouseOver = 1;
+      setTimeout(() => {
+        this.dolt();
+      }, 2000);
+    },
+    resetOver() {
+      this.countMouseOver = 0;
+    },
+    dolt() {
+      if (this.countMouseOver == 1) {
+        this.modalcheck = 1;
+        console.log("아주 잘 작동하는구만");
       }
     },
   },
@@ -379,6 +403,21 @@ export default {
   font-family: "Noto Serif KR", serif;
   max-height: 100%;
 }
+.modal-full {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /* background-color: black;
+  opacity: 0.7; */
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1500;
+  backdrop-filter: saturate(180px) blur(3px);
+  /* -webkit-backdrop-filter: blur(10px); */
+  /* animation: fadein 1s; */
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
