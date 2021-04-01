@@ -17,8 +17,15 @@
     <hr />
     <Library :dummy="dummy" :backDummy="backDummy" />
     <hr />
-    <OneBookMarket :dummy="dummy" :backDummy="backDummy" />
+    <OneBookMarket
+      :dummy="dummy"
+      :backDummy="backDummy"
+      @open-Mmodal="isMModal = true"
+    />
     <hr />
+    <Modal v-if="isMModal" @close-modal="isMModal = false" :dummy="dummy">
+      <ModalContent />
+    </Modal>
   </div>
 </template>
 
@@ -50,6 +57,7 @@ export default {
   data() {
     return {
       isModal: false,
+      isMModal: false,
       backDummy: null,
       dummy: {
         user_id: 1,
@@ -102,14 +110,17 @@ export default {
     var ISBN = this.$route.params.book.isbn;
     console.log("안녕하세요 isbn입니다");
     console.log(ISBN);
-    axios({
-      //url: "http://localhost:8080/book/8954655971",
-      url: "http://j4b206.p.ssafy.io/book/" + ISBN,
-      method: "GET",
-      // headers: {
-      //   Authorization: `JWT ${localStorage.getItem("jwt")}`,
-      // },
-    })
+    // axios({
+    //   url: "http://j4b206.p.ssafy.io/book/" + ISBN,
+    //   method: "GET",
+    //   // headers: {
+    //   //   Authorization: `JWT ${localStorage.getItem("jwt")}`,
+    //   // },
+    // })
+    axios
+      .get(`http://j4b206.p.ssafy.io/book/${ISBN}`, {
+        userToken: localStorage.getItem("jwt"),
+      })
       .then((res) => {
         console.log(`=================책detail응답 ${res.data.object}`);
         this.backDummy = res.data.object;
