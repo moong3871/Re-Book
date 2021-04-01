@@ -140,10 +140,10 @@ export default {
   methods: {
     signup() {
       axios
-        .post(`http://j4b206.p.ssafy.io/api/account/signup/`, {
+        .post(`http://j4b206.p.ssafy.io/api/account/signup`, {
           email: this.email,
-          password: this.password,
           nickname: this.nickname,
+          password: this.password,
         })
         .then((res) => {
           console.log(res);
