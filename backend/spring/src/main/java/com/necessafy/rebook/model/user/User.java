@@ -2,7 +2,7 @@
 
 package com.necessafy.rebook.model.user;
 
-import com.necessafy.rebook.model.BaseTimeEntity;
+import com.necessafy.rebook.model.TimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Builder
 //사용자 정보를 담당할 도메인
 //@JsonInclude(JsonInclude.Include.NON_NULL)
-public class User extends BaseTimeEntity {
+public class User  extends TimeEntity {
     //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private String uid;
