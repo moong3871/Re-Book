@@ -118,7 +118,7 @@ export default {
     //   // },
     // })
     axios
-      .get(`http://j4b206.p.ssafy.io/book/${ISBN}`, {
+      .get(`http://j4b206.p.ssafy.io/api/book/${ISBN}`, {
         userToken: localStorage.getItem("jwt"),
       })
       .then((res) => {
