@@ -1,6 +1,6 @@
 package com.necessafy.rebook.model.post;
 
-import com.necessafy.rebook.model.BaseTimeEntity;
+import com.necessafy.rebook.model.TimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import javax.persistence.*;
     @Getter
     @NoArgsConstructor
     @Entity
-    public class Posts extends BaseTimeEntity {
+    public class Posts extends TimeEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;

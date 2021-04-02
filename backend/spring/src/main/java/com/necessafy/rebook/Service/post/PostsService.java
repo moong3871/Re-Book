@@ -1,7 +1,7 @@
 package com.necessafy.rebook.Service.post;
 
 
-import com.necessafy.rebook.dao.PostDao;
+import com.necessafy.rebook.dao.post.PostDao;
 import com.necessafy.rebook.model.post.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
