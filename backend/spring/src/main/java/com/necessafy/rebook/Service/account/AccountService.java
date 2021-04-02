@@ -2,9 +2,8 @@ package com.necessafy.rebook.Service.account;
 
 
 
-import com.necessafy.rebook.dao.UserRebookDao;
+import com.necessafy.rebook.dao.account.UserRebookDao;
 import com.necessafy.rebook.model.user.UserRebook;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
