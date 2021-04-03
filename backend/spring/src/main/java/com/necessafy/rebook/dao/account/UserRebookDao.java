@@ -17,4 +17,5 @@ public interface UserRebookDao extends JpaRepository<UserRebook, String> {
     // 판단하기 위한 메서드
     Optional<UserRebook> findByEmail(String email);
     Optional<UserRebook> findUserRebookByEmailAndPassword(String email,String password);
+    Optional<UserRebook> findByNickname(String nickname);
 }

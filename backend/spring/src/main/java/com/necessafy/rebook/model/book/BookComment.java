@@ -20,7 +20,7 @@ public class BookComment extends TimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long commendId;
+    private Long commentId;
 
     private Integer rating;
 
@@ -31,6 +31,10 @@ public class BookComment extends TimeEntity {
     @ManyToOne
     @JoinColumn(name="USER_EMAIL")
     private UserRebook userRebook;
+
+    @ManyToOne
+    @JoinColumn(name="BOOK_ISBN")
+    private Book book;
 
     private String isbn;
 

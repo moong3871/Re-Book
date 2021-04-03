@@ -96,6 +96,19 @@ public class BookCommentController {
 
     }
 
+    @GetMapping("/{email}")
+    @ApiOperation(value="특정 유저가 특정 책에 쓴 코멘트 정보 검색")
+    public Object search(@Valid @RequestBody @ApiParam(value="email로 특정 책 코멘트 정보 찾기",required =true) @PathVariable String email,String isbn){
+        Optional<UserRebook> curReUser=userRebookDao.findById(email);
+        Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
+        Optional<BookComment> curComment=bookCommentDao.getByIsbnAndUserRebook(curBook.get(),curReUser.get());
+
+
+        return makeResponse("200",convertObjectToJson(curComment),"success",HttpStatus.OK);
+
+
+    }
+
 
 
 }
