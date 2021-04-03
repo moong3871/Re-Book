@@ -27,7 +27,7 @@ public class AccountService {
             return  makeResponse("400",null,"data is blank",HttpStatus.BAD_REQUEST);
         }
         //별명이 중복되는지 체크
-        if (userRebookDao.getUserByEmail(nickname)!=null){
+        if (userRebookDao.findByNickname(nickname).isPresent()){
             return makeResponse("400",null,"this nickname already exists",HttpStatus.BAD_REQUEST);
         }
 
