@@ -39,7 +39,8 @@ public class BookCommentController {
     private BookDao bookDao;
     @Autowired
     private BookCommentDao bookCommentDao;
-    @PostMapping
+
+    @PutMapping
     @ApiOperation(value="리뷰 등록")
     public Object create(@ModelAttribute @ApiParam(value="리뷰 등록 시 필요한 정보(평점, 날짜, 내용) " +
             "이미 등록했던 리뷰면 수정만 가능"
@@ -109,9 +110,9 @@ public class BookCommentController {
 
         System.out.println(curComment.get());
         return makeResponse("200",convertObjectToJson(curComment.get()),"success",HttpStatus.OK);
-
-
     }
+
+
 
 
 

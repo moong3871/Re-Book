@@ -36,7 +36,6 @@ public class BookComment extends TimeEntity {
     @JoinColumn(name="BOOK_ISBN")
     private Book book;
 
-    private String isbn;
 
 
 }
