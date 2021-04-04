@@ -10,6 +10,10 @@
         <p>출판사: {{ book.publisher }}</p>
         <p>정 가: {{ book.price }}원</p>
         <p>평 균: {{ book.evaluation }}</p>
+        <div>
+          <button>읽고싶어요</button>
+          <Stars />
+        </div>
       </div>
     </div>
     <hr />
@@ -33,7 +37,9 @@
 </template>
 
 <script>
+import Stars from "./Stars.vue";
 export default {
+  components: { Stars },
   name: "Info",
   props: {
     book: Object,
