@@ -12,5 +12,6 @@ import java.util.Optional;
 public interface BookCommentDao extends JpaRepository<BookComment, Long> {
 
     Optional<BookComment> findByIsbnAndUserRebook(String isbn, UserRebook userRebook);
-    Optional<BookComment> getByIsbnAndUserRebook(Book book, UserRebook userRebook);
+    Optional<BookComment> findByBookAndUserRebook(Book book, UserRebook userRebook);
+
 }
