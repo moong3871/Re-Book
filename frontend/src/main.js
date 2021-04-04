@@ -7,9 +7,14 @@ import vuetify from "./plugins/vuetify";
 import firebase from "firebase";
 
 import { library as faLibrary } from "@fortawesome/fontawesome-svg-core";
-import { faHome, faSearch, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faSearch,
+  faPlus,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"; // Set up FontAwesome
-faLibrary.add(faHome, faSearch, faPlus);
+faLibrary.add(faHome, faSearch, faPlus, faChevronLeft);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
