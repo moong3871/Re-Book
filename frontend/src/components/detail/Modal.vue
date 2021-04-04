@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="modal"> -->
-  <div class="overlay" @click="$emit('close-modal')">
+  <div class="overlay" @click.self="$emit('close-modal')">
     <div class="modal-card">
       <p class="c-title">{{ dummy.title }}</p>
       <slot />
