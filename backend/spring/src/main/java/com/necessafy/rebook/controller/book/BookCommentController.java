@@ -1,5 +1,6 @@
 package com.necessafy.rebook.controller.book;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.necessafy.rebook.Service.book.CommentService;
 import com.necessafy.rebook.Service.jwt.JwtService;
 import com.necessafy.rebook.dao.account.UserRebookDao;
@@ -51,26 +52,27 @@ public class BookCommentController {
 
         Optional<UserRebook> curReUser=userRebookDao.findById(userEmail); //이미 있는 정보
         Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
-        Optional<BookComment> curComment=bookCommentDao.findByIsbnAndUserRebook(isbn,curReUser.get());
+
+        Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
 
         if(curComment.isPresent()) {
             //현재 있는 정보에 다시 추가해줌
             curComment.get().setRating(rating);
             curComment.get().setReview(review);
             curComment.get().setUserRebook(curReUser.get());
-            curComment.get().setIsbn(isbn);
+            curComment.get().setBook(curBook.get());
             BookComment bookCommentSaved=bookCommentDao.save(curComment.get());
 
             return makeResponse("200",convertObjectToJson(bookCommentSaved),"review update success", HttpStatus.OK);
 
         }
-        ResponseEntity<?>result=commentService.checkBlankWenCreateComment(curReUser,review,rating);
+        ResponseEntity<?>result=commentService.checkBlankWenCreateComment(curReUser,review,rating,curBook);
         if (result!=null){
             return result;
         }
 
 
-        BookComment bookComment=commentService.buildComment(rating,review,curReUser.get(),isbn);
+        BookComment bookComment=commentService.buildComment(rating,review,curReUser.get(),curBook.get());
 
         BookComment savedComment=bookCommentDao.save(bookComment);
 
@@ -100,11 +102,13 @@ public class BookCommentController {
     @ApiOperation(value="특정 유저가 특정 책에 쓴 코멘트 정보 검색")
     public Object search(@Valid @RequestBody @ApiParam(value="email로 특정 책 코멘트 정보 찾기",required =true) @PathVariable String email,String isbn){
         Optional<UserRebook> curReUser=userRebookDao.findById(email);
-        Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
-        Optional<BookComment> curComment=bookCommentDao.getByIsbnAndUserRebook(curBook.get(),curReUser.get());
+        Optional<Book> curBook=bookDao.findById(isbn);
+        System.out.println(curReUser);
+        System.out.println(curBook);
+        Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
 
-
-        return makeResponse("200",convertObjectToJson(curComment),"success",HttpStatus.OK);
+        System.out.println(curComment.get());
+        return makeResponse("200",convertObjectToJson(curComment.get()),"success",HttpStatus.OK);
 
 
     }

@@ -1,5 +1,6 @@
 package com.necessafy.rebook.Service.book;
 
+import com.necessafy.rebook.model.book.Book;
 import com.necessafy.rebook.model.book.BookComment;
 import com.necessafy.rebook.model.user.UserRebook;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 public class CommentService {
 
-    public ResponseEntity<?> checkBlankWenCreateComment(Optional<UserRebook> userRebook, String review, Integer rating) {
+    public ResponseEntity<?> checkBlankWenCreateComment(Optional<UserRebook> userRebook, String review, Integer rating,Optional<Book> book) {
         if (!userRebook.isPresent()) {
             return makeResponse("400", null, "User Not found", HttpStatus.BAD_REQUEST);
         }
@@ -25,12 +26,12 @@ public class CommentService {
 
     }
 
-    public BookComment buildComment(Integer rating, String review, UserRebook userRebook, String isbn) {
+    public BookComment buildComment(Integer rating, String review, UserRebook userRebook, Book book) {
         return BookComment.builder()
                 .rating(rating)
                 .review(review)
                 .userRebook(userRebook)
-                .isbn(isbn)
+                .book(book)
                 .build();
     }
 
