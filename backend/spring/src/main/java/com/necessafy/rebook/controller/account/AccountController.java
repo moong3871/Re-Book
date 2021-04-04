@@ -1,11 +1,16 @@
 package com.necessafy.rebook.controller.account;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 
 
 import com.necessafy.rebook.Service.account.AccountService;
 import com.necessafy.rebook.Service.jwt.JwtService;
 import com.necessafy.rebook.dao.account.UserRebookDao;
+import com.necessafy.rebook.dao.book.BookCommentDao;
+import com.necessafy.rebook.dao.book.BookDao;
+import com.necessafy.rebook.model.book.Book;
+import com.necessafy.rebook.model.book.BookComment;
 import com.necessafy.rebook.model.user.*;
 
 import com.necessafy.rebook.utils.SHA256Util;
@@ -21,6 +26,7 @@ import static com.necessafy.rebook.utils.HttpUtils.makeResponse;
 
 import io.swagger.annotations.ApiOperation;
 
+import java.util.List;
 import java.util.Optional;
 //@CrossOrigin(origins = { "http://localhost:3000" })
 
@@ -36,6 +42,12 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private BookCommentDao bookCommentDao;
+
+    @Autowired
+    private BookDao bookDao;
 
     @PostMapping("/signup")
     @ApiOperation(value = "회원가입", notes = "이메일, 닉네임, 비밀번호를 입력합니다.")
@@ -85,7 +97,7 @@ public class AccountController {
         }
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     @ApiOperation(value = "회원 수정", notes = "회원 정보를 수정합니다.")
     public Object update(
             @Valid @RequestBody @ApiParam(value = "회원 정보 수정 (패스워드 , 닉네임) ", required = true) UpdateRequest request, HttpServletRequest httpServletRequest) {
@@ -146,8 +158,19 @@ public class AccountController {
 
             return makeResponse("200",curReUser.get().getEmail(),"success",HttpStatus.OK);
         }
-
-
     }
+
+    @GetMapping("/{email}")
+    @ApiOperation(value="특정 user 검색 시 책정보 ,comment 반환")
+    public Object search(@Valid @RequestBody @ApiParam(value = "email로 조회",required = true) @PathVariable String email){
+
+        Optional<UserRebook> curReUser=userRebookDao.findById(email);
+
+        List<BookComment> curComment=bookCommentDao.findByUserRebook(curReUser.get());
+
+        return makeResponse("200",convertObjectToJson(curComment),"success",HttpStatus.OK);
+    }
+
+
 
 }

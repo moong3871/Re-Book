@@ -11,7 +11,13 @@ import java.util.Optional;
 
 public interface BookCommentDao extends JpaRepository<BookComment, Long> {
 
-    Optional<BookComment> findByIsbnAndUserRebook(String isbn, UserRebook userRebook);
     Optional<BookComment> findByBookAndUserRebook(Book book, UserRebook userRebook);
+    //Optional<BookComment> findbyBook(Book book);
+
+
+//    select *from book_comment where user_email="sbs@ssafy.com";
+
+
+    List<BookComment> findByUserRebook(UserRebook userRebook);
 
 }

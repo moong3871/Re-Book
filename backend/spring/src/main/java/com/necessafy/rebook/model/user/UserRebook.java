@@ -1,5 +1,6 @@
 package com.necessafy.rebook.model.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.necessafy.rebook.model.TimeEntity;
 import lombok.AllArgsConstructor;
@@ -22,9 +23,11 @@ public class UserRebook extends TimeEntity {
     @Column(name="USER_EMAIL")
     private String email;
 
-    //@JsonIgnore
+    @JsonIgnore
     private String password;
     private String nickname;
+
+
     private String salt;
 
 }
