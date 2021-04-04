@@ -12,6 +12,7 @@
         <p>평 균: {{ book.evaluation }}</p>
         <div>
           <button>읽고싶어요</button>
+          <Stars />
         </div>
       </div>
     </div>
@@ -36,7 +37,9 @@
 </template>
 
 <script>
+import Stars from "./Stars.vue";
 export default {
+  components: { Stars },
   name: "Info",
   props: {
     book: Object,

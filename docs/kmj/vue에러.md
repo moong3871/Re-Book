@@ -64,3 +64,60 @@
 - 해결
   - current Style
     - index.html에 있던 script를 Map.vue 최상단(template 바로아래)에 정의
+
+# icon이 안나옴
+
+![image-20210402015045913](vue%EC%97%90%EB%9F%AC.assets/image-20210402015045913.png)
+
+- 시도 1 (실패)
+
+  ![image-20210402015123722](vue%EC%97%90%EB%9F%AC.assets/image-20210402015123722.png)
+
+- 시도 2 (응 안나와^^)
+
+  1. `npm install @mdi/js`
+
+  2. vuetify.js
+
+     ```js
+     export default new Vuetify({
+       icons: {
+         iconfont: 'mdiSvg',
+       },
+     })
+     ```
+
+  3. 사용하려는 곳에서 import
+
+     ```js
+     import { mdiStar } from '@mdi/js'
+     ```
+
+  4. data에 추가
+
+     ```js
+     data() { 
+         return { 
+             mdiStar,
+         }
+     }
+     ```
+
+  5. 사용
+
+     ```html
+     <v-icon>{{ mdiStar }}</v-icon>
+     ```
+
+- 시도 3 (안나옴 후)
+
+  `<v-app>`으로 감싸주기
+
+- 시도 4
+
+  다른 라이브러리 사용 `vue-star-rating`
+
+  [vue-star-rating - npm (npmjs.com)](https://www.npmjs.com/package/vue-star-rating)
+
+  
+
