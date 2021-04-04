@@ -36,8 +36,7 @@ export default {
           {
             sellerId: 1,
             nickname: "박성준",
-            lat: 36.3447153,
-            lng: 127.3021023,
+
             books: [
               {
                 isbn: 9788901249872,

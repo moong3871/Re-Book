@@ -1,3 +1,5 @@
+[toc]
+
 # 사진에 돋보기 추가되면 좋을까?
 
 # img
@@ -119,5 +121,37 @@
 
   [vue-star-rating - npm (npmjs.com)](https://www.npmjs.com/package/vue-star-rating)
 
-  
+# v-slot
 
+- Dynamic Directive Arguments
+
+  ```vue
+  v-bind:[attr]="value"
+  ```
+
+  ```vue
+  
+  ```
+
+# color
+
+```vue
+import colors from "vuetify/lib/util/colors";
+
+Vue.use(Vuetify);
+
+const vuetify = new Vuetify({
+  theme: {
+    themes: {
+      deepgreen: "#345656",
+      green: "#4C7162",
+      primary: colors.red.darken1,
+    },
+  },
+});
+export default vuetify;
+```
+
+- deepgreen custom도 안먹고
+- colors import 해도 안먹는다.
+- 후

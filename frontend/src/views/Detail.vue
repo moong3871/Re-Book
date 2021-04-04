@@ -2,7 +2,7 @@
   <div class="container">
     <!-- <a href="http://localhost:8081/oauth2/authorization/google">Google Login</a> -->
     <Cover :book="book" />
-    <Info :dummy="dummy" :book="book" />
+    <Info :dummy="dummy" :book="book" @changeStatus="changeStatus" />
     <hr />
     <Comment
       :dummy="dummy"
@@ -61,6 +61,7 @@ export default {
       backDummy: null,
       dummy: {
         user_id: 1,
+        status: 0,
         comments: [
           {
             id: 1,
@@ -106,6 +107,25 @@ export default {
       },
     };
   },
+  methods: {
+    changeStatus(status) {
+      var ISBN = this.$route.params.book.isbn;
+
+      console.log("status================");
+      console.log(status);
+      axios
+        .put(`http://j4b206.p.ssafy.io/api/book/${ISBN}`, {
+          userToken: localStorage.getItem("jwt"),
+          status: this.current,
+        })
+        .then(() => {
+          console.log("성공");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
   created() {
     var ISBN = this.$route.params.book.isbn;
     console.log("안녕하세요 isbn입니다");
@@ -126,6 +146,7 @@ export default {
         this.backDummy = res.data.object;
         console.log("@@@@@@@@@@@@@BackDummy");
         console.log(this.backDummy);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log("@@@@@@@@@@@@@@@@@@@책detail응답 에러");
