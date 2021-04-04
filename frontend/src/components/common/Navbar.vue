@@ -85,6 +85,7 @@ export default {
       } else {
         this.$router.push({
           name: "BookSearch",
+          // name: "About",
           query: { keyword: this.bookSearch },
         });
         location.reload();

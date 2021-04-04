@@ -1,11 +1,14 @@
 <template>
   <div class="books-container">
-    <div class="search-word">검색어 : {{ this.keyword }}</div>
-    <div class="content">
-      <div v-if="books.length == 0" class="nobook">
-        검색어에 해당되는 도서가 없어요 ㅠ_ㅠ
+    <div class="searched">
+      <div class="search-word">검색어 : {{ this.keyword }}</div>
+      <div class="search-cnt">
+        / 검색결과 : {{ this.categorized_books.length }} 건
       </div>
-      <div class="wrapper" v-for="(book, i) in books" :key="i">
+    </div>
+    <div class="content" v-if="categorized_books.length === 0">
+      <div class="nobook">검색어에 해당되는 도서가 없어요 ㅠ_ㅠ</div>
+      <!-- <div class="wrapper" v-for="(book, i) in books" :key="i">
         <div class="box">
           <img
             :src="book.book_image_path"
@@ -14,6 +17,99 @@
             @click="$router.push({ name: 'Detail', params: { book: book } })"
           />
         </div>
+      </div> -->
+    </div>
+    <div v-if="categorized_books.length !== 0" class="search-container">
+      <div
+        class="search-wrapper"
+        v-for="(book, i) in currentpagebooks"
+        :key="i"
+      >
+        <div
+          class="image-box"
+          @click.left="$router.push({ name: 'Detail', params: { book: book } })"
+        >
+          <img
+            :src="book.book_image_path"
+            alt=""
+            class="cover-image"
+            @click.right="rightclick(book)"
+            @contextmenu.prevent
+          />
+        </div>
+        <div class="title-box">
+          <div class="title">
+            {{ book.title }}
+          </div>
+        </div>
+
+        <!-- 여기서부터 modal -->
+        <div
+          v-if="modalcheck === 1"
+          class="modal-full"
+          @mousedown="
+            opened = false;
+            modalcheck = 0;
+          "
+        >
+          <div class="modal-container" @mousedown.stop>
+            <div class="book-open">
+              <div class="book-container">
+                <div id="card" :class="{ flipped: opened }">
+                  <div class="front">
+                    <img
+                      class="front-img"
+                      src="@/assets/images/REBOOK.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="back">
+                    <img class="coverinback" :src="pathinbook" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagenumber-container">
+        <div class="pagenumber-box">
+          <div class="pagenumber-all">
+            <i
+              class="fas fa-angle-double-left move-button"
+              v-if="pages_idx !== 0"
+              @click="toBeforePages"
+            ></i>
+            <i
+              class="fas fa-angle-left move-button"
+              v-if="currentpage !== 1"
+              @click="toBefore"
+            ></i>
+            <div
+              class="pages"
+              v-for="(page_num, i) in currentpage_numbers"
+              :key="i"
+            >
+              <div
+                class="page"
+                @click="select_page(page_num)"
+                :class="{ current: currentpage === page_num }"
+              >
+                {{ page_num }}
+              </div>
+            </div>
+            <i
+              class="fas fa-angle-right move-button"
+              v-if="currentpage < pagelength"
+              @click="toAfter"
+            ></i>
+            <i
+              class="fas fa-angle-double-right move-button"
+              v-if="pages_idx < max_pages_idx"
+              @click="toAfterPages"
+            ></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -21,21 +117,102 @@
 
 <script>
 // import bookdata from "@/assets/bookdata/book_domestic.json";
-import bookdata from "@/assets/bookdata/bookdata.json";
+import allbookdatas from "@/assets/bookdata/bookdata.json";
 export default {
   data() {
     return {
-      bookdata: bookdata,
+      allbookdatas: allbookdatas,
       keyword: this.$route.query.keyword,
       books: [], //검색어와 일치하는 모든 책 정보
+      categorized_books: [],
+      modalcheck: 0,
+      opened: false,
+      pathinbook: "",
+      pagelength: 0,
+      currentpage: 1,
+      currentpagebooks: [],
+      currentpage_numbers: [],
+      allpages: [],
+      pages_idx: 0,
+      max_pages_idx: 0,
     };
   },
   mounted() {
-    this.books = this.bookdata.filter((data) => {
+    this.categorized_books = this.allbookdatas.filter((data) => {
       return data.title.replace(/ /g, "").includes(this.keyword);
     });
-    // this.books = this.books.slice(0, 8);
-    console.log(this.books);
+    this.currentpagebooks = this.categorized_books.slice(
+      this.currentpage * 20 - 20,
+      this.currentpage * 20
+    );
+    this.pagelength = parseInt((this.categorized_books.length + 19) / 20);
+    for (let i = 0; i < this.pagelength; i++) {
+      this.allpages.push(i + 1);
+    }
+    this.currentpage_numbers = this.allpages.slice(0, 5);
+    this.max_pages_idx = parseInt((this.pagelength - 1) / 5);
+  },
+
+  methods: {
+    select_page(value) {
+      this.currentpage = value;
+      this.currentpagebooks = this.categorized_books.slice(
+        value * 20 - 20,
+        value * 20
+      );
+    },
+    toAfterPages() {
+      this.pages_idx = this.pages_idx + 1;
+      this.currentpage_numbers = this.allpages.slice(
+        this.pages_idx * 5,
+        this.pages_idx * 5 + 5
+      );
+      this.currentpage = this.currentpage_numbers[0];
+      this.currentpagebooks = this.categorized_books.slice(
+        this.currentpage * 20 - 20,
+        this.currentpage * 20
+      );
+    },
+    toBeforePages() {
+      this.pages_idx = this.pages_idx - 1;
+      this.currentpage_numbers = this.allpages.slice(
+        this.pages_idx * 5,
+        this.pages_idx * 5 + 5
+      );
+      this.currentpage = this.currentpage_numbers[4];
+      this.currentpagebooks = this.categorized_books.slice(
+        this.currentpage * 20 - 20,
+        this.currentpage * 20
+      );
+    },
+    toBefore() {
+      if (this.currentpage % 5 === 1) {
+        this.toBeforePages();
+      } else {
+        this.select_page(this.currentpage - 1);
+      }
+    },
+    toAfter() {
+      if (this.currentpage % 5 === 0) {
+        this.toAfterPages();
+      } else {
+        this.select_page(this.currentpage + 1);
+      }
+    },
+
+    rightclick(value) {
+      this.countMouseOver = 1;
+      this.pathinbook = value.book_image_path;
+      this.dolt();
+    },
+    dolt() {
+      if (this.countMouseOver == 1) {
+        this.modalcheck = 1;
+        setTimeout(() => {
+          this.opened = true;
+        }, 800);
+      }
+    },
   },
 };
 </script>
@@ -44,65 +221,283 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap");
 
 .books-container {
-  margin-left: 400px;
   width: 80vw;
   min-width: 1200px;
-  /* height: 2000px; */
-  /* border: 3px solid black; */
+}
+.searched {
+  width: 100%;
+  display: flex;
 }
 .search-word {
-  /* border: 3px solid green; */
-  padding-left: 50px;
+  margin-left: 10vw;
+  /* padding-left: 50px; */
   font-size: 40px;
   font-family: "Jua", sans-serif;
-  /* text-align: center; */
+  /* float: left; */
+  /* width: 30vw; */
+  /* border-bottom: 3px solid black; */
 }
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 30px;
-  padding: 0 30px;
-  border: 3px solid black;
-}
-.wrapper {
-  width: 25%;
-  min-width: 350px;
-  height: 100%;
-  padding: 2%;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  /* border: 5px solid red; */
+.search-cnt {
+  margin-left: 2vw;
+  font-size: 40px;
+  font-family: "Jua", sans-serif;
 }
 
-.box {
-  position: relative;
-  width: 90%;
-  height: 410px;
-  border-radius: 5px;
-  /* overflow: hidden; */
+.search-container {
+  border-top: 3px solid black;
+  margin-top: 40px;
+  width: 90vw;
+  min-width: 1500px;
+  max-width: 1900px;
+  margin-left: 5vw;
+  height: 1500px;
+  animation: fadein 1.5s;
+}
+.search-wrapper {
+  width: 17%;
+  border-radius: 15px;
+  min-width: 300px;
+  max-width: 380px;
+  margin: 1.5%;
+  height: 500px;
+  background-color: white;
+  float: left;
   box-shadow: 0 1.4px 1.7px rgba(0, 0, 0, 0.017),
     0 3.3px 4px rgba(0, 0, 0, 0.024), 0 6.3px 7.5px rgba(0, 0, 0, 0.1),
     0 11.2px 13.4px rgba(0, 0, 0, 0.3), 0 20.9px 25.1px rgba(0, 0, 0, 0.2),
     0 50px 60px rgba(0, 0, 0, 0.06);
 }
-.cover-image {
+
+.image-box {
+  display: flex;
+  justify-content: center;
   width: 100%;
+  height: 80%;
+  border-bottom: 2px solid brown;
+  background-color: rgb(228, 250, 252);
+}
+.cover-image {
   height: 100%;
-  opacity: 1;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+  max-width: 95%;
+  /* border: 1px solid black; */
 }
 .cover-image:hover {
   cursor: pointer;
   opacity: 0.35;
 }
+.title-box {
+  background-color: rgb(204, 245, 243);
+  height: 20%;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+.title {
+  font-size: 18px;
+  text-align: center;
+  font-family: "Noto Serif KR", serif;
+  max-height: 100%;
+}
+.modal-full {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* max-height: 1350px; */
+  /* max-width: 2400px; */
+  /* min-width: 1600px; */
+  /* min-height: 900px; */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+}
+.modal-container {
+  position: fixed;
+  top: 19%;
+  left: 22%;
+  /* max-width: 1200px; */
+  width: 60%;
+  height: 60%;
+  background-color: rgb(25, 37, 141);
+  background-color: rgb(194, 210, 221);
+  z-index: 1002;
+  border-radius: 20px;
+  background: linear-gradient(45deg, rgb(57, 178, 235), rgb(239, 245, 239));
+  /* display: flex; */
+}
+.book-open {
+  /* align-items: center; */
+  width: 45%;
+  margin-left: 50%;
+  height: 80%;
+  margin-top: 5.6%;
+}
+.book-container {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(243, 236, 197);
+  -webkit-perspective: 2000px;
+  -moz-perspective: 800px;
+  -o-perspective: 800px;
+  perspective: 2000px;
+  box-shadow: 1px 1px 2px #444 inset, -2px -2px 4px #444 inset;
+}
+#card {
+  z-index: 2000;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.8s;
+  -moz-transition: -moz-transform 0.8s;
+  -o-transition: -o-transform 0.8s;
+  transition: transform 0.8s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: right center;
+  -o-transform-origin: right center;
+  transform-origin: left center;
+}
+#card.flipped {
+  -webkit-transform: translateY(00%) rotateY(-180deg);
+  -moz-transform: translateY(00%) rotateY(-180deg);
+  -ms-transform: translateY(00%) rotateY(-180deg);
+  -o-transform: translateY(00%) rotateY(-180deg);
+  transform: translateY(00%) rotateY(-180deg);
+}
+#card div {
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 260px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 140px;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+#card div {
+  text-shadow: 4px 5px 7px #080808;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+#card .front {
+  background: rgb(40, 80, 50);
+  margin: 0;
+  padding-top: 10%;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+#card .back {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background: rgb(243, 236, 197);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  margin: 0;
+  box-shadow: 1px 1px 2px #444 inset, -2px -2px 4px #444 inset;
+}
+.front-img {
+  height: 50%;
+  width: 90%;
+  border-radius: 10px;
+}
+.coverinback {
+  border: 1px solid black;
+  height: 100%;
+  max-width: 100%;
+}
+.pagenumber-container {
+  width: 100%;
+  height: 60px;
+  /* background-color: yellow; */
+  float: left;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.pagenumber-box {
+  width: 500px;
+  /* background-color: red; */
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.pagenumber-all {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Jua", sans-serif;
+}
+.move-button {
+  margin: 7px;
+  font-size: 30px;
+}
+.move-button:hover {
+  cursor: pointer;
+  color: green;
+}
+.page {
+  float: left;
+  font-size: 35px;
+  margin: 7px;
+  margin-top: 11px;
+}
+.page:hover {
+  cursor: pointer;
+  color: green;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.current {
+  color: rgb(55, 55, 173);
+  /* background-color: white; */
+}
+.content {
+  margin-left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding: 0 30px;
+  border: 3px solid black;
+  min-width: 1300px;
+  max-width: 1500px;
+}
+
 .nobook {
   font-family: "Jua", sans-serif;
   width: 100%;
   height: 500px;
   display: flex;
   align-items: center;
-  padding-left: 340px;
+  padding-left: 20%;
   font-size: 50px;
+  /* border: 1px solid red; */
 }
 </style>

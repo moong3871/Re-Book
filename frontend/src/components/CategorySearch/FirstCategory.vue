@@ -37,16 +37,7 @@
     </div>
     <!-- 1st depth 선택 후 나타는 부분 -->
     <div class="result-container" v-if="domestic_count !== 0">
-      <div
-        class="result-category"
-        @click="
-          domestic_count = 0;
-          second_category = '';
-          third_category = [];
-        "
-      >
-        카테고리 : {{ first_category }}
-      </div>
+      <div class="result-category">카테고리 : {{ first_category }}</div>
       <div class="result-category" v-if="second_category !== ''">
         > {{ second_category }}
       </div>
@@ -245,11 +236,6 @@ export default {
       max_pages_idx: 0,
     };
   },
-  // computed: {
-  //   final_back_colors() {
-  //     return this.back_colors;
-  //   },
-  // },
   methods: {
     finddomestic() {
       this.second_categories = this.secondcategoryset.국내도서;
@@ -516,7 +502,6 @@ export default {
   border-radius: 20px;
 }
 .search-container {
-  /* background-color: beige; */
   width: 90vw;
   min-width: 1500px;
   max-width: 1900px;
@@ -582,14 +567,14 @@ export default {
   /* min-width: 1600px; */
   /* min-height: 900px; */
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.05);
   z-index: 1000;
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
 }
 .modal-container {
   position: fixed;
-  top: 17%;
+  top: 19%;
   left: 22%;
   /* max-width: 1200px; */
   width: 60%;
@@ -597,7 +582,9 @@ export default {
   background-color: rgb(25, 37, 141);
   background-color: rgb(194, 210, 221);
   z-index: 1002;
-  background: linear-gradient(45deg, rgb(143, 175, 132), rgb(180, 155, 105));
+  border-radius: 20px;
+
+  background: linear-gradient(45deg, rgb(52, 109, 81), rgb(239, 245, 239));
   /* display: flex; */
 }
 .book-open {
@@ -617,7 +604,7 @@ export default {
   -moz-perspective: 800px;
   -o-perspective: 800px;
   perspective: 2000px;
-  box-shadow: 3px 3px 7px #444 inset, -4px -2px 7px #444 inset;
+  box-shadow: 1px 1px 2px #444 inset, -2px -2px 4px #444 inset;
 }
 #card {
   z-index: 2000;
@@ -683,7 +670,7 @@ export default {
   -o-transform: rotateY(180deg);
   transform: rotateY(180deg);
   margin: 0;
-  box-shadow: 3px 3px 7px #444 inset, -4px -2px 7px #444 inset;
+  box-shadow: 1px 1px 2px #444 inset, -2px -2px 4px #444 inset;
 }
 .front-img {
   height: 50%;
@@ -691,7 +678,7 @@ export default {
   border-radius: 10px;
 }
 .coverinback {
-  border: 4px solid black;
+  border: 1px solid black;
   height: 100%;
   max-width: 100%;
 }
