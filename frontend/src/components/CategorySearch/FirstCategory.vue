@@ -37,7 +37,16 @@
     </div>
     <!-- 1st depth 선택 후 나타는 부분 -->
     <div class="result-container" v-if="domestic_count !== 0">
-      <div class="result-category">카테고리 : {{ first_category }}</div>
+      <div
+        class="result-category"
+        @click="
+          domestic_count = 0;
+          second_category = '';
+          third_category = [];
+        "
+      >
+        카테고리 : {{ first_category }}
+      </div>
       <div class="result-category" v-if="second_category !== ''">
         > {{ second_category }}
       </div>
@@ -110,19 +119,19 @@
     <div v-if="domestic_count === 3" class="search-container">
       <div
         class="search-wrapper"
-        v-for="(book, i) in categorized_books"
+        v-for="(book, i) in currentpagebooks"
         :key="i"
       >
         <div
           class="image-box"
-          @click="$router.push({ name: 'Detail', params: { book: book } })"
+          @click.left="$router.push({ name: 'Detail', params: { book: book } })"
         >
           <img
             :src="book.book_image_path"
             alt=""
             class="cover-image"
-            @mouseover="activarOver"
-            @mouseleave="resetOver"
+            @click.right="rightclick(book)"
+            @contextmenu.prevent
           />
         </div>
         <div class="title-box">
@@ -130,9 +139,76 @@
             {{ book.title }}
           </div>
         </div>
+
+        <!-- 여기서부터 modal -->
+        <div
+          v-if="modalcheck === 1"
+          class="modal-full"
+          @mousedown="
+            opened = false;
+            modalcheck = 0;
+          "
+        >
+          <div class="modal-container" @mousedown.stop>
+            <div class="book-open">
+              <div class="book-container">
+                <div id="card" :class="{ flipped: opened }">
+                  <div class="front">
+                    <img
+                      class="front-img"
+                      src="@/assets/images/REBOOK.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="back">
+                    <img class="coverinback" :src="pathinbook" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagenumber-container">
+        <div class="pagenumber-box">
+          <div class="pagenumber-all">
+            <i
+              class="fas fa-angle-double-left move-button"
+              v-if="pages_idx !== 0"
+              @click="toBeforePages"
+            ></i>
+            <i
+              class="fas fa-angle-left move-button"
+              v-if="currentpage !== 1"
+              @click="toBefore"
+            ></i>
+            <div
+              class="pages"
+              v-for="(page_num, i) in currentpage_numbers"
+              :key="i"
+            >
+              <div
+                class="page"
+                @click="select_page(page_num)"
+                :class="{ current: currentpage === page_num }"
+              >
+                {{ page_num }}
+              </div>
+            </div>
+            <i
+              class="fas fa-angle-right move-button"
+              v-if="currentpage < pagelength"
+              @click="toAfter"
+            ></i>
+            <i
+              class="fas fa-angle-double-right move-button"
+              v-if="pages_idx < max_pages_idx"
+              @click="toAfterPages"
+            ></i>
+          </div>
+        </div>
       </div>
     </div>
-    <div v-if="modalcheck === 1" class="modal-full">modal</div>
   </div>
 </template>
 <script>
@@ -158,13 +234,22 @@ export default {
       allbookdatas: allbookdatas,
       countMouseOver: 0,
       modalcheck: 0,
+      opened: false,
+      pathinbook: "",
+      pagelength: 0,
+      currentpage: 1,
+      currentpagebooks: [],
+      currentpage_numbers: [],
+      allpages: [],
+      pages_idx: 0,
+      max_pages_idx: 0,
     };
   },
-  computed: {
-    final_back_colors() {
-      return this.back_colors;
-    },
-  },
+  // computed: {
+  //   final_back_colors() {
+  //     return this.back_colors;
+  //   },
+  // },
   methods: {
     finddomestic() {
       this.second_categories = this.secondcategoryset.국내도서;
@@ -191,7 +276,6 @@ export default {
       for (let i = 0; i < this.third_categories.length; i++) {
         this.back_colors[this.third_categories[i]] = "";
       }
-      // console.log(this.back_colors);
     },
     category_check(value) {
       console.log(value);
@@ -213,28 +297,112 @@ export default {
         alert("소분류를 선택해주세요!");
       } else {
         this.domestic_count++;
+        const new_categorized_books = [];
         this.categorized_books = this.allbookdatas.filter((data) => {
-          // return data.title.replace(/ /g, "").includes(this.keyword);
           return this.third_category.includes(data.subcategory);
         });
-        // console.log(this.categorized_books);
+        for (let i = 0; i < this.categorized_books.length; i++) {
+          if (
+            this.categorized_books[i].maincategory.includes(
+              this.second_category
+            )
+          ) {
+            new_categorized_books.push(this.categorized_books[i]);
+          }
+        }
+        this.categorized_books = new_categorized_books;
+        this.currentpagebooks = this.categorized_books.slice(
+          this.currentpage * 20 - 20,
+          this.currentpage * 20
+        );
+        this.pagelength = parseInt((this.categorized_books.length + 19) / 20);
+        for (let i = 0; i < this.pagelength; i++) {
+          this.allpages.push(i + 1);
+        }
+        this.currentpage_numbers = this.allpages.slice(0, 5);
+        this.max_pages_idx = parseInt((this.pagelength - 1) / 5);
       }
     },
-    activarOver() {
-      this.countMouseOver = 1;
-      setTimeout(() => {
-        this.dolt();
-      }, 2000);
+    select_page(value) {
+      this.currentpage = value;
+      this.currentpagebooks = this.categorized_books.slice(
+        value * 20 - 20,
+        value * 20
+      );
     },
-    resetOver() {
-      this.countMouseOver = 0;
+    toAfterPages() {
+      this.pages_idx = this.pages_idx + 1;
+      this.currentpage_numbers = this.allpages.slice(
+        this.pages_idx * 5,
+        this.pages_idx * 5 + 5
+      );
+      this.currentpage = this.currentpage_numbers[0];
+      this.currentpagebooks = this.categorized_books.slice(
+        this.currentpage * 20 - 20,
+        this.currentpage * 20
+      );
+    },
+    toBeforePages() {
+      this.pages_idx = this.pages_idx - 1;
+      this.currentpage_numbers = this.allpages.slice(
+        this.pages_idx * 5,
+        this.pages_idx * 5 + 5
+      );
+      this.currentpage = this.currentpage_numbers[4];
+      this.currentpagebooks = this.categorized_books.slice(
+        this.currentpage * 20 - 20,
+        this.currentpage * 20
+      );
+    },
+    toBefore() {
+      if (this.currentpage % 5 === 1) {
+        this.toBeforePages();
+      } else {
+        this.select_page(this.currentpage - 1);
+      }
+    },
+    toAfter() {
+      if (this.currentpage % 5 === 0) {
+        this.toAfterPages();
+      } else {
+        this.select_page(this.currentpage + 1);
+      }
+    },
+
+    rightclick(value) {
+      this.countMouseOver = 1;
+      this.pathinbook = value.book_image_path;
+      this.dolt();
     },
     dolt() {
       if (this.countMouseOver == 1) {
         this.modalcheck = 1;
-        console.log("아주 잘 작동하는구만");
+        setTimeout(() => {
+          this.opened = true;
+        }, 800);
       }
     },
+    // activarOver(value) {
+    //   this.countMouseOver = 1;
+    //   this.timecheck();
+    //   this.pathinbook = value.book_image_path;
+    // },
+    // timecheck() {
+    //   setTimeout(() => {
+    //     this.dolt();
+    //   }, 3000);
+    //   console.log("타이머 작동");
+    // },
+    // timecheckout() {
+    //   clearTimeout(this.timecheck());
+    //   console.log("제거완료");
+    // },
+    // resetOver() {
+    //   this.countMouseOver = 0;
+    //   this.opened = false;
+    //   console.log(this);
+    //   this.timecheckout();
+    // },
   },
 };
 </script>
@@ -351,6 +519,7 @@ export default {
   /* background-color: beige; */
   width: 90vw;
   min-width: 1500px;
+  max-width: 1900px;
   margin-left: 5vw;
   height: 1500px;
   animation: fadein 1.5s;
@@ -407,17 +576,167 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  /* background-color: black;
-  opacity: 0.7; */
+  width: 100%;
+  /* max-height: 1350px; */
+  /* max-width: 2400px; */
+  /* min-width: 1600px; */
+  /* min-height: 900px; */
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 1500;
-  backdrop-filter: saturate(180px) blur(3px);
-  /* -webkit-backdrop-filter: blur(10px); */
-  /* animation: fadein 1s; */
+  z-index: 1000;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.modal-container {
+  position: fixed;
+  top: 17%;
+  left: 22%;
+  /* max-width: 1200px; */
+  width: 60%;
+  height: 60%;
+  background-color: rgb(25, 37, 141);
+  background-color: rgb(194, 210, 221);
+  z-index: 1002;
+  background: linear-gradient(45deg, rgb(143, 175, 132), rgb(180, 155, 105));
+  /* display: flex; */
+}
+.book-open {
+  /* align-items: center; */
+  width: 45%;
+  margin-left: 50%;
+  height: 80%;
+  margin-top: 5.6%;
+}
+.book-container {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(243, 236, 197);
+  -webkit-perspective: 2000px;
+  -moz-perspective: 800px;
+  -o-perspective: 800px;
+  perspective: 2000px;
+  box-shadow: 3px 3px 7px #444 inset, -4px -2px 7px #444 inset;
+}
+#card {
+  z-index: 2000;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-transition: -webkit-transform 0.8s;
+  -moz-transition: -moz-transform 0.8s;
+  -o-transition: -o-transform 0.8s;
+  transition: transform 0.8s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: right center;
+  -o-transform-origin: right center;
+  transform-origin: left center;
+}
+#card.flipped {
+  -webkit-transform: translateY(00%) rotateY(-180deg);
+  -moz-transform: translateY(00%) rotateY(-180deg);
+  -ms-transform: translateY(00%) rotateY(-180deg);
+  -o-transform: translateY(00%) rotateY(-180deg);
+  transform: translateY(00%) rotateY(-180deg);
+}
+#card div {
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 260px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 140px;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+#card div {
+  text-shadow: 4px 5px 7px #080808;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+#card .front {
+  background: rgb(40, 80, 50);
+  margin: 0;
+  padding-top: 10%;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
+#card .back {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background: rgb(243, 236, 197);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  margin: 0;
+  box-shadow: 3px 3px 7px #444 inset, -4px -2px 7px #444 inset;
+}
+.front-img {
+  height: 50%;
+  width: 90%;
+  border-radius: 10px;
+}
+.coverinback {
+  border: 4px solid black;
+  height: 100%;
+  max-width: 100%;
+}
+.pagenumber-container {
+  width: 100%;
+  height: 60px;
+  /* background-color: yellow; */
+  float: left;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.pagenumber-box {
+  width: 500px;
+  /* background-color: red; */
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.pagenumber-all {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Jua", sans-serif;
+}
+.move-button {
+  margin: 7px;
+  font-size: 30px;
+}
+.move-button:hover {
+  cursor: pointer;
+  color: green;
+}
+.page {
+  float: left;
+  font-size: 35px;
+  margin: 7px;
+  margin-top: 11px;
+}
+.page:hover {
+  cursor: pointer;
+  color: green;
+}
 @keyframes fadein {
   from {
     opacity: 0;
@@ -425,5 +744,9 @@ export default {
   to {
     opacity: 1;
   }
+}
+.current {
+  color: rgb(55, 55, 173);
+  /* background-color: white; */
 }
 </style>
