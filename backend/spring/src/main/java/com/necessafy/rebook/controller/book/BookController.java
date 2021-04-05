@@ -129,16 +129,25 @@ public class BookController {
 
     @GetMapping("/search/{email}")
     @ApiOperation(value="특정 유저의 상태(읽고 싶어요, 읽고있어요 읽었어요)따른 책 정보 반환")
-    public Object searchReadStatus(@Valid @RequestBody @ApiParam(value="email별로 조회",required = true) @PathVariable String email, String isbn){
-        Optional<UserRebook> curReUser=userRebookDao.findById(email);
-        Optional<Book>curBook=bookDao.findById(isbn);
+    public Object searchReadStatus(@Valid @RequestBody @ApiParam(value="email별로 조회",required = true) @PathVariable String email, String isbn) {
+        Optional<UserRebook> curReUser = userRebookDao.findById(email);
+        Optional<Book> curBook = bookDao.findById(isbn);
 
 
-        Optional<UserReadStatus> userReadStatus=userReadStatusDao.findByUserRebookAndBook(curReUser.get(),curBook.get());
+        Optional<UserReadStatus> userReadStatus = userReadStatusDao.findByUserRebookAndBook(curReUser.get(), curBook.get());
 
         //Optional로 쓰면 .get()
-        return makeResponse("200",convertObjectToJson(userReadStatus.get()),"success",HttpStatus.OK);
-       }
+        return makeResponse("200", convertObjectToJson(userReadStatus.get()), "success", HttpStatus.OK);
+    }
+//    @GetMapping("{isbn}")
+//    @ApiOperation(value="isbn에 관련된 모든 데이터를 가져온다.")
+//    public Object searchAllList(@Valid @RequestBody @ApiParam(value = "isbn으로 모든 데이터 전환",required=true)
+//                                @PathVariable String isbn){
+//        Optional<Book> curBook=bookDao.findById(isbn);
+//        Optional<UserRebook> curRe
+//    }
+
+
 
 
 
