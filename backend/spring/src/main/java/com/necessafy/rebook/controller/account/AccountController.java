@@ -60,6 +60,7 @@ public class AccountController {
         String password = SHA256Util.getEncrypt(request.getPassword().trim(), salt);
         Object response = accountService.overlabAndBlankCheckWhenSignUp(email, nickname, password);
 
+        System.out.println();
         if (response != null) {
             return response;
         }

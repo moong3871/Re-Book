@@ -95,16 +95,18 @@ public class BookController {
 
 
 
-    @PostMapping("/{email}")
+    @PutMapping("/{email}")
     @ApiOperation(value="해당 유저가 책을 읽은 상태를 등록")
     public Object createReadStatus(@ModelAttribute @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
-                                   UserReadStatusRequest userReadStatusRequest){
+                                   UserReadStatusRequest userReadStatusRequest, HttpServletRequest httpServletRequest){
 
         Integer status=userReadStatusRequest.getStatus();
         String email=userReadStatusRequest.getUserRebook().getEmail().trim();
         String isbn=userReadStatusRequest.getBook().getIsbn().trim();
         Optional<UserRebook>curReUser=userRebookDao.findById(email);
         Optional<Book>curBook=bookDao.findBookByIsbn(isbn);
+
+        String emailToken = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 
         ResponseEntity<?>result=bookService.checkBlankWenUserReadStatus(curReUser,status);
 
