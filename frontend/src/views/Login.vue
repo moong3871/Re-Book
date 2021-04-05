@@ -123,6 +123,7 @@ export default {
           console.log(data);
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("nickname", data.user.nickname);
+          localStorage.setItem("email", this.email);
 
           // this.$emit("login");
           // this.$router.push({ name: "Home" });

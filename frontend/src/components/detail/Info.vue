@@ -30,7 +30,7 @@
               </v-list>
             </v-menu>
           </div>
-          <Stars />
+          <Stars @openCommentModal="handleCommentModal" />
         </div>
       </div>
     </div>
@@ -90,6 +90,9 @@ export default {
       //   .catch((err) => {
       //     console.log(err);
       //   });
+    },
+    handleCommentModal() {
+      this.$emit("openCommentModal");
     },
   },
   mounted() {
