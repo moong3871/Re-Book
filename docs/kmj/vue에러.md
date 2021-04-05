@@ -133,6 +133,8 @@
   
   ```
 
+- https://www.digitalocean.com/community/tutorials/vuejs-vue-modal-component
+
 # color
 
 ```vue

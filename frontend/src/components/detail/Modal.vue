@@ -1,17 +1,26 @@
 <template>
-  <div class="overlay" @click.self="$emit('close-modal')">
+  <div
+    class="overlay"
+    @click.self="$emit('close-modal')"
+    @close-modal="$emit('close-modal')"
+  >
     <div class="modal-card">
       <p class="c-title">{{ dummy.title }}</p>
-      <slot />
+      <ModalContent @close-modal="$emit('close-modal')" />
     </div>
   </div>
 </template>
 
 <script>
+import ModalContent from "./ModalContent.vue";
 export default {
   props: {
     dummy: Object,
   },
+  components: {
+    ModalContent,
+  },
+  methods: {},
 };
 </script>
 

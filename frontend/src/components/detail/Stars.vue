@@ -1,5 +1,5 @@
 <template>
-  <star-rating @rating-selected="setRating" />
+  <star-rating @rating-selected="setRating" :rating="rating" />
 </template>
 
 <script>
@@ -16,8 +16,12 @@ export default {
   methods: {
     setRating: function (rating) {
       this.rating = rating;
+      localStorage.setItem("rating", this.rating);
       this.$emit("openCommentModal");
     },
+  },
+  mounted() {
+    this.rating = localStorage.getItem("rating") * 1;
   },
 };
 </script>
