@@ -12,8 +12,8 @@ foreign_cate = [90842, 90845, 90853, 90855, 90847, 90848, 97827, 90835, 90854]
 
 book_list = [ItemNewAll, ItemNewSpecial, ItemEditorChoice, Bestseller, BlogBest]
 
-key = 'ttbdng201027001'
-key2 = 'ttbsbseok121047001'
+key = 
+key2 =
 
 # 국내 도서 보관, 해외 도서 보관
 book_info, book_info2 = [], []
