@@ -144,7 +144,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 250px;
+  height: 300px;
   padding: 1rem;
   transition: transform 700ms cubic-bezier(0.19, 1, 0.22, 1);
   z-index: 1;
@@ -173,7 +173,7 @@ body {
   font-style: italic;
   line-height: 1.35;
   /* 자르기 */
-  max-height: 8em;
+  max-height: 11em;
   white-space: normal;
   text-align: left;
   word-wrap: break-word;
