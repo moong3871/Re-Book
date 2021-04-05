@@ -1,0 +1,88 @@
+package com.necessafy.rebook.controller;
+
+import com.necessafy.rebook.Service.deal.DealService;
+import com.necessafy.rebook.Service.deal.DealerService;
+import com.necessafy.rebook.Service.deal.OldBookService;
+import com.necessafy.rebook.dao.DealerDao;
+import com.necessafy.rebook.model.market.*;
+import com.necessafy.rebook.model.user.SignupRequest;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+import java.util.Optional;
+
+import static com.necessafy.rebook.utils.HttpUtils.convertObjectToJson;
+import static com.necessafy.rebook.utils.HttpUtils.makeResponse;
+
+@RestController
+@RequestMapping("/yangsangchu")
+public class DealController {
+
+    @Autowired
+    DealerService dealerService;
+
+    @Autowired
+    DealService dealService;
+
+    @Autowired
+    OldBookService oldBookService;
+
+    @PostMapping
+    @ApiOperation(value = "중고책을 등록합니다", notes = "중고 장터에 책을 등록하기 위한 정보들")
+    public Object createOldBook(@RequestBody @ApiParam(value = "판매자 정보를 포함한 중고책 정보", required = true) OldBookDto request){
+        // 중고책을 등록하는 서비스 호출
+//        dealerService.createOrSelectSeller(request.getUserId());
+//        if(dealerService.isCreatedSeller(request).size()>0){
+//            Optional<OldBook> curOldBook = oldBookService.checkDuplicateOldBook(request);
+//            if(curOldBook.isPresent()){
+//                return makeResponse("200", convertObjectToJson(curOldBook.get()), "이미 등록했던 중고책입니다", HttpStatus.OK);
+//            }
+//        }
+//        OldBook savedOldBook = oldBookService.createOldBook(request);
+        OldBook savedOldBook = oldBookService.createOldBook(request);
+        return makeResponse("200", convertObjectToJson(savedOldBook), "중고책 등록에 성공하였습니다", HttpStatus.OK);
+    }
+//    @PostMapping
+//    @ApiOperation(value = "중고책을 등록합니다.", notes = "seller(id + email) 생성 후 isbn과 함꼐 중고책 등록 후 저장 결과 반환")
+//    public Object createSeller(@RequestBody @ApiParam(value = "판매자 정보를 포함한 중고책 정보"
+//            , required = true) OldBookDto request) {
+//        /* seller가 존재하는지 파악해서, 존재한다면 해당 아이디 사용, 존재하지 않는다면 등록 */
+////        dealerService.createOrSelectSeller(request.getSellerDto().getUserEmail());
+//        Optional<OldBook> curOldBook = oldBookService.checkDuplicateOldBook(request);
+//        // 해당 중고도서를 이미 등록하였을 때 로직
+//        if(curOldBook.isPresent()){
+//            return makeResponse("200", convertObjectToJson(curOldBook.get()), "이미 등록된 중고책입니다", HttpStatus.OK);
+//        }
+//        //
+//        OldBook savedOldBook = oldBookService.createOldBook(request);
+//        return makeResponse("200", convertObjectToJson(savedOldBook), "중고책 등록에 성공하였습니다", HttpStatus.OK);
+//    }
+
+    @PostMapping("/buyer")
+    @ApiOperation(value = "중고책을 선택하여 거래를 시작합니다", notes = "buyer(id + email) 생성 후 거래를 시작합니다")
+    public Object createBuyerAndDeal(@RequestBody @ApiParam(value = "구매자 정보", required = true) DealDto request){
+        // buyer정보의 해당 중고책 거래 내역이 있는지 확인한다
+        System.out.println("구매자");
+        System.out.println(request.getBuyer());
+        System.out.println("중고책");
+        System.out.println(request.getOldBook());
+//        Optional<Deal> curDeal = dealService.checkDuplicateDeal(request.getBuyer(), request.getOldBook());
+//        if(curDeal.isPresent()){
+//            return makeResponse("200", convertObjectToJson(curDeal.get()), "이미 진행중인 거래입니다.", HttpStatus.OK);
+//        }
+        System.out.println("hello");
+        Deal savedDeal = dealService.createDeal(request.getBuyer(), request.getOldBook());
+        return makeResponse("200", convertObjectToJson(savedDeal), "중고책 등록에 성공하였습니다", HttpStatus.OK);
+    }
+    
+    // 이제 서로 확인작업을 통해서 complete 값을 갱신시켜주면 거래 완료ㄷ
+
+
+
+}
