@@ -7,6 +7,10 @@ import com.necessafy.rebook.model.user.UserRebook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.necessafy.rebook.utils.HttpUtils.makeResponse;
 
 @Service
@@ -14,6 +18,13 @@ public class AccountService {
 
     @Autowired
     private UserRebookDao userRebookDao;
+
+    public List<UserRebook> getAllUsers() {
+        return userRebookDao.findAll();
+//                .stream()
+//                .map(u -> userMapper.to(u))
+//                .collect(Collectors.toList());
+    }
 
     public Object overlabAndBlankCheckWhenSignUp(String email,String nickname,String password){
 
