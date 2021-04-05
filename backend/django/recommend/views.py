@@ -1,8 +1,13 @@
-from api import models, serializers
+from django.shortcuts import render
+from . import models, serializers
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
-key = 'ttbdng201027001'
+def recommend(request):
+    pass
+
+def index(request):
+    return render(request, 'index.html')
 
 # class SmallPagination(PageNumberPagination):
 #     page_size = 10
