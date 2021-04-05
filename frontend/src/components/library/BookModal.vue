@@ -1,5 +1,5 @@
 <template>
-  <v-dialog transition="dialog-bottom-transition" max-width="75em">
+  <v-dialog transition="dialog-bottom-transition" max-width="60em">
     <template v-slot:activator="{ on, attrs }">
       <v-btn color="#000000" v-bind="attrs" v-on="on" class="btn"
         >자세히보기</v-btn
@@ -18,10 +18,10 @@
                 src="http://image.yes24.com/momo/TopCate2227/MidCate003/222620895.jpg"
                 class="modal-img"
               />
-              <h2>책 제목</h2>
-              <h3>작성자 : SBS</h3>
+              <h2>회복탄력성</h2>
+              <h5>작성자 : SBS</h5>
               <hr />
-              <p>
+              <p class="review">
                 이 책에서 ‘회복탄력성’ 이란 원래 제자리로 되돌아오는 힘을 일컫는
                 말로 회복력 혹은 높이 되튀어오르는 탄력성을 뜻한다고 한다. 또한
                 회복탄력성은 성공에 대한 강한 집념에서 나오는 것이 아닌 실패에
@@ -29,18 +29,14 @@
                 계속 강조하듯이 회복탄력성에서 제일 중요한 것은 ‘긍정성’ 이다.
                 삶에서 일어나는 모든 사건들을 보다 더 긍정적으로 받아들이는 뇌가
                 회복탄력성을 높이는 것처럼. 긍정적인 뇌, 긍정적인 습관을 키울 수
-                있는 것이 중요하다. 이 책의 PART 2 에서는 회복탄력성의 지수를
-                알아볼 수 있는 KRQ-53 테스트가 있다. 테스트를 하기 전 부터 사실
-                걱정이 좀 되었지만, 내 예상대로 자기조절능력, 대인관계능력,
-                긍정성 까지 평균보다 낮아버렸다. (이 세가지 점수의 총합이
-                회복탄력성 지수인데, 나는 160점대가 나왔다.) 즉 나는 깨지기 쉬운
-                유리 같은 존재라고. 사실 최근들어 힘든 일이 너무 많아서 멘탈이
-                무너지고 있었다. 무슨 일을 하기 전부터 부정적인 생각이 나를 더
-                강하게 지배하고 있었다. 짧은 시간 안에 바꾸기는 힘들겠지만 조금
-                더 나은 나의 삶을 위해서 긍정적인 힘을 믿어보기로 했다. 3주가량
-                노력하면 의식하지 않아도 습관이 들기 시작하고, 3개월 정도 지나면
-                완전히 내 것으로 만들 수 있다니까! 회복탄력성을 내 것으로
-                만들어보자.
+                있는 것이 중요하다.이 책에서 ‘회복탄력성’ 이란 원래 제자리로
+                되돌아오는 힘을 일컫는 말로 회복력 혹은 높이 되튀어오르는
+                탄력성을 뜻한다고 한다. 또한 회복탄력성은 성공에 대한 강한
+                집념에서 나오는 것이 아닌 실패에 대한 두려움 없음에서 나온다.
+                그리고 이 책에서 다양한 사례에서 계속 강조하듯이 회복탄력성에서
+                제일 중요한 것은 ‘긍정성’ 이다. 삶에서 일어나는 모든 사건들을
+                보다 더 긍정적으로 받아들이는 뇌가 회복탄력성을 높이는 것처럼.
+                긍정적인 뇌, 긍정적인 습관을 키울 수 있는 것이 중요하다.
               </p>
             </article>
             <footer>
@@ -442,9 +438,9 @@ body {
 
 .btn {
   cursor: pointer;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   padding: 0.75rem 1.5rem;
-  font-size: 0.65rem;
+  font-size: 1rem;
   font-weight: bold;
   letter-spacing: 0.025rem;
   text-transform: uppercase;
@@ -461,5 +457,15 @@ body {
 
 .modal-img {
   width: 100%;
+}
+
+.review {
+  white-space: normal;
+  text-align: left;
+  word-wrap: break-word;
+  overflow: scroll;
+  display: -webkit-box;
+  -webkit-line-clamp: 13;
+  -webkit-box-orient: vertical;
 }
 </style>

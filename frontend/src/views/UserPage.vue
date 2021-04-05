@@ -2,7 +2,7 @@
   <v-container>
     <v-row class="info">
       <v-col md="8">
-        <v-calendar></v-calendar>
+        <Calendar></Calendar>
       </v-col>
       <v-col md="3" offset-md="1">
         <Progress />
@@ -26,11 +26,13 @@
 // import Bookshelf from "@/components/library/Bookshelf.vue";
 import BookHover from "@/components/library/BookHover.vue";
 import Progress from "@/components/library/Progress.vue";
+import Calendar from "@/components/library/Calendar.vue";
 export default {
   name: "UserPage",
   components: {
     BookHover,
     Progress,
+    Calendar,
   },
 };
 </script>
