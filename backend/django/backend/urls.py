@@ -20,6 +20,7 @@ from django.urls import path, include
 # fmt: off
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("recommend/", include("recommend.urls")),
+    path('', include("recommend.urls"))
+    # path("recommend/", include("recommend.urls")),
 ]
 # fmt: on

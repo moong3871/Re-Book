@@ -3,7 +3,7 @@ Django==2.2.7
 django-cors-headers==3.2.1
 djangorestframework==3.10.3
 djangorestframework-jwt==1.11.0
-drf-yasg==1.17.1 # 문서 자동화 도구
+drf-yasg==1.17.1
 joblib==0.14.0
 numpy==1.17.3
 pytz==2019.3
