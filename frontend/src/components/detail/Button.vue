@@ -1,5 +1,5 @@
 <template>
-  <v-btn class="ma-2">{{ title }}</v-btn>
+  <v-btn @click="$emit('open-modal')" class="ma-2">{{ title }}</v-btn>
 </template>
 
 <script>
@@ -15,6 +15,8 @@ export default {
 .ma-2 {
   outline: none;
   box-shadow: 0 0 0 1px black;
+  width: 100%;
+  height: 100%;
 }
 .theme--light.v-btn.v-btn--has-bg {
   background-color: white;

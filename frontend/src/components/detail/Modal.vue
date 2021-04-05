@@ -1,12 +1,10 @@
 <template>
-  <!-- <div class="modal"> -->
   <div class="overlay" @click.self="$emit('close-modal')">
     <div class="modal-card">
       <p class="c-title">{{ dummy.title }}</p>
       <slot />
     </div>
   </div>
-  <!-- </div> -->
 </template>
 
 <script>
@@ -18,16 +16,14 @@ export default {
 </script>
 
 <style scoped>
-.modal,
 .overlay {
   width: 100%;
   height: 100%;
   position: fixed;
   left: 0;
   top: 0;
-}
-.overlay {
   background: rgba(0, 0, 0, 0.5);
+  z-index: 5;
 }
 .modal-card {
   position: relative;
@@ -37,7 +33,7 @@ export default {
   padding: 40px;
   background-color: #345656;
   min-height: 500px;
-  z-index: 2;
+  z-index: 6;
   color: white;
   text-align: center;
 }

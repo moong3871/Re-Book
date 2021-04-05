@@ -16,17 +16,12 @@ export default {};
   width: 100%;
   height: 380px;
   margin-top: 40px;
-  z-index: 10;
+  z-index: 7;
   background-color: white;
 }
 input {
   width: 100%;
   height: 100%;
-  /* background-color: thistle; */
-  vertical-align: top;
-}
-input::placeholder {
-  color: blue;
-  vertical-align: top;
+  text-align: center;
 }
 </style>

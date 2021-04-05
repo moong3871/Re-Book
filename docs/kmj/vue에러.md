@@ -155,3 +155,18 @@ export default vuetify;
 - deepgreen custom도 안먹고
 - colors import 해도 안먹는다.
 - 후
+
+# 모달 에러-input창 클릭시 모달 닫힘
+
+해결: 이벤트 한정자(event modifier)
+
+https://vuejs.org/v2/guide/render-function.html#Event-amp-Key-Modifiers
+
+https://code-machina.github.io/2019/10/03/Vue-Story-Part-10.html
+
+```vue
+  <div class="overlay" @click.self="$emit('close-modal')">
+```
+
+해당 요소에만 click이벤트 적용되도록
+
