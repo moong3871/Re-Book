@@ -44,12 +44,13 @@ public class BookCommentController {
     @ApiOperation(value="리뷰 등록")
     public Object create(@ModelAttribute @ApiParam(value="리뷰 등록 시 필요한 정보(평점, 날짜, 내용) " +
             "이미 등록했던 리뷰면 수정만 가능"
-    ,required = true) CommentRequest commentRequest){
+    ,required = true) CommentRequest commentRequest,HttpServletRequest httpServletRequest){
 
         Integer rating=commentRequest.getRating();
         String review=commentRequest.getReview().trim();
         String userEmail=commentRequest.getUserEmail().trim();
         String isbn=commentRequest.getIsbn().trim();
+        String email = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 
         Optional<UserRebook> curReUser=userRebookDao.findById(userEmail); //이미 있는 정보
         Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
