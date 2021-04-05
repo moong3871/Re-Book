@@ -1,8 +1,8 @@
-<template>
-  <v-container fill-height fluid class="login-bg">
+<template v-slot:default="dialog">
+  <v-card v-if="is_login">
     <v-row align="center" justify="center">
       <v-col align="center">
-        <h1 class="title">로그인</h1>
+        <v-toolbar color="#206844" dark>로그인</v-toolbar>
         <form @submit.prevent="submit">
           <div
             class="form-group"
@@ -63,32 +63,23 @@
             모든 항목을 입력해주세요.
           </p>
           <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-          <v-btn width="400" height="48">
-            <!-- <GoogleLogin :params="params" b :onSzuccess="onSuccess"> -->
-            <GoogleLogin>
-              <img
-                alt="googleLogin"
-                src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
-              />
-              <span class="google-login-text">Google 계정으로 계속하기</span>
-            </GoogleLogin>
-          </v-btn>
         </form>
       </v-col>
     </v-row>
-  </v-container>
+  </v-card>
+  <SignupModal v-else></SignupModal>
 </template>
 
 <script>
 import axios from "axios";
-import GoogleLogin from "vue-google-login";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
 import { required, email, minLength } from "vuelidate/lib/validators";
+import SignupModal from "./SignupModal.vue";
 
 export default {
-  name: "Login",
+  name: "LoginModal",
   data() {
     return {
       email: "",
@@ -96,7 +87,11 @@ export default {
       params: {
         client_id: "xxxxxx",
       },
+      is_login: true,
     };
+  },
+  components: {
+    SignupModal,
   },
   validations: {
     email: {
@@ -107,9 +102,6 @@ export default {
       required,
       minLength: minLength(6),
     },
-  },
-  components: {
-    GoogleLogin,
   },
   methods: {
     login() {
@@ -123,7 +115,6 @@ export default {
           console.log(data);
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("nickname", data.user.nickname);
-          localStorage.setItem("email", this.email);
 
           this.$emit("login");
           this.$router.push({ name: "Home" });
@@ -148,8 +139,11 @@ export default {
       }
     },
     goSignup() {
-      this.$router.push("/signup");
+      this.is_login = false;
     },
+  },
+  created() {
+    this.is_login = true;
   },
 };
 </script>
@@ -190,17 +184,5 @@ export default {
 .form-group--error + .error {
   display: block;
   color: #fb3232d2;
-}
-
-.google-login-button {
-  width: 400px;
-  height: 100px;
-  padding: 10px;
-  margin: 1rem;
-}
-
-.google-login-text {
-  vertical-align: middle;
-  margin: 0 10px;
 }
 </style>

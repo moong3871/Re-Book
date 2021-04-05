@@ -1,8 +1,8 @@
-<template>
-  <v-container fill-height fluid class="login-bg">
+<template v-slot:default="dialog">
+  <v-card>
     <v-row align="center" justify="center">
       <v-col align="center">
-        <h1 class="title">로그인</h1>
+        <v-toolbar color="#206844" dark>회원가입</v-toolbar>
         <form @submit.prevent="submit">
           <div
             class="form-group"
@@ -12,7 +12,7 @@
               type="email"
               v-model.trim="$v.email.$model"
               solo
-              placeholder="email을 입력해주세요."
+              placeholder="email를 입력해주세요."
             ></v-text-field>
           </div>
           <div class="error" v-if="!$v.email.required">
@@ -39,22 +39,49 @@
             비밀번호는 적어도
             {{ $v.password.$params.minLength.min }}글자 이상이어야합니다.
           </div>
+          <div
+            class="form-group"
+            :class="{ 'form-group--error': $v.repeatPassword.$error }"
+          >
+            <v-text-field
+              type="password"
+              v-model.trim="$v.repeatPassword.$model"
+              solo
+              placeholder="비밀번호를 다시 한 번 입력해주세요."
+            ></v-text-field>
+          </div>
+          <div class="error" v-if="!$v.repeatPassword.sameAsPassword">
+            비밀번호는 동일해야합니다.
+          </div>
+          <div
+            class="form-group"
+            :class="{ 'form-group--error': $v.nickname.$error }"
+          >
+            <v-text-field
+              type="name"
+              v-model.trim="$v.nickname.$model"
+              solo
+              placeholder="닉네임을 입력해주세요."
+            ></v-text-field>
+          </div>
+          <div class="error" v-if="!$v.nickname.required">
+            별명을 입력해주세요!
+          </div>
+          <div class="error" v-if="!$v.nickname.minLength">
+            별명은 적어도 {{ $v.nickname.$params.minLength.min }} 글자
+            이상이어야 합니다.
+          </div>
           <v-btn
             width="400"
             height="48"
             color="#FFFFFF"
             type="submit"
             :disabled="submitStatus === 'PENDING'"
-            class="login-btn"
-            >로그인</v-btn
-          >
-          <v-btn
-            width="400"
-            height="48"
-            color="#FFFFFF"
             class="signup-btn"
-            @click="goSignup"
             >회원가입</v-btn
+          >
+          <v-btn width="400" height="48" color="#FFFFFF" class="signup-btn"
+            >로그인</v-btn
           >
           <p class="typo__p" v-if="submitStatus === 'OK'">
             Thanks for your submission!
@@ -63,39 +90,28 @@
             모든 항목을 입력해주세요.
           </p>
           <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-          <v-btn width="400" height="48">
-            <!-- <GoogleLogin :params="params" b :onSzuccess="onSuccess"> -->
-            <GoogleLogin>
-              <img
-                alt="googleLogin"
-                src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
-              />
-              <span class="google-login-text">Google 계정으로 계속하기</span>
-            </GoogleLogin>
-          </v-btn>
         </form>
       </v-col>
     </v-row>
-  </v-container>
+  </v-card>
 </template>
 
 <script>
 import axios from "axios";
-import GoogleLogin from "vue-google-login";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 
 export default {
-  name: "Login",
+  name: "SignupModal",
   data() {
     return {
       email: "",
       password: "",
-      params: {
-        client_id: "xxxxxx",
-      },
+      repeatPassword: "",
+      nickname: "",
+      submitStatus: null,
     };
   },
   validations: {
@@ -107,31 +123,28 @@ export default {
       required,
       minLength: minLength(6),
     },
-  },
-  components: {
-    GoogleLogin,
+    repeatPassword: {
+      sameAsPassword: sameAs("password"),
+    },
+    nickname: {
+      required,
+      minLength: minLength(4),
+    },
   },
   methods: {
-    login() {
+    signup() {
       axios
-        .post(`http://j4b206.p.ssafy.io/api/account/login/`, {
+        .post(`http://j4b206.p.ssafy.io/api/account/signup`, {
           email: this.email,
+          nickname: this.nickname,
           password: this.password,
         })
         .then((res) => {
-          var data = JSON.parse(res.data.data);
-          console.log(data);
-          localStorage.setItem("jwt", data.token);
-          localStorage.setItem("nickname", data.user.nickname);
-          localStorage.setItem("email", this.email);
-
-          this.$emit("login");
-          this.$router.push({ name: "Home" });
-          alert("정상적으로 로그인 되었습니다.");
+          console.log(res);
+          this.$router.push({ name: "Login" });
         })
         .catch((err) => {
           console.log(err);
-          alert("email과 비밀번호를 확인해주세요.");
         });
     },
     submit() {
@@ -140,22 +153,19 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = "ERROR";
       } else {
+        // do your submit logic here
         this.submitStatus = "PENDING";
         setTimeout(() => {
           this.submitStatus = "OK";
-          this.login();
+          this.signup();
         }, 500);
       }
-    },
-    goSignup() {
-      this.$router.push("/signup");
     },
   },
 };
 </script>
-
 <style scoped>
-.login-bg {
+.signup-bg {
   background-color: #d9d9d9;
   opacity: 0.8;
   max-width: 100%;
@@ -190,17 +200,5 @@ export default {
 .form-group--error + .error {
   display: block;
   color: #fb3232d2;
-}
-
-.google-login-button {
-  width: 400px;
-  height: 100px;
-  padding: 10px;
-  margin: 1rem;
-}
-
-.google-login-text {
-  vertical-align: middle;
-  margin: 0 10px;
 }
 </style>

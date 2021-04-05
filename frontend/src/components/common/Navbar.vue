@@ -6,18 +6,16 @@
           <img src="@/assets/images/logo.png" style="height: 60px" />
         </div>
         <div class="myinfo-container">
-          <div class="hello-user-container">
-            <div class="hello-user">박성준님 환영합니다.</div>
+          <div v-if="!nickname">
+            <button @click="login"><h5>로그인해주세요.</h5></button>
+          </div>
+          <div v-else>
+            <div class="hello-user-container">
+              <div class="hello-user">{{ nickname }}님 환영합니다.</div>
+            </div>
           </div>
           <div class="profile-container">
-            <v-avatar
-              class="my-profile"
-              color="green"
-              size="50px"
-              @click="toMyInfo"
-            >
-              <v-icon dark size="48px"> mdi-account-circle </v-icon>
-            </v-avatar>
+            <Member></Member>
           </div>
         </div>
       </div>
@@ -61,6 +59,7 @@
 </template>
 
 <script>
+import Member from "./Member.vue";
 export default {
   name: "App",
   data() {
@@ -73,7 +72,11 @@ export default {
         { title: "장터", path: "/market" },
         { title: "내 서재", path: "/mylibrary" },
       ],
+      nickname: "",
     };
+  },
+  components: {
+    Member,
   },
   methods: {
     toHome() {
@@ -91,6 +94,15 @@ export default {
         location.reload();
       }
     },
+    getNickname() {
+      this.nickname = localStorage.getItem("nickname");
+    },
+    login() {
+      this.$router.push("/login");
+    },
+  },
+  created() {
+    this.getNickname();
   },
 };
 </script>
@@ -140,7 +152,7 @@ export default {
 }
 .hello-user {
   font-family: "Nanum Gothic", sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   width: 250px;
   /* border: 3px solid blue; */
 }
