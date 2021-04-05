@@ -2,8 +2,8 @@
   <div class="container">
     <div class="c-header">
       <h3>코멘트</h3>
-      <div class="btn-box" @click="$emit('open-modal')">
-        <Button :title="title" />
+      <div class="btn-box" @open-modal="$emit('open-modal')">
+        <Button :title="title" @open-modal="$emit('open-modal')" />
       </div>
     </div>
     <!-- 나중에 아래부분 backDummy로 바꾸기 -->
@@ -91,8 +91,5 @@ ul {
 }
 .item {
   display: block;
-}
-.btn-box {
-  background-color: red;
 }
 </style>

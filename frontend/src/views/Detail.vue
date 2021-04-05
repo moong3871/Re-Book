@@ -2,7 +2,12 @@
   <div class="container">
     <!-- <a href="http://localhost:8081/oauth2/authorization/google">Google Login</a> -->
     <Cover :book="book" />
-    <Info :dummy="dummy" :book="book" @changeStatus="changeStatus" />
+    <Info
+      :dummy="dummy"
+      :book="book"
+      @changeStatus="changeStatus"
+      @openCommentModal="openCommentModal"
+    />
     <hr />
     <Comment
       :dummy="dummy"
@@ -108,15 +113,14 @@ export default {
     };
   },
   methods: {
-    changeStatus(status) {
-      var ISBN = this.$route.params.book.isbn;
-
-      console.log("status================");
-      console.log(status);
+    changeStatus: function (status) {
+      // var ISBN = this.$route.params.book.isbn;
+      const email = localStorage.getItem("email");
       axios
-        .put(`http://j4b206.p.ssafy.io/api/book/${ISBN}`, {
+        .put(`http://j4b206.p.ssafy.io/api/book/${email}`, {
           userToken: localStorage.getItem("jwt"),
-          status: this.current,
+          status: status,
+          book: this.book,
         })
         .then(() => {
           console.log("성공");
@@ -124,6 +128,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    openCommentModal() {
+      this.isModal = true;
     },
   },
   created() {

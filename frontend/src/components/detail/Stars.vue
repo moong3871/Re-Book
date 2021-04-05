@@ -16,6 +16,7 @@ export default {
   methods: {
     setRating: function (rating) {
       this.rating = rating;
+      this.$emit("openCommentModal");
     },
   },
 };
