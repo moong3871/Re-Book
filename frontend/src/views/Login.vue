@@ -139,6 +139,7 @@ export default {
   components: {
     // GoogleLogin,
   },
+
   methods: {
     login() {
       axios
