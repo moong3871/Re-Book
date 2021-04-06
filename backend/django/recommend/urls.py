@@ -13,6 +13,6 @@ router = DefaultRouter(trailing_slash=False)
 
 
 urlpatterns = [
-    path('<int:user_id>', views.recommend, name='recommend'),
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    path('<int:user_id>/', views.recommend, name='recommend'),
 ]
