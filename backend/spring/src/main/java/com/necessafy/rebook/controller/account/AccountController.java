@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Optional;
 //@CrossOrigin(origins = { "http://localhost:3000" })
 
+@CrossOrigin(origins = { "http://localhost:8080", "https://j4b206.p.ssafy.io" })
 @RestController
 @RequestMapping("/account")
 public class AccountController {
