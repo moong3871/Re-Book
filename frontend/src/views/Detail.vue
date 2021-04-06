@@ -196,7 +196,8 @@ export default {
         userToken: localStorage.getItem("jwt"),
       })
       .then((res) => {
-        console.log(`=================책detail응답 ${res.data.object}`);
+        console.log(`=================책detail응답`);
+        console.log(res.data.object);
         this.detailBookInfo = res.data.object;
       })
       .catch((err) => {
