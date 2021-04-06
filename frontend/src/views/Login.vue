@@ -114,8 +114,8 @@ export default {
   methods: {
     login() {
       axios
-        // .post(`http://j4b206.p.ssafy.io/api/account/login/`, {
-        .post(`http://localhost:8080/api/account/login/`, {
+        .post(`http://j4b206.p.ssafy.io/api/account/login/`, {
+          // .post(`http://localhost:8080/api/account/login/`, {
           email: this.email,
           password: this.password,
         })

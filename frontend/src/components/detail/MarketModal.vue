@@ -121,8 +121,8 @@ export default {
     onSubmit: function () {
       console.log(this.form);
       axios
-        // .post(`http://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
-        .post(`http://localhost:8080/api/yangsangchu`, this.form, {
+        .post(`http://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
+          // .post(`http://localhost:8080/api/yangsangchu`, this.form, {
           headers: {
             Authorization: `jwt ${localStorage.getItem("jwt")}`,
           },
