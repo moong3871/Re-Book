@@ -29,7 +29,7 @@
               type="password"
               v-model.trim="$v.password.$model"
               solo
-              placeholder="비밀번호를 입력해주세요."
+              placeholder="기존 비밀번호를 입력해주세요."
             ></v-text-field>
           </div>
           <div class="error" v-if="!$v.password.required">
@@ -38,6 +38,24 @@
           <div class="error" v-if="!$v.password.minLength">
             비밀번호는 적어도
             {{ $v.password.$params.minLength.min }}글자 이상이어야합니다.
+          </div>
+          <div
+            class="form-group"
+            :class="{ 'form-group--error': $v.newPassword.$error }"
+          >
+            <v-text-field
+              type="password"
+              v-model.trim="$v.newPassword.$model"
+              solo
+              placeholder="새로운 비밀번호를 입력해주세요."
+            ></v-text-field>
+          </div>
+          <div class="error" v-if="!$v.newPassword.required">
+            비밀번호를 입력해주세요.
+          </div>
+          <div class="error" v-if="!$v.newPassword.minLength">
+            비밀번호는 적어도
+            {{ $v.newPassword.$params.minLength.min }}글자 이상이어야합니다.
           </div>
           <div
             class="form-group"
@@ -105,8 +123,9 @@ export default {
   data() {
     return {
       email: "",
-      password: "",
+      newPassword: "",
       repeatPassword: "",
+      password: "",
       nickname: "",
       submitStatus: null,
     };
@@ -116,12 +135,16 @@ export default {
       required,
       email,
     },
-    password: {
+    newPassword: {
       required,
       minLength: minLength(6),
     },
     repeatPassword: {
-      sameAsPassword: sameAs("password"),
+      sameAsPassword: sameAs("newPassword"),
+    },
+    password: {
+      required,
+      minLength: minLength(6),
     },
     nickname: {
       required,
@@ -130,15 +153,22 @@ export default {
   },
   methods: {
     signup() {
+      const config = this.setToken();
+      const info = {
+        email: this.email,
+        newPassword: this.newPassword,
+        nickname: this.nickname,
+        password: this.password,
+      };
       axios
-        .put(`http://j4b206.p.ssafy.io/api/account/update/`, {
-          email: this.email,
-          password: this.password,
-          nickname: this.nickname,
-        })
+        .put(`http://j4b206.p.ssafy.io/api/account/update/`, info, config)
         .then((res) => {
-          console.log(res);
-          this.$router.push({ name: "Login" });
+          var data = JSON.parse(res.data.data);
+          console.log(data);
+          localStorage.setItem("nickname", data.nickname);
+          this.$router.push({ name: "Home" });
+          location.reload();
+          this;
         })
         .catch((err) => {
           console.log(err);
@@ -150,7 +180,6 @@ export default {
       if (this.$v.$invalid) {
         this.submitStatus = "ERROR";
       } else {
-        // do your submit logic here
         this.submitStatus = "PENDING";
         setTimeout(() => {
           this.submitStatus = "OK";
@@ -158,6 +187,31 @@ export default {
         }, 500);
       }
     },
+    jwtDecode(t) {
+      let token = {};
+      token.raw = t;
+      token.header = JSON.parse(window.atob(t.split(".")[0]));
+      token.payload = JSON.parse(window.atob(t.split(".")[1]));
+      return token;
+    },
+    getEmail() {
+      var token = localStorage.getItem("jwt");
+      var decoded = this.jwtDecode(token);
+      this.email = decoded.payload.email;
+    },
+    setToken() {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        headers: {
+          Authorization: token,
+        },
+      };
+      console.log(config);
+      return config;
+    },
+  },
+  created() {
+    this.getEmail();
   },
 };
 </script>
