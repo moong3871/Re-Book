@@ -26,6 +26,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/comment")
+@CrossOrigin(origins = { "http://localhost:8080", "https://j4b206.p.ssafy.io" })
 public class BookCommentController {
 
     @Autowired
