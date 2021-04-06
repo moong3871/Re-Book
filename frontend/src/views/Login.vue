@@ -63,16 +63,6 @@
             모든 항목을 입력해주세요.
           </p>
           <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-          <v-btn width="400" height="48">
-            <!-- <GoogleLogin :params="params" b :onSzuccess="onSuccess"> -->
-            <GoogleLogin>
-              <img
-                alt="googleLogin"
-                src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
-              />
-              <span class="google-login-text">Google 계정으로 계속하기</span>
-            </GoogleLogin>
-          </v-btn>
         </form>
       </v-col>
     </v-row>
@@ -81,7 +71,6 @@
 
 <script>
 import axios from "axios";
-import GoogleLogin from "vue-google-login";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
@@ -107,9 +96,6 @@ export default {
       required,
       minLength: minLength(6),
     },
-  },
-  components: {
-    GoogleLogin,
   },
   methods: {
     login() {
@@ -191,17 +177,5 @@ export default {
 .form-group--error + .error {
   display: block;
   color: #fb3232d2;
-}
-
-.google-login-button {
-  width: 400px;
-  height: 100px;
-  padding: 10px;
-  margin: 1rem;
-}
-
-.google-login-text {
-  vertical-align: middle;
-  margin: 0 10px;
 }
 </style>
