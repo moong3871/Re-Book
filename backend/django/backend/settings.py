@@ -25,7 +25,7 @@ SECRET_KEY = "$yg2c-8-8cszt%3k$b=3wwc^j1g%gn)wj%yldz)6jd(ez80u-s"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['web', '127.0.0.1']
 
 
 # Application definition
@@ -81,27 +81,27 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": 'rebookdb',
-#         'USER': 'admin',
-#         'PASSWORD': 'ssafyb206!',
-#         'HOST': 'rebookdb.cr7qoevh9p3x.ap-northeast-2.rds.amazonaws.com',
-#         'PORT': '3306',
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": 'rebookdb',
-        'USER': 'root',
-        'PASSWORD': 'ssafy107',
-        'HOST': '127.0.0.1',
+        'USER': 'admin',
+        'PASSWORD': 'ssafyb206!',
+        'HOST': 'rebookdb.cr7qoevh9p3x.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": 'rebookdb',
+#         'USER': 'root',
+#         'PASSWORD': 'ssafy107',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -135,9 +135,9 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-CORS_ORIGIN_ALLOW_ALL = True # 외부 요청 허용
+CORS_ORIGIN_ALLOW_ALL = True  # 외부 요청 허용
 
-CORS_ALLOW_CREDENTIALS = True # 비밀 접근도 허용
+CORS_ALLOW_CREDENTIALS = True  # 비밀 접근도 허용
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",

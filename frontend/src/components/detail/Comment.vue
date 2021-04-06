@@ -6,39 +6,27 @@
         <Button :title="title" @open-modal="$emit('open-modal')" />
       </div>
     </div>
-    <!-- 나중에 아래부분 backDummy로 바꾸기 -->
-    <div v-if="dummy.comments == null" class="item">
+    <!-- <div v-if="detailBookInfo.comments == null" class="item">
       아직 코멘트가 없습니다.
     </div>
     <div v-else>
       <ul
         class="item"
-        v-for="(comment, index) in dummy.comments"
+        v-for="(comment, index) in detailBookInfo.comments"
         v-bind:key="index"
       >
-        <!-- <ul
-        class="item"
-        v-for="(comment, index) in backDummy.comments"
-        v-bind:key="index"
-      > -->
         <CommentItem :comment="comment" />
       </ul>
-    </div>
-    <!-- 나중에 아래부분 backDummy로 바꾸기 -->
-    <div v-if="dummy.comments == null" class="item">
+    </div> -->
+    <div v-if="detailBookInfo.comments == null" class="item">
       아직 코멘트가 없습니다.
     </div>
     <div v-else>
       <ul
         class="item"
-        v-for="(comment, index) in dummy.comments"
+        v-for="(comment, index) in detailBookInfo.comments"
         v-bind:key="index"
       >
-        <!-- <ul
-        class="item"
-        v-for="(comment, index) in backDummy.comments"
-        v-bind:key="index"
-      > -->
         <CommentItem :comment="comment" />
       </ul>
     </div>
@@ -55,8 +43,7 @@ export default {
     CommentItem,
   },
   props: {
-    dummy: Object,
-    backDummy: Object,
+    detailBookInfo: Object,
   },
   data() {
     return {

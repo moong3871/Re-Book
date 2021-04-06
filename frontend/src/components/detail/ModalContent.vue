@@ -59,7 +59,7 @@ export default {
           })
           .then(() => {
             console.log("성공");
-            localStorage.setitem("rating", 0);
+            // localStorage.setitem("rating", 0);
           })
           .catch((err) => {
             console.log(err);

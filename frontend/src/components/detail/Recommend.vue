@@ -21,7 +21,7 @@ import "vueperslides/dist/vueperslides.css";
 export default {
   name: "Recommend",
   props: {
-    dummy: Object,
+    detailBookInfo: Object,
   },
   components: { VueperSlides, VueperSlide },
   data() {

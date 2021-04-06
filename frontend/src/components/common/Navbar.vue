@@ -14,10 +14,10 @@
           <div v-else>
             <div class="hello-user-container">
               <div class="hello-user">{{ nickname }}님 환영합니다.</div>
+              <div class="profile-container">
+                <Member></Member>
+              </div>
             </div>
-          </div>
-          <div class="profile-container">
-            <Member></Member>
           </div>
         </div>
       </div>
@@ -150,12 +150,14 @@ export default {
   margin-left: auto;
   /* margin-left: 75vw; */
   height: 100%;
-  width: 250px;
+  width: 300px;
 }
 .hello-user {
+  text-align: right;
   font-family: "Nanum Gothic", sans-serif;
   font-size: 20px;
   width: 250px;
+  padding-right: 10px;
   /* border: 3px solid blue; */
 }
 .navbar-container {

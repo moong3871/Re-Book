@@ -143,6 +143,7 @@ export default {
     login() {
       axios
         .post(`http://j4b206.p.ssafy.io/api/account/login/`, {
+          // .post(`http://localhost:8080/api/account/login/`, {
           email: this.email,
           password: this.password,
         })
@@ -282,17 +283,5 @@ export default {
 .form-group--error + .error {
   display: block;
   color: #fb3232d2;
-}
-
-.google-login-button {
-  width: 400px;
-  height: 100px;
-  padding: 10px;
-  margin: 1rem;
-}
-
-.google-login-text {
-  vertical-align: middle;
-  margin: 0 10px;
 }
 </style>
