@@ -99,7 +99,11 @@
             <p class="typo__p" v-if="submitStatus === 'OK'">
               Thanks for your submission!
             </p>
-            <p class="typo__p" v-if="submitStatus === 'ERROR'">
+            <p
+              class="typo__p"
+              v-if="submitStatus === 'ERROR'"
+              style="color: rgb(155, 185, 155)"
+            >
               모든 항목을 입력해주세요.
             </p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
@@ -271,6 +275,9 @@ export default {
   min-height: 20%;
   display: block;
   margin: 1rem;
+}
+.v-btn:hover {
+  background-color: rgb(155, 185, 155) !important;
 }
 
 .form-group__message,
