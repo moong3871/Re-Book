@@ -109,14 +109,7 @@
 
 <script>
 import axios from "axios";
-<<<<<<< HEAD
 // import GoogleLogin from "vue-google-login";
-=======
-<<<<<<< HEAD
-=======
-// import GoogleLogin from "vue-google-login";
->>>>>>> daf988c (로그인/회원가입 디테일 수정)
->>>>>>> 594db11 (.)
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
@@ -143,18 +136,10 @@ export default {
       minLength: minLength(6),
     },
   },
-<<<<<<< HEAD
   components: {
     // GoogleLogin,
   },
-=======
-<<<<<<< HEAD
-=======
-  components: {
-    // GoogleLogin,
-  },
->>>>>>> daf988c (로그인/회원가입 디테일 수정)
->>>>>>> 594db11 (.)
+
   methods: {
     login() {
       axios
