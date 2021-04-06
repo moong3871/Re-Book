@@ -81,12 +81,15 @@
             <p class="typo__p" v-if="submitStatus === 'OK'">
               Thanks for your submission!
             </p>
-            <p class="typo__p" v-if="submitStatus === 'ERROR'">
+            <p
+              class="typo__p"
+              v-if="submitStatus === 'ERROR'"
+              style="color: rgb(155, 185, 155)"
+            >
               모든 항목을 입력해주세요.
             </p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-            <v-btn width="400" height="48">
-              <!-- <GoogleLogin :params="params" b :onSzuccess="onSuccess"> -->
+            <!-- <v-btn width="400" height="48">
               <GoogleLogin>
                 <img
                   alt="googleLogin"
@@ -96,7 +99,7 @@
                   >Google 계정으로 계속하기</span
                 >
               </GoogleLogin>
-            </v-btn>
+            </v-btn> -->
           </form>
         </div>
       </v-col>
@@ -106,7 +109,7 @@
 
 <script>
 import axios from "axios";
-import GoogleLogin from "vue-google-login";
+// import GoogleLogin from "vue-google-login";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
@@ -134,7 +137,7 @@ export default {
     },
   },
   components: {
-    GoogleLogin,
+    // GoogleLogin,
   },
   methods: {
     login() {
@@ -261,6 +264,9 @@ export default {
   max-width: 65%;
   min-width: 65%;
   min-height: 20%;
+}
+.v-btn:hover {
+  background-color: rgb(155, 185, 155) !important;
 }
 
 .form-group__message,
