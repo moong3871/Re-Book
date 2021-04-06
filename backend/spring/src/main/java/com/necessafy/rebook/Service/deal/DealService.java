@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,6 +53,27 @@ public class DealService {
         );
         System.out.println("2222222222");
         return deal;
+    }
+
+    //해당 유저 정보에 해당하는 거래 정보 반환 (판매쪽이던, 구매쪽이던)
+    public List<Deal> findBuyerAndSellerByUserEmail(String email){
+        List<Deal> result = new ArrayList<>();
+        List<Deal> curDealListAsBuyer = new ArrayList<>();
+        List<Deal> curDealListAsSeller = new ArrayList<>();
+
+//        해당 이메일에 해당하는 딜러 리스트를 찾는다.
+//        참고 : 같은 아이디라도 다른 거래라면 다른 dealer가 된다 ( 각각 승인 정보가 다르므로 다른 데이터로 처리하였다 )
+//        dealDao.findBy
+        curDealListAsBuyer = dealDao.findDealByEmailAsBuyer(email);
+        System.out.println(dealDao.findDealByEmailAsBuyer(email).size() + "길이를 찾아왔습니다!!!!!");
+
+        curDealListAsSeller = dealDao.findDealByEmailAsSeller(email);
+        System.out.println(dealDao.findDealByEmailAsSeller(email).size());
+
+        result.addAll(curDealListAsBuyer);
+        result.addAll(curDealListAsSeller);
+        System.out.println(result.size());
+        return result;
     }
 
 

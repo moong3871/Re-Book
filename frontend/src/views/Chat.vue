@@ -1,45 +1,4 @@
 <template>
-  <!-- <div class="py-2">
-    <h4 class="text-center mb-3">chat의 Message</h4>
-    <div class="messaging">
-      <div class="inbox_msg">
-        <div class="msg_history">
-          <div v-for="(message, i) in messages" :key="i" class="incoming_msg">
-            <div v-if="message.message == 'hello'">
-              <div class="incoming_msg_img">
-                <img class="ml-3" src="https://www.flaticon.com/svg/static/icons/svg/3135/3135789.svg" alt="sunil" />
-              </div>
-              <div class="received_msg mb-4">
-                <div class="received_withd_msg ml-3">
-                  <p>{{ message.message }}</p>
-                  <span class="time_date"> {{ message.createdAt }}</span>
-                </div>
-              </div>
-            </div>
-            <div v-else>
-              <div class="incoming_msg_img">
-                <img class="ml-3" src="https://www.flaticon.com/packs/food-delivery-187" alt="sunil" />
-              </div>
-              <div class="received_msg mb-4">
-                <div class="received_withd_msg ml-3">
-                  <p>{{ message.message }}</p>
-                  <span class="time_date"> {{ message.createdAt }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="type_msg">
-          <div class="input_msg_write">
-            <input @keyup.enter="saveMessage" v-model="message" type="text" class="write_msg px-3" placeholder="메세지를 입력해주세요." />
-            <button @keyup.enter="saveMessage" class="msg_send_btn mr-4" type="button">
-              <i aria-hidden="true">✏️</i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
   <div class="container">
     <h3 class="text-center">Messaging</h3>
     <div class="messaging">
@@ -100,7 +59,7 @@
         <div class="mesgs">
           <div class="msg_history">
             <div v-for="(message, i) in messages" :key="i" class="incoming_msg">
-              <div class="incoming_msg" v-if="message.message == 'hello'">
+              <div class="incoming_msg" v-if="message.senduser === 'sumsumsum'">
                 <div class="incoming_msg_img">
                   <img
                     class="ml-3"
@@ -161,13 +120,15 @@ export default {
       message: null,
       messages: [],
       createdAt: null,
+      user: localStorage.getItem("nickname"),
+      chatId: 0,
     };
   },
   methods: {
     saveMessage(sendnick) {
       //save to message
-      db.collection("chat").add({
-        // senduser: sendnick,
+      db.collection(this.chatId).add({
+        senduser: this.user,
         message: this.message,
         createdAt: new Date().toLocaleString(),
       });
@@ -179,7 +140,7 @@ export default {
       }, 100);
     },
     fetchMessages() {
-      db.collection("chat")
+      db.collection(this.chatId)
         .orderBy("createdAt")
         .onSnapshot((querySnapshot) => {
           let allMessages = [];
@@ -191,6 +152,7 @@ export default {
     },
   },
   created() {
+    this.chatId = "0";
     this.fetchMessages();
   },
 };

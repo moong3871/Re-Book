@@ -78,8 +78,20 @@ public class DealController {
 //        }
         System.out.println("hello");
         Deal savedDeal = dealService.createDeal(request.getBuyer(), request.getOldBook());
-        return makeResponse("200", convertObjectToJson(savedDeal), "중고책 등록에 성공하였습니다", HttpStatus.OK);
+        return makeResponse("200", convertObjectToJson(savedDeal), "거래가 시작되었습니다.", HttpStatus.OK);
     }
+
+    // 현재 로그인한 사용자와 거래가 진행중인 채팅방의 목록을 반환한다.
+    @GetMapping("/deallist")
+    @ApiOperation(value = "현재 거래중인 채팅방에 대한 정보를 반환단다.", notes = "클릭하면 chatId를 반환한다")
+    public Object selectDealList(){
+        //TODO:현재 사용자의 토큰 값!
+        String dummyEmail = "sbs@ssafy.com";
+        return dealService.findBuyerAndSellerByUserEmail(dummyEmail);
+    }
+    
+
+    // 채팅방을 선택하면, chatId에 의해서 채팅방 정보를 병경해줄수 있다.
     
     // 이제 서로 확인작업을 통해서 complete 값을 갱신시켜주면 거래 완료ㄷ
 
