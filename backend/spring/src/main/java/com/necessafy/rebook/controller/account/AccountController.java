@@ -167,7 +167,10 @@ public class AccountController {
 
         Optional<UserRebook> curReUser=userRebookDao.findById(email);
 
+        System.out.println(curReUser);
         List<BookComment> curComment=bookCommentDao.findByUserRebook(curReUser.get());
+        System.out.println(curComment);
+
 
         return makeResponse("200",convertObjectToJson(curComment),"success",HttpStatus.OK);
     }
