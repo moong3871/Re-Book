@@ -7,12 +7,12 @@ from recommend import models
 
 class Command(BaseCommand):
     help = "initialize database"
-    DATA_DIR = Path(settings.BASE_DIR).parent.parent / "data"
-    DATA_FILE = str(DATA_DIR / "dump.pkl")
+    DATA_DIR = Path(settings.BASE_DIR) / "data"
+    DATA_FILE = str(DATA_DIR / "dump.json")
 
     def _load_dataframes(self):
         try:
-            data = pd.read_pickle(Command.DATA_FILE)
+            data = pd.read_json(Command.DATA_FILE)
         except:
             print(f"[-] Reading {Command.DATA_FILE} failed")
             exit(1)
@@ -25,24 +25,27 @@ class Command(BaseCommand):
         print("[*] Loading data...")
         dataframes = self._load_dataframes()
 
-        print("[*] Initializing stores...")
-        models.Store.objects.all().delete()
-        stores = dataframes["stores"]
-        stores_bulk = [
-            models.Store(
-                id=store.id,
-                store_name=store.store_name,
-                branch=store.branch,
-                area=store.area,
-                tel=store.tel,
-                address=store.address,
-                latitude=store.latitude,
-                longitude=store.longitude,
-                category=store.category,
+        print("[*] Initializing books...")
+        models.Book.objects.all().delete()
+        books = dataframes["books"]
+        books_bulk = [
+            models.Book(
+                isbn=book.isbn,
+                title=book.title,
+                book_image_path=book.book_image_path,
+                book_summary=book.book_summary,
+                evaluation=book.evaluation,
+                price=book.price,
+                publisher=book.publisher,
+                writer=book.writer,
+                country=book.country,
+                maincategory=book.maincategory,
+                subcategory=book.subcategory,
+                publihsed_date=book.publihsed_date
             )
-            for store in stores.itertuples()
+            for book in books.itertuples()
         ]
-        models.Store.objects.bulk_create(stores_bulk)
+        models.Book.objects.bulk_create(books_bulk)
 
         print("[+] Done")
 
