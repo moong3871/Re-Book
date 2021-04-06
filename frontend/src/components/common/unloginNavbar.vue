@@ -1,5 +1,5 @@
 <template>
-  <nav class="local-nav">
+  <nav class="local-nav" style="position: relative">
     <div class="local-nav-links">
       <img src="@/assets/images/logo.png" style="height: 110px" />
       <div class="btn-login" style="">

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar v-if="isNavbar" />
-    <unloginNavbar v-else />
+    <!-- <unloginNavbar v-else /> -->
     <router-view />
   </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 import Navbar from "@/components/common/Navbar.vue";
 import constants from "./lib/constants";
-import UnloginNavbar from "@/components/common/unloginNavbar.vue";
+// import UnloginNavbar from "@/components/common/unloginNavbar.vue";
 
 export default {
   name: "App",
@@ -21,7 +21,7 @@ export default {
   },
   components: {
     Navbar,
-    UnloginNavbar,
+    // UnloginNavbar,
   },
 
   created() {

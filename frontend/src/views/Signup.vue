@@ -1,94 +1,110 @@
 <template>
   <v-container fill-height fluid class="signup-bg">
-    <v-row align="center" justify="center">
+    <v-row align="center" justify="center" class="login-container">
+      <div class="login-header">
+        <img
+          src="@/assets/images/REBOOK-removebg.png"
+          class="login-logo"
+          @click="$router.push('/')"
+        />
+        <v-btn
+          depressed
+          class="login-header-button"
+          height="50"
+          @click="$router.push('/login')"
+          color="blue-grey"
+        >
+          LOGIN
+        </v-btn>
+      </div>
       <v-col align="center">
-        <h1 class="title">회원가입</h1>
-        <form @submit.prevent="submit">
-          <div
-            class="form-group"
-            :class="{ 'form-group--error': $v.email.$error }"
-          >
-            <v-text-field
-              type="email"
-              v-model.trim="$v.email.$model"
-              solo
-              placeholder="email를 입력해주세요."
-            ></v-text-field>
-          </div>
-          <div class="error" v-if="!$v.email.required">
-            email을 입력해주세요.
-          </div>
-          <div class="error" v-if="!$v.email.email">
-            email을 올바르게 입력해주세요.
-          </div>
-          <div
-            class="form-group"
-            :class="{ 'form-group--error': $v.password.$error }"
-          >
-            <v-text-field
-              type="password"
-              v-model.trim="$v.password.$model"
-              solo
-              placeholder="비밀번호를 입력해주세요."
-            ></v-text-field>
-          </div>
-          <div class="error" v-if="!$v.password.required">
-            비밀번호를 입력해주세요.
-          </div>
-          <div class="error" v-if="!$v.password.minLength">
-            비밀번호는 적어도
-            {{ $v.password.$params.minLength.min }}글자 이상이어야합니다.
-          </div>
-          <div
-            class="form-group"
-            :class="{ 'form-group--error': $v.repeatPassword.$error }"
-          >
-            <v-text-field
-              type="password"
-              v-model.trim="$v.repeatPassword.$model"
-              solo
-              placeholder="비밀번호를 다시 한 번 입력해주세요."
-            ></v-text-field>
-          </div>
-          <div class="error" v-if="!$v.repeatPassword.sameAsPassword">
-            비밀번호는 동일해야합니다.
-          </div>
-          <div
-            class="form-group"
-            :class="{ 'form-group--error': $v.nickname.$error }"
-          >
-            <v-text-field
-              type="name"
-              v-model.trim="$v.nickname.$model"
-              solo
-              placeholder="닉네임을 입력해주세요."
-            ></v-text-field>
-          </div>
-          <div class="error" v-if="!$v.nickname.required">
-            별명을 입력해주세요!
-          </div>
-          <div class="error" v-if="!$v.nickname.minLength">
-            별명은 적어도 {{ $v.nickname.$params.minLength.min }} 글자
-            이상이어야 합니다.
-          </div>
-          <v-btn
-            width="400"
-            height="48"
-            color="#FFFFFF"
-            type="submit"
-            :disabled="submitStatus === 'PENDING'"
-            class="signup-btn"
-            >회원가입</v-btn
-          >
-          <p class="typo__p" v-if="submitStatus === 'OK'">
-            Thanks for your submission!
-          </p>
-          <p class="typo__p" v-if="submitStatus === 'ERROR'">
-            모든 항목을 입력해주세요.
-          </p>
-          <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-        </form>
-        <!-- <v-btn width="400" height="48" color="#FFFFFF">
+        <div class="login-box">
+          <h1 class="title">회원가입</h1>
+          <form @submit.prevent="submit">
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.email.$error }"
+            >
+              <v-text-field
+                type="email"
+                v-model.trim="$v.email.$model"
+                solo
+                placeholder="email를 입력해주세요."
+              ></v-text-field>
+            </div>
+            <div class="error" v-if="!$v.email.required">
+              email을 입력해주세요.
+            </div>
+            <div class="error" v-if="!$v.email.email">
+              email을 올바르게 입력해주세요.
+            </div>
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.password.$error }"
+            >
+              <v-text-field
+                type="password"
+                v-model.trim="$v.password.$model"
+                solo
+                placeholder="비밀번호를 입력해주세요."
+              ></v-text-field>
+            </div>
+            <div class="error" v-if="!$v.password.required">
+              비밀번호를 입력해주세요.
+            </div>
+            <div class="error" v-if="!$v.password.minLength">
+              비밀번호는 적어도
+              {{ $v.password.$params.minLength.min }}글자 이상이어야합니다.
+            </div>
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.repeatPassword.$error }"
+            >
+              <v-text-field
+                type="password"
+                v-model.trim="$v.repeatPassword.$model"
+                solo
+                placeholder="비밀번호를 다시 한 번 입력해주세요."
+              ></v-text-field>
+            </div>
+            <div class="error" v-if="!$v.repeatPassword.sameAsPassword">
+              비밀번호는 동일해야합니다.
+            </div>
+            <div
+              class="form-group"
+              :class="{ 'form-group--error': $v.nickname.$error }"
+            >
+              <v-text-field
+                type="name"
+                v-model.trim="$v.nickname.$model"
+                solo
+                placeholder="닉네임을 입력해주세요."
+              ></v-text-field>
+            </div>
+            <div class="error" v-if="!$v.nickname.required">
+              별명을 입력해주세요!
+            </div>
+            <div class="error" v-if="!$v.nickname.minLength">
+              별명은 적어도 {{ $v.nickname.$params.minLength.min }} 글자
+              이상이어야 합니다.
+            </div>
+            <v-btn
+              height="48"
+              color="#FFFFFF"
+              type="submit"
+              :disabled="submitStatus === 'PENDING'"
+              class="signup-btn"
+              >회원가입</v-btn
+            >
+            <p class="typo__p" v-if="submitStatus === 'OK'">
+              Thanks for your submission!
+            </p>
+            <p class="typo__p" v-if="submitStatus === 'ERROR'">
+              모든 항목을 입력해주세요.
+            </p>
+            <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
+          </form>
+          <!-- <v-btn width="400" height="48" color="#FFFFFF">
           <GoogleLogin :params="params" b :onSuccess="onSuccess">
             <img
               alt="googleLogin"
@@ -97,6 +113,7 @@
             <span class="google-login-text">Google 계정으로 계속하기</span>
           </GoogleLogin>
         </v-btn> -->
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -171,24 +188,86 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 .signup-bg {
-  background-color: #d9d9d9;
-  opacity: 0.8;
-  max-width: 100%;
-  height: 900px;
+  /* background-image: url("https://miro.medium.com/max/3840/1*Ke9U-3pgDjro0CfeEU5tEw@2x.jpeg"); */
+  background-image: url("https://www.etri.re.kr/webzine/eng/20190726/common/images/sub04_03.jpg");
+  opacity: 1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* width: 100vw; */
+  min-height: 100%;
+  max-height: 100%;
+  min-width: 100%;
+  /* height: 100vh; */
   margin: 0;
+  font-family: "Do Hyeon", sans-serif;
+}
+.login-header {
+  /* position: fixed; */
+  /* top: 0; */
+  min-width: 100%;
+  width: 100%;
+  height: 75px;
+  background-color: rgb(0, 0, 0, 0.5);
+  /* z-index: 3000; */
+}
+.login-logo {
+  height: 75px;
+}
+.login-logo:hover {
+  cursor: pointer;
+  /* background-color: black; */
+}
+.login-header-button {
+  /* height: 50px; */
+  max-height: 50px;
+  width: 90px !important;
+  float: right;
+  margin-right: 20px;
+  background-color: black !important;
+  color: white;
+}
+.login-container {
+  max-width: 100vw;
+  width: 100vw;
+  height: 100%;
+  min-height: 1100px;
+  display: flex;
+  background-color: rgb(0, 0, 0, 0.5);
+}
+.login-box {
+  margin-top: -80px;
+  /* background-color: rgb(61, 44, 8, 0.6); */
+  background-color: rgb(0, 0, 0, 0.85);
+  width: 35%;
+  height: 80%;
+  padding-top: 2%;
+  padding-bottom: 4%;
+  max-height: 800px;
+  border-radius: 30px;
 }
 
 .title {
-  margin: 50px;
+  /* margin: 50px; */
+  margin-bottom: 10%;
+  color: white;
+  font-size: 2.5rem;
+  font-family: "Do Hyeon", sans-serif;
 }
 
 .v-input {
-  width: 400px;
-  margin: 1rem;
+  width: 65%;
+  height: 15%;
+  max-height: 65%;
 }
 
 .v-btn {
+  width: 65%;
+  /* display: block; */
+  margin: 1rem;
+  max-width: 65%;
+  min-height: 20%;
   display: block;
   margin: 1rem;
 }
@@ -206,5 +285,8 @@ export default {
 .form-group--error + .error {
   display: block;
   color: #fb3232d2;
+}
+.signup-btn {
+  font-size: 25px;
 }
 </style>
