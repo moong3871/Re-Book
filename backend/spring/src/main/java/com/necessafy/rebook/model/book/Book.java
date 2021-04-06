@@ -27,8 +27,9 @@ public class Book {
     private int price;
     private String writer;
     private String bookImagePath;
-    private String mainCategory;
+    private String maincategory;
     private String publishDate;
     private int evaluation;
-    private int categoryId;
+    private int categoryid;
+    private String slicedTitle;
 }
