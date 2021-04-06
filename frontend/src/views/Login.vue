@@ -96,10 +96,6 @@
 
 <script>
 import axios from "axios";
-<<<<<<< HEAD
-=======
-
->>>>>>> e1551f5 (.)
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
