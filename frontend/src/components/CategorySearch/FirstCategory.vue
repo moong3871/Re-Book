@@ -127,7 +127,7 @@
         </div>
         <div class="title-box">
           <div class="title">
-            {{ book.title }}
+            {{ book.sliced_title }}
           </div>
         </div>
 
