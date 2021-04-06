@@ -1,6 +1,6 @@
 <template>
   <div class="b-img-box">
-    <img class="b-img" :src="this.book.book_image_path" alt="책 이미지" />
+    <img class="b-img" :src="this.book.book_image_path" alt="책 표지" />
   </div>
 </template>
 

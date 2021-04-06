@@ -43,13 +43,6 @@
         </p>
         <p v-else class="d-content">{{ book.book_summary }}</p>
       </div>
-      <!-- <div class="desc-box">
-        <h3 class="d-title">저자 소개</h3>
-        <div class="d-content">
-          <p>{{ backDummy.writer }}</p>
-          <p>{{ dummy.desc }}</p>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -60,7 +53,6 @@ export default {
   components: { Stars },
   name: "Info",
   props: {
-    dummy: Object,
     book: Object,
   },
   data() {
@@ -96,7 +88,7 @@ export default {
     },
   },
   mounted() {
-    this.current = this.dummy.status;
+    this.current = this.detailBookInfo.status;
   },
 };
 </script>

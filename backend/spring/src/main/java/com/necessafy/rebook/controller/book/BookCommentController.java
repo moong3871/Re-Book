@@ -1,6 +1,5 @@
 package com.necessafy.rebook.controller.book;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.necessafy.rebook.Service.book.CommentService;
 import com.necessafy.rebook.Service.jwt.JwtService;
 import com.necessafy.rebook.dao.account.UserRebookDao;
@@ -9,6 +8,7 @@ import com.necessafy.rebook.dao.book.BookDao;
 import com.necessafy.rebook.model.book.Book;
 import com.necessafy.rebook.model.book.BookComment;
 import com.necessafy.rebook.model.book.CommentRequest;
+import com.necessafy.rebook.model.book.UpdateBookCommentRequest;
 import com.necessafy.rebook.model.user.UserRebook;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -40,12 +40,10 @@ public class BookCommentController {
     @Autowired
     private BookCommentDao bookCommentDao;
 
-    @PutMapping
+    @PostMapping
     @ApiOperation(value="리뷰 등록")
-    public Object create(@ModelAttribute @ApiParam(value="리뷰 등록 시 필요한 정보(평점, 날짜, 내용) " +
-            "이미 등록했던 리뷰면 수정만 가능"
+    public Object create(@ModelAttribute @ApiParam(value="리뷰 등록 시 필요한 정보(평점, 날짜, 내용) "
     ,required = true) CommentRequest commentRequest,HttpServletRequest httpServletRequest){
-
         Integer rating=commentRequest.getRating();
         String review=commentRequest.getReview().trim();
         String userEmail=commentRequest.getUserEmail().trim();
@@ -58,28 +56,49 @@ public class BookCommentController {
         Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
 
         if(curComment.isPresent()) {
-            //현재 있는 정보에 다시 추가해줌
-            curComment.get().setRating(rating);
-            curComment.get().setReview(review);
-            curComment.get().setUserRebook(curReUser.get());
-            curComment.get().setBook(curBook.get());
-            BookComment bookCommentSaved=bookCommentDao.save(curComment.get());
-
-            return makeResponse("200",convertObjectToJson(bookCommentSaved),"review update success", HttpStatus.OK);
-
+            return makeResponse("404",null,"review already exist", HttpStatus.BAD_REQUEST);
         }
+
         ResponseEntity<?>result=commentService.checkBlankWenCreateComment(curReUser,review,rating,curBook);
         if (result!=null){
             return result;
         }
-
-
         BookComment bookComment=commentService.buildComment(rating,review,curReUser.get(),curBook.get());
 
         BookComment savedComment=bookCommentDao.save(bookComment);
 
         return makeResponse("200",convertObjectToJson(savedComment),"success", HttpStatus.OK);
     }
+    @PutMapping
+    @ApiOperation(value="리뷰 수정")
+    public Object update(@Valid @RequestBody @ApiParam(value = "리뷰를 수정합니다.",required = true)
+                                 UpdateBookCommentRequest updateBookCommentRequest, HttpServletRequest httpServletRequest){
+
+        String email=updateBookCommentRequest.getEmail().trim();
+        Integer rating=updateBookCommentRequest.getRating();
+        String review=updateBookCommentRequest.getReview().trim();
+        String isbn=updateBookCommentRequest.getIsbn().trim();
+
+        Optional<UserRebook> curUserRebook=userRebookDao.findById(email);
+        Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
+
+        String jwtEmail=jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
+
+        Optional<BookComment> curBookComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curUserRebook.get());
+
+
+        curBookComment.get().setRating(rating);
+        curBookComment.get().setReview(review);
+        curBookComment.get().setBook(curBook.get());
+        curBookComment.get().setUserRebook(curUserRebook.get());
+        BookComment bookCommentsaved=bookCommentDao.save(curBookComment.get());
+
+        return makeResponse("200",convertObjectToJson(bookCommentsaved),"review update success",HttpStatus.OK);
+
+    }
+
+
+
     @DeleteMapping("/{commendId}")
     @ApiOperation(value="리뷰 삭제")
     public Object delete(@Valid @ApiParam(value=" commendID 값으로 리뷰 삭제 ",required = true)@PathVariable String commendId,String email ,HttpServletRequest httpServletRequest){

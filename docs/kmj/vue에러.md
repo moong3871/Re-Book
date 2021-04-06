@@ -69,6 +69,8 @@
 
 # icon이 안나옴
 
+https://dev.eyegood.co.kr/entry/%EB%94%94%EB%B2%84%EA%B9%85-Uncaught-TypeError-is-not-a-function-%ED%95%B4%EA%B2%B0%EB%B2%95
+
 ![image-20210402015045913](vue%EC%97%90%EB%9F%AC.assets/image-20210402015045913.png)
 
 - 시도 1 (실패)
@@ -171,4 +173,36 @@ https://code-machina.github.io/2019/10/03/Vue-Story-Part-10.html
 ```
 
 해당 요소에만 click이벤트 적용되도록
+
+
+
+# 우편 번호 api
+
+![image-20210406162612043](vue%EC%97%90%EB%9F%AC.assets/image-20210406162612043.png)
+
+- 시도 1
+
+  cdn이 http용이랑 https용이랑 다름. http용으로 바꿨으나 안된다.
+
+- 시도 2
+
+  input에서 @click을 onclick으로 바꾸니 constructor 에러는 안난다.
+
+  하지만 onclick="method의함수" 하면 method의 함수를 인식하지 못한다.
+
+- 시도 3 (해결!!)
+
+  index.html에 cdn 넣기
+
+  
+
+  
+
+# 리팩토링
+
+- modal v-slot으로 컴포넌트 재활용
+
+# arrow function
+
+- arrow function 뒤에서 this 사용 시, vue instance가 아니라 window를 가리킨다.
 

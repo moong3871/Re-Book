@@ -5,7 +5,7 @@
     @close-modal="$emit('close-modal')"
   >
     <div class="modal-card">
-      <p class="c-title">{{ dummy.title }}</p>
+      <p class="c-title">{{ detailBookInfo.title }}</p>
       <ModalContent @close-modal="$emit('close-modal')" />
     </div>
   </div>
@@ -15,7 +15,7 @@
 import ModalContent from "./ModalContent.vue";
 export default {
   props: {
-    dummy: Object,
+    detailBookInfo: Object,
   },
   components: {
     ModalContent,

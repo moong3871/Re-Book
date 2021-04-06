@@ -17,7 +17,9 @@
       >
         <div
           class="image-box"
-          @click.left="$router.push({ name: 'Detail', params: { book: book } })"
+          @click.left="
+            $router.push({ name: 'Detail', query: { isbn: book.isbn } })
+          "
         >
           <img
             :src="book.book_image_path"
