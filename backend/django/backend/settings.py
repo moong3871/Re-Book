@@ -82,19 +82,6 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 # AWS 서버 환경
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": 'rebookdb',
-#         'USER': 'admin',
-#         'PASSWORD': 'ssafyb206!',
-#         'HOST': 'rebookdb.cr7qoevh9p3x.ap-northeast-2.rds.amazonaws.com',
-#         'PORT': '3306',
-#     }
-# }
-
-
-# 로컬 환경
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
@@ -105,6 +92,19 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+
+# 로컬 환경
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": 'rebookdb',
+#         'USER': 'admin',
+#         'PASSWORD': 'ssafyb206!',
+#         'HOST': 'rebookdb.cr7qoevh9p3x.ap-northeast-2.rds.amazonaws.com',
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
