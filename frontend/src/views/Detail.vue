@@ -3,41 +3,51 @@
     <!-- <a href="http://localhost:8081/oauth2/authorization/google">Google Login</a> -->
     <Cover :book="book" />
     <Info
-      :dummy="dummy"
+      :detailBookInfo="detailBookInfo"
       :book="book"
       @changeStatus="changeStatus"
       @openCommentModal="openCommentModal"
     />
     <hr />
-    <Comment
-      :dummy="dummy"
-      :backDummy="backDummy"
-      @open-modal="isModal = true"
-    />
+    <Comment :detailBookInfo="detailBookInfo" @open-modal="isModal = true" />
     <Modal
       v-if="isModal"
       @close-modal="isModal = false"
-      :dummy="dummy"
+      :detailBookInfo="detailBookInfo"
       :book="book"
     />
     <!-- <ModalContent @close-modal="this.$emit('close-modal')"/>
     </Modal> -->
     <hr />
-    <Recommend :dummy="dummy" :backDummy="backDummy" />
-    <hr />
-    <Library :dummy="dummy" :backDummy="backDummy" />
+    <Recommend :detailBookInfo="detailBookInfo" />
     <hr />
     <OneBookMarket
-      :dummy="dummy"
-      :backDummy="backDummy"
+      :detailBookInfo="detailBookInfo"
       @open-Mmodal="isMModal = true"
     />
     <hr />
-    <Modal v-if="isMModal" @close-modal="isMModal = false" :dummy="dummy">
-      <ModalContent />
-    </Modal>
+    <MarketModal
+      v-if="isMModal"
+      @close-modal="isMModal = false"
+      :detailBookInfo="detailBookInfo"
+      :book="book"
+    />
+    <br />
+    <input type="text" id="sample4_postcode" placeholder="우편번호" />
+    <input
+      type="button"
+      @click="sample4_execDaumPostcode"
+      value="우편번호 찾기"
+    /><br />
+    <input type="text" id="sample4_roadAddress" placeholder="도로명주소" />
+    <input type="text" id="sample4_jibunAddress" placeholder="지번주소" />
+    <span id="guide" style="color: #999; display: none"></span>
+    <input type="text" id="sample4_detailAddress" placeholder="상세주소" />
+    <input type="text" id="sample4_extraAddress" placeholder="참고항목" />
   </div>
 </template>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>
 import axios from "axios";
@@ -45,10 +55,11 @@ import Cover from "@/components/detail/Cover.vue";
 import Info from "@/components/detail/Info.vue";
 import Comment from "@/components/detail/Comment.vue";
 import Recommend from "@/components/detail/Recommend.vue";
-import Library from "@/components/detail/Library.vue";
 import OneBookMarket from "@/components/detail/OneBookMarket.vue";
+import MarketModal from "@/components/detail/MarketModal.vue";
 import Modal from "@/components/detail/Modal.vue";
-import ModalContent from "@/components/detail/ModalContent.vue";
+import bookdata from "@/assets/bookdata/bookdata.json";
+
 export default {
   name: "Detail",
   components: {
@@ -56,65 +67,21 @@ export default {
     Info,
     Comment,
     Recommend,
-    Library,
     OneBookMarket,
+    MarketModal,
     Modal,
-    ModalContent,
   },
   props: {
-    book: Object,
+    // book: Object,
   },
   data() {
     return {
+      bookdata: bookdata,
       isModal: false,
       isMModal: false,
-      backDummy: null,
-      dummy: {
-        user_id: 1,
-        status: 0,
-        comments: [
-          {
-            id: 1,
-            nickname: "북유럽",
-            rating: 3.5,
-            review:
-              "시기적으로 나에게 필요한 책이었다 논리가 때로 조금 어설프고 다듬어지지 않은 느낌도 들엇으나 한번씩 와닿는 문장들에 충분히 위로 받았다.",
-          },
-          {
-            id: 2,
-            nickname: "오마이걸",
-            rating: 3.5,
-            review:
-              "처음에 인스타를 통해 감정적인 소모로 인한 저의 마음을 잘 정리된 피드로 위로를 많이 받았어요",
-          },
-        ],
-        librarys: [
-          {
-            library: "구암 도서관",
-            stock: 2,
-            telephone: "042 - 601 - 6630",
-            address: "대전광역시 유성구 구암동 128",
-          },
-          {
-            library: "유성 도서관",
-            stock: 1,
-            telephone: "042 - 601 - 6630",
-            address: "대전광역시 유성구 구암동 128",
-          },
-          {
-            library: "문정 도서관",
-            stock: 1,
-            telephone: "042 - 601 - 6630",
-            address: "대전광역시 유성구 구암동 128",
-          },
-          {
-            library: "석범 도서관",
-            stock: 1,
-            telephone: "042 - 601 - 6630",
-            address: "대전광역시 유성구 구암동 128",
-          },
-        ],
-      },
+      book: null,
+      detailBookInfo: null,
+      isbn: this.$route.query.isbn,
     };
   },
   methods: {
@@ -145,28 +112,92 @@ export default {
     openCommentModal() {
       this.isModal = true;
     },
+    // searchAddress: function () {
+    //   new daum.Postcode({
+    //     oncomplete: function (data) {
+    //       var addr = data.addr;
+    //       console.log("------------------------");
+    //       console.log(addr);
+    //       let temp = document.getElementById("testButton");
+
+    //       // this.form.address = address;
+    //       // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+    //       // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+    //     },
+    //   }).open();
+    // },
+    sample4_execDaumPostcode: function () {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+          // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+          // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+          var roadAddr = data.roadAddress; // 도로명 주소 변수
+          var extraRoadAddr = ""; // 참고 항목 변수
+
+          // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+          // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+          if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+            extraRoadAddr += data.bname;
+          }
+          // 건물명이 있고, 공동주택일 경우 추가한다.
+          if (data.buildingName !== "" && data.apartment === "Y") {
+            extraRoadAddr +=
+              extraRoadAddr !== ""
+                ? ", " + data.buildingName
+                : data.buildingName;
+          }
+          // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+          if (extraRoadAddr !== "") {
+            extraRoadAddr = " (" + extraRoadAddr + ")";
+          }
+
+          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          document.getElementById("sample4_postcode").value = data.zonecode;
+          document.getElementById("sample4_roadAddress").value = roadAddr;
+          document.getElementById("sample4_jibunAddress").value =
+            data.jibunAddress;
+
+          // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+          if (roadAddr !== "") {
+            document.getElementById(
+              "sample4_extraAddress"
+            ).value = extraRoadAddr;
+          } else {
+            document.getElementById("sample4_extraAddress").value = "";
+          }
+
+          var guideTextBox = document.getElementById("guide");
+          // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+          if (data.autoRoadAddress) {
+            var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+            guideTextBox.innerHTML = "(예상 도로명 주소 : " + expRoadAddr + ")";
+            guideTextBox.style.display = "block";
+          } else if (data.autoJibunAddress) {
+            var expJibunAddr = data.autoJibunAddress;
+            guideTextBox.innerHTML = "(예상 지번 주소 : " + expJibunAddr + ")";
+            guideTextBox.style.display = "block";
+          } else {
+            guideTextBox.innerHTML = "";
+            guideTextBox.style.display = "none";
+          }
+        },
+      }).open();
+    },
   },
   created() {
-    var ISBN = this.$route.params.book.isbn;
-    console.log("안녕하세요 isbn입니다");
-    console.log(ISBN);
-    // axios({
-    //   url: "http://j4b206.p.ssafy.io/book/" + ISBN,
-    //   method: "GET",
-    //   // headers: {
-    //   //   Authorization: `JWT ${localStorage.getItem("jwt")}`,
-    //   // },
-    // })
+    var temp = this.bookdata.filter((data) => {
+      return data.isbn.includes(this.isbn);
+    });
+    this.book = temp[0];
     axios
-      .get(`http://j4b206.p.ssafy.io/api/book/${ISBN}`, {
+      .get(`http://j4b206.p.ssafy.io/api/book/${this.isbn}`, {
         userToken: localStorage.getItem("jwt"),
       })
       .then((res) => {
         console.log(`=================책detail응답 ${res.data.object}`);
-        this.backDummy = res.data.object;
-        console.log("@@@@@@@@@@@@@BackDummy");
-        console.log(this.backDummy);
-        console.log(res.data);
+        this.detailBookInfo = res.data.object;
       })
       .catch((err) => {
         console.log("@@@@@@@@@@@@@@@@@@@책detail응답 에러");

@@ -19,6 +19,9 @@ export default {
     Button,
     Map,
   },
+  props: {
+    detailBookInfo: Object,
+  },
   data() {
     return {
       title: "+ 당근서점에 등록하기",
