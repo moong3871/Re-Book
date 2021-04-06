@@ -118,7 +118,4 @@ export default {
   /* padding: 10px; */
   transition: all 0.4s;
 }
-slide {
-  border: 3px solid black;
-}
 </style>

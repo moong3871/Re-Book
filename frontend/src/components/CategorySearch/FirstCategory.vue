@@ -206,6 +206,7 @@
 import secondcategoryset from "@/assets/bookdata/second-category.json";
 import allcategoryset from "@/assets/bookdata/categorystructure.json";
 import allbookdatas from "@/assets/bookdata/bookdata.json";
+import booksound from "@/assets/bookdata/책소리.mp3";
 
 export default {
   data() {
@@ -234,6 +235,7 @@ export default {
       allpages: [],
       pages_idx: 0,
       max_pages_idx: 0,
+      booksound,
     };
   },
   methods: {
@@ -366,6 +368,10 @@ export default {
         setTimeout(() => {
           this.opened = true;
         }, 800);
+        setTimeout(() => {
+          const audio = new Audio(booksound);
+          audio.play();
+        }, 300);
       }
     },
     // activarOver(value) {

@@ -7,7 +7,9 @@
         </div>
         <div class="myinfo-container">
           <div v-if="!nickname">
-            <button @click="login"><h5>로그인해주세요.</h5></button>
+            <button @click="login" style="margin-right: 5px">
+              <h5>로그인해주세요.</h5>
+            </button>
           </div>
           <div v-else>
             <div class="hello-user-container">

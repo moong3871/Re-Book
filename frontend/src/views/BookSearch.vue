@@ -8,16 +8,6 @@
     </div>
     <div class="content" v-if="categorized_books.length === 0">
       <div class="nobook">검색어에 해당되는 도서가 없어요 ㅠ_ㅠ</div>
-      <!-- <div class="wrapper" v-for="(book, i) in books" :key="i">
-        <div class="box">
-          <img
-            :src="book.book_image_path"
-            alt=""
-            class="cover-image"
-            @click="$router.push({ name: 'Detail', params: { book: book } })"
-          />
-        </div>
-      </div> -->
     </div>
     <div v-if="categorized_books.length !== 0" class="search-container">
       <div
@@ -118,6 +108,8 @@
 <script>
 // import bookdata from "@/assets/bookdata/book_domestic.json";
 import allbookdatas from "@/assets/bookdata/bookdata.json";
+import booksound from "@/assets/bookdata/책소리.mp3";
+
 export default {
   data() {
     return {
@@ -211,6 +203,10 @@ export default {
         setTimeout(() => {
           this.opened = true;
         }, 800);
+        setTimeout(() => {
+          const audio = new Audio(booksound);
+          audio.play();
+        }, 300);
       }
     },
   },
@@ -496,7 +492,7 @@ export default {
   height: 500px;
   display: flex;
   align-items: center;
-  padding-left: 20%;
+  padding-left: 25%;
   font-size: 50px;
   /* border: 1px solid red; */
 }
