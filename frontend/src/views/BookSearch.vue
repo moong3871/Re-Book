@@ -325,8 +325,7 @@ export default {
   background-color: rgb(194, 210, 221);
   z-index: 1002;
   border-radius: 20px;
-  background: linear-gradient(45deg, rgb(57, 178, 235), rgb(239, 245, 239));
-  /* display: flex; */
+  background: linear-gradient(45deg, rgb(162, 199, 216), rgb(239, 245, 239));
 }
 .book-open {
   /* align-items: center; */
