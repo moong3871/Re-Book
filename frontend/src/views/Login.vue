@@ -109,6 +109,10 @@
 
 <script>
 import axios from "axios";
+<<<<<<< HEAD
+=======
+// import GoogleLogin from "vue-google-login";
+>>>>>>> d371f33 (로그인 수정)
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
@@ -138,9 +142,13 @@ export default {
   components: {
     // GoogleLogin,
   },
+<<<<<<< HEAD
   components: {
     // GoogleLogin,
   },
+=======
+
+>>>>>>> d371f33 (로그인 수정)
   methods: {
     login() {
       axios
