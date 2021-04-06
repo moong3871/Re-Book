@@ -21,6 +21,7 @@ import static com.necessafy.rebook.utils.HttpUtils.convertObjectToJson;
 import static com.necessafy.rebook.utils.HttpUtils.makeResponse;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/yangsangchu")
 public class DealController {
 
