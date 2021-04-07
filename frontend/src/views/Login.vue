@@ -60,7 +60,6 @@
               {{ $v.password.$params.minLength.min }}글자 이상이어야합니다.
             </div>
             <v-btn
-              width="400"
               height="48"
               color="#FFFFFF"
               type="submit"
@@ -70,7 +69,6 @@
               >로그인</v-btn
             >
             <v-btn
-              width="400"
               height="48"
               color="#FFFFFF"
               class="signup-btn"
@@ -195,9 +193,11 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
+
 .login-bg {
   /* background-color: #d9d9d9; */
-  background-image: url("https://miro.medium.com/max/3840/1*Ke9U-3pgDjro0CfeEU5tEw@2x.jpeg");
+  /* background-image: url("https://miro.medium.com/max/3840/1*Ke9U-3pgDjro0CfeEU5tEw@2x.jpeg"); */
+  background-image: url("https://cf.bstatic.com/data/xphoto/1182x887/177/17718411.jpg?size=S");
   opacity: 1;
   background-repeat: no-repeat;
   background-size: cover;
@@ -215,7 +215,7 @@ export default {
   min-width: 100%;
   width: 100%;
   height: 75px;
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: rgb(0, 0, 0, 0.3);
   /* z-index: 3000; */
 }
 .login-logo {
@@ -231,7 +231,8 @@ export default {
   width: 90px !important;
   float: right;
   margin-right: 20px;
-  background-color: black !important;
+  background-color: rgb(97, 88, 88) !important;
+  font-size: 18px;
   color: white;
 }
 .login-container {
@@ -240,12 +241,12 @@ export default {
   height: 100%;
   min-height: 1100px;
   display: flex;
-  background-color: rgb(0, 0, 0, 0.4);
+  /* background-color: rgb(0, 0, 0, 0.4); */
 }
 .login-box {
-  margin-top: -80px;
+  margin-top: -240px;
   /* background-color: rgb(61, 44, 8, 0.6); */
-  background-color: rgb(0, 0, 0, 0.85);
+  background-color: rgba(26, 24, 24, 0.7);
   width: 35%;
   height: 80%;
   padding-top: 4%;
@@ -272,8 +273,8 @@ export default {
   width: 65%;
   /* display: block; */
   margin: 1rem;
-  max-width: 65%;
-  min-width: 65%;
+  /* max-width: 65%; */
+  /* min-width: 65%; */
   min-height: 20%;
 }
 .v-btn:hover {

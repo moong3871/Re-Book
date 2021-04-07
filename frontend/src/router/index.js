@@ -13,6 +13,7 @@ import MyInfo from "../views/MyInfo.vue";
 import UserPage from "../views/UserPage.vue";
 import Chat from "../views/Chat.vue";
 import Introduce from "../views/Introduce.vue";
+import Preference from "../views/Preference.vue";
 
 Vue.use(VueRouter);
 
@@ -87,6 +88,11 @@ const routes = [
     path: "/introduce",
     name: "Introduce",
     component: Introduce,
+  },
+  {
+    path: "/preference",
+    name: "Preference",
+    component: Preference,
   },
 ];
 
