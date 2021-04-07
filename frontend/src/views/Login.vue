@@ -109,7 +109,6 @@
 
 <script>
 import axios from "axios";
-// import GoogleLogin from "vue-google-login";
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
@@ -139,7 +138,9 @@ export default {
   components: {
     // GoogleLogin,
   },
-
+  components: {
+    // GoogleLogin,
+  },
   methods: {
     login() {
       axios
