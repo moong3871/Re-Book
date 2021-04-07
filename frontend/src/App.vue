@@ -39,6 +39,7 @@ export default {
         constants.URL_TYPE.USER.LOGIN,
         constants.URL_TYPE.USER.SIGNUP,
         constants.URL_TYPE.ABOUT.ABOUT,
+        constants.URL_TYPE.USER.PREFERENCE,
       ];
       let isNavbar = true;
       array.map((path) => {
