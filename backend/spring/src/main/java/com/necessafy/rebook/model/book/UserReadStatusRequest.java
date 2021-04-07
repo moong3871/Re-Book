@@ -16,9 +16,10 @@ import javax.persistence.*;
 public class UserReadStatusRequest {
 
 
-    private Long id;
+//    private Long id;
     private int status; //읽고 싶어요 0 읽고 있어요 1 읽었어요 2
-    private UserRebook userRebook;
+//    private UserRebook userRebook;
+    private String email;
     private Book book;
 
 

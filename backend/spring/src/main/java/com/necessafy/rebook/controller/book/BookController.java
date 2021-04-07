@@ -2,13 +2,17 @@ package com.necessafy.rebook.controller.book;
 
 import com.necessafy.rebook.Service.book.BookService;
 import com.necessafy.rebook.Service.jwt.JwtService;
+import com.necessafy.rebook.dao.DealDao;
+import com.necessafy.rebook.dao.OldBookDao;
 import com.necessafy.rebook.dao.account.UserRebookDao;
+import com.necessafy.rebook.dao.book.BookCommentDao;
 import com.necessafy.rebook.dao.book.BookDao;
 import com.necessafy.rebook.dao.book.UserReadStatusDao;
 import com.necessafy.rebook.model.CommonResult;
-import com.necessafy.rebook.model.book.Book;
-import com.necessafy.rebook.model.book.UserReadStatus;
-import com.necessafy.rebook.model.book.UserReadStatusRequest;
+import com.necessafy.rebook.model.book.*;
+import com.necessafy.rebook.model.market.Deal;
+import com.necessafy.rebook.model.market.OldBook;
+import com.necessafy.rebook.model.market.OldBookDto;
 import com.necessafy.rebook.model.user.UserRebook;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -21,6 +25,7 @@ import static com.necessafy.rebook.utils.HttpUtils.convertObjectToJson;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +42,16 @@ public class BookController {
     UserReadStatusDao userReadStatusDao;
 
     @Autowired
+    BookCommentDao bookCommentDao;
+
+    @Autowired
     UserRebookDao userRebookDao;
+
+    @Autowired
+    DealDao dealDao;
+
+    @Autowired
+    OldBookDao oldBookDao;
 
     @Autowired
     JwtService jwtService;
@@ -46,33 +60,52 @@ public class BookController {
     BookService bookService;
 
     // 책 상세정보 반환
-    @GetMapping("/{isbn}")
+    @PostMapping("/{isbn}")
     @ApiOperation(value = "전체 공개 게시물을 받아온다", response = CommonResult.class)
-    public CommonResult retrieveBookDetail(@PathVariable String isbn){
-//        BookResponse bookResponse = ;
-        System.out.println("1");
+    public CommonResult retrieveBookDetail(@PathVariable String isbn, HttpServletRequest httpServletRequest){
         CommonResult commonResult = new CommonResult();
-        System.out.println("2" + "isbn" + isbn);
-        Optional<Book> book = bookDao.findBookByIsbn(isbn);
-        System.out.println("3");
-        if(!book.isPresent()) {
-            commonResult.status = false;
-            commonResult.data = "해당 isbn에 해당하는 책이 없습니다.";
-            commonResult.object = "";
-            System.out.println(commonResult);
-            System.out.println("3-1");
-            return commonResult;
-        }else if(book.get().getBookSummary().equals("")){
-            System.out.println("3-2");
-            book.get().setBookSummary("줄거리 정보가 없습니다.");
-        }
-        System.out.println("4");
+
+        String email = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
+//        String email = "sbs@ssafy.com";
+//        -----------전처리-------
+        Optional<UserRebook> curReUser = userRebookDao.findById(email);
+        Optional<Book> curBook = bookDao.findById(isbn);
+        // 1. for status
+        Optional<UserReadStatus> userReadStatus = userReadStatusDao.findByUserRebookAndBook(curReUser.get(), curBook.get());
+        // 2. for userEvaluation
+        Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
+        // 3. for Market
+        List<OldBook> bookDealList = oldBookDao.findByIsbn(isbn);
+//        -----------------------
+        BookDetailRequest bookDetailRequest = new BookDetailRequest();
+        List<BookComment> bookCommentList = new ArrayList<>();
+        List<Book> recoBookList = new ArrayList<>();
+
+
+        bookDetailRequest.setLat("36.3457153");
+        bookDetailRequest.setLng("127.3021023");
+        bookDetailRequest.setStatus(userReadStatus.isPresent()?userReadStatus.get().getStatus():0);
+        bookDetailRequest.setUserEvaluation(curComment.isPresent()?curComment.get().getRating():0);
+        bookDetailRequest.setBookComment(bookCommentList);
+        bookDetailRequest.setRecoBooks(recoBookList);
+        bookDetailRequest.setMarket(bookDealList);
+
+
+
+
+//        Optional<Book> book = bookDao.findBookByIsbn(isbn);
+//        if(!book.isPresent()) {
+//            commonResult.status = false;
+//            commonResult.data = "해당 isbn에 해당하는 책이 없습니다.";
+//            commonResult.object = "";
+//            return commonResult;
+//        }else if(book.get().getBookSummary().equals("")){
+//            book.get().setBookSummary("줄거리 정보가 없습니다.");
+//        }
         commonResult.status = true;
         commonResult.data = "책 상세정보 반환에 성공하였습니다.";
-        commonResult.object = book.get();
-        System.out.println(commonResult.data);
-        System.out.println("hell"+commonResult.object + " 책 정보입니다!!");
-        System.out.println(commonResult);
+        commonResult.object = bookDetailRequest;
+
         return commonResult;
 //        return new CommonResult(true, "책 상세정보 반환에 성공하였습니다.", book.get());
     }
@@ -101,7 +134,8 @@ public class BookController {
                                    UserReadStatusRequest userReadStatusRequest, HttpServletRequest httpServletRequest){
 
         Integer status=userReadStatusRequest.getStatus();
-        String email=userReadStatusRequest.getUserRebook().getEmail().trim();
+//        String email=userReadStatusRequest.getUserRebook().getEmail().trim();
+        String email=userReadStatusRequest.getEmail();
         String isbn=userReadStatusRequest.getBook().getIsbn().trim();
         Optional<UserRebook>curReUser=userRebookDao.findById(email);
         Optional<Book>curBook=bookDao.findBookByIsbn(isbn);

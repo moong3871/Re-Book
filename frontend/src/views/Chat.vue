@@ -20,8 +20,12 @@
             </div>
           </div>
           <div class="inbox_chat">
-            <div class="chat_list active_chat">
-              <div class="chat_people">
+            <div
+              class="chat_list active_chat"
+              v-for="(chat, i) in chatList"
+              :key="i"
+            >
+              <div class="chat_people" @click="showChat(chat.id)">
                 <div class="chat_img">
                   <img
                     src="https://ptetutorials.com/images/user-profile.png"
@@ -29,24 +33,7 @@
                   />
                 </div>
                 <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img">
-                  <img
-                    src="https://ptetutorials.com/images/user-profile.png"
-                    alt="sunil"
-                  />
-                </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <h5>{{ chat.id }} <span class="chat_date">Dec 25</span></h5>
                   <p>
                     Test, which is a new approach to have all solutions
                     astrology under one roof.
@@ -59,7 +46,7 @@
         <div class="mesgs">
           <div class="msg_history">
             <div v-for="(message, i) in messages" :key="i" class="incoming_msg">
-              <div class="incoming_msg" v-if="message.senduser === 'sumsumsum'">
+              <div class="incoming_msg" v-if="message.senduser !== user">
                 <div class="incoming_msg_img">
                   <img
                     class="ml-3"
@@ -113,6 +100,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
 
 <script>
+import axios from "axios";
 export default {
   name: "Chat",
   data() {
@@ -120,8 +108,11 @@ export default {
       message: null,
       messages: [],
       createdAt: null,
-      user: localStorage.getItem("nickname"),
+      // user: localStorage.getItem("nickname"),
+      user: "",
       chatId: 0,
+      chatList: null,
+      currentChat: 0,
     };
   },
   methods: {
@@ -150,10 +141,38 @@ export default {
           this.messages = allMessages;
         });
     },
+    getChatList() {
+      axios
+        // .get(`http://j4b206.p.ssafy.io/api/yangsangchu/deallist`, {
+        .post(`http://localhost:8080/api/yangsangchu/deallist/${this.user}`, {
+          headers: {
+            Authorization: `${localStorage.getItem("jwt")}`,
+          },
+        })
+        .then((res) => {
+          this.chatList = res.data;
+          // var data = JSON.parse(res.data);
+          // console.log(data);
+          // this.$emit("login");
+          // this.$router.push({ name: "Home" });
+          // console.log(this.chatList[0].id);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    showChat: function (curChatId) {
+      this.chatId = "" + curChatId;
+      this.fetchMessages();
+      this.getChatList();
+    },
   },
-  created() {
+  mounted() {
     this.chatId = "0";
+    this.user = localStorage.getItem("email");
+    console.log(localStorage.getItem("email"), this.user);
     this.fetchMessages();
+    this.getChatList();
   },
 };
 </script>

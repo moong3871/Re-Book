@@ -99,6 +99,7 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public String getUserEmail(String key) {
+        System.out.println(key);
         return this.get(key).get("email").toString();
     }
 

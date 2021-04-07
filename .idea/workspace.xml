@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d0c8c6a-5b2d-47ce-9e96-739910c8e101" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/backend/spring/out/production/classes/com/necessafy/rebook/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/spring/out/production/classes/com/necessafy/rebook/controller/AccountController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/spring/out/production/classes/com/necessafy/rebook/controller/BookController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/spring/out/production/classes/com/necessafy/rebook/controller/BookController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/spring/out/production/classes/com/necessafy/rebook/dao/BookDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/spring/out/production/classes/com/necessafy/rebook/dao/BookDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/spring/src/main/java/com/necessafy/rebook/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/spring/src/main/java/com/necessafy/rebook/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/spring/src/main/java/com/necessafy/rebook/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/spring/src/main/java/com/necessafy/rebook/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/spring/src/main/java/com/necessafy/rebook/dao/BookDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/spring/src/main/java/com/necessafy/rebook/dao/BookDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +21,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="9d0c8c6a-5b2d-47ce-9e96-739910c8e101" name="Default Changelist" comment="" />
