@@ -1,4 +1,4 @@
-package com.necessafy.rebook.controller;
+package com.necessafy.rebook.controller.deal;
 
 import com.necessafy.rebook.Service.deal.DealService;
 import com.necessafy.rebook.Service.deal.DealerService;
