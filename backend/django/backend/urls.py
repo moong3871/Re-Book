@@ -19,7 +19,8 @@ from django.urls import path, include
 
 # fmt: off
 urlpatterns = [
+    path('', include("recommend.urls")),
     path("admin/", admin.site.urls),
-    path("api/", include("api.urls")),
+    # path("recommend/", include("recommend.urls")),
 ]
 # fmt: on

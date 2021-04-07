@@ -13,6 +13,7 @@ import MyInfo from "../views/MyInfo.vue";
 import UserPage from "../views/UserPage.vue";
 import Chat from "../views/Chat.vue";
 import Introduce from "../views/Introduce.vue";
+import Preference from "../views/Preference.vue";
 
 Vue.use(VueRouter);
 
@@ -56,6 +57,7 @@ const routes = [
     path: "/detail",
     name: "Detail",
     component: Detail,
+    props: true, // params로 전달한 데이터를 props로 받을 수 있다.
   },
   {
     path: "/temp",
@@ -86,6 +88,11 @@ const routes = [
     path: "/introduce",
     name: "Introduce",
     component: Introduce,
+  },
+  {
+    path: "/preference",
+    name: "Preference",
+    component: Preference,
   },
 ];
 

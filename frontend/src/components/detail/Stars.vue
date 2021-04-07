@@ -1,23 +1,28 @@
 <template>
-  <v-rating
-    color="green"
-    dense
-    empty-icon="$mdiStarOutline"
-    full-icon="$mdiStar"
-    half-icon="$mdiStarHalfFull"
-    half-increments
-    hover
-    length="5"
-    size="38"
-  >
-  </v-rating>
+  <star-rating @rating-selected="setRating" :rating="rating" />
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 export default {
-  data: () => ({
-    rating: 1,
-  }),
+  components: {
+    StarRating,
+  },
+  data() {
+    return {
+      rating: 0,
+    };
+  },
+  methods: {
+    setRating: function (rating) {
+      this.rating = rating;
+      localStorage.setItem("rating", this.rating);
+      this.$emit("openCommentModal");
+    },
+  },
+  mounted() {
+    this.rating = localStorage.getItem("rating") * 1;
+  },
 };
 </script>
 

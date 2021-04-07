@@ -2,43 +2,93 @@
   <div>
     <div class="info-container">
       <div class="s-img-box">
-        <img class="s-img" :src="backDummy.bookImagePath" alt="책 이미지" />
-        {{ backDummy.book_image_path }}
+        <img class="s-img" :src="this.book.book_image_path" alt="책 이미지" />
       </div>
       <div class="info-box-right">
-        <h2>{{ backDummy.title }}</h2>
-        <p>작 가: {{ backDummy.writer }}</p>
-        <p>출판사: {{ backDummy.publisher }}</p>
-        <p>정 가: {{ backDummy.price }}원</p>
-        <p>평 균: {{ backDummy.evaluation }}</p>
+        <h2>{{ book.title }}</h2>
+        <p>작 가: {{ book.writer }}</p>
+        <p>출판사: {{ book.publisher }}</p>
+        <p>정 가: {{ book.price }}원</p>
+        <p>평 점: {{ book.evaluation }}</p>
+        <div class="btn-container">
+          <div class="dropdown">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn v-bind="attrs" v-on="on">
+                  {{ status[current] }}
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in items"
+                  :key="index"
+                  link
+                  @click="changeStatus(index)"
+                >
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
+          <Stars @openCommentModal="handleCommentModal" />
+        </div>
       </div>
     </div>
     <hr />
     <div class="desc-container">
       <div class="desc-box">
         <h3 class="d-title">책 소개</h3>
-        <p class="d-content">{{ backDummy.bookSummary }}</p>
-      </div>
-      <div class="desc-box">
-        <h3 class="d-title">저자 소개</h3>
-        <div class="d-content">
-          <p>{{ backDummy.writer }}</p>
-          <p>{{ dummy.desc }}</p>
-        </div>
+        <p v-if="book.book_summary == null" class="d-content">
+          소개글이 없습니다.
+        </p>
+        <p v-else class="d-content">{{ book.book_summary }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Stars from "./Stars.vue";
 export default {
+  components: { Stars },
   name: "Info",
   props: {
-    dummy: Object,
-    backDummy: Object,
+    book: Object,
   },
   data() {
-    return {};
+    return {
+      status: ["+ 읽고싶어요", "- 읽는 중", "✓ 읽었어요"],
+      current: 0,
+      // color: ["#E91E63", "#F8BBD0", "#616161"],
+      items: [
+        { title: "+ 읽고싶어요" },
+        { title: "- 읽는 중" },
+        { title: "✓ 읽었어요" },
+      ],
+    };
+  },
+  methods: {
+    changeStatus(index) {
+      this.current = index;
+      this.$emit("changeStatus", this.current);
+      // axios
+      //   .put(`http://j4b206.p.ssafy.io/api/book/${ISBN}`, {
+      //     userToken: localStorage.getItem("jwt"),
+      //     status: this.current,
+      //   })
+      //   .then(() => {
+      //     console.log("성공");
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+    },
+    handleCommentModal() {
+      this.$emit("openCommentModal");
+    },
+  },
+  mounted() {
+    this.current = this.detailBookInfo.status;
   },
 };
 </script>
@@ -74,11 +124,25 @@ export default {
   line-height: 250%;
   padding: 1%;
 }
-.desc-container {
+.btn-container {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+}
+.dropdown {
+  width: 250px;
+  height: 86.4px;
+  margin-right: 10%;
+  line-height: 0;
+}
+.theme--light.v-btn.v-btn--has-bg {
   width: 100%;
   height: 100%;
   font-size: 30px;
-  /* background-color: red; */
+  background-color: hotpink;
+}
+.v-list-item__title {
+  font-size: 25px;
 }
 .desc-box {
   display: flex;

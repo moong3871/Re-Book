@@ -1,38 +1,44 @@
 <template>
-  <div>
-    <div class="category-container">
-      <div class="big-category-container">
-        <!-- <div class="big-category">한글도서</div> -->
-        <!-- <div class="big-category">외국어도서</div> -->
-      </div>
-    </div>
+  <div class="category-container">
+    <!-- <div class="cate-title">
+      <div class="cate">카테고리 검색</div>
+    </div> -->
+    <FirstCategory />
   </div>
 </template>
 
 <script>
-export default {};
+import FirstCategory from "@/components/CategorySearch/FirstCategory.vue";
+export default {
+  name: "Category",
+  components: {
+    FirstCategory,
+  },
+};
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&display=swap");
+
 .category-container {
   width: 100vw;
+  min-width: 1300px;
+  /* margin-top: 10px; */
+  height: 100vh;
+  /* border: 1px solid black; */
 }
-.big-category-container {
-  width: 40vw;
-  margin-left: 30vw;
-  height: 70px;
-  background-color: gray;
+.cate-title {
+  width: 60%;
+  margin-left: 20%;
+  display: flex;
+  align-items: center;
+  height: 100px;
+  background-color: yellow;
 }
-.big-category-container:hover {
-  cursor: pointer;
-}
-.big-category {
-  background-color: green;
-  /* transition-property: background-color; */
-  /* transition-duration: 1s; */
-}
-.big-category:hover {
-  width: 200px;
-  cursor: pointer;
+.cate {
+  width: 100%;
+  text-align: center;
+  font-family: "Jua", sans-serif;
+  font-size: 60px;
 }
 </style>

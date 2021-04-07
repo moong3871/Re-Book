@@ -2,15 +2,34 @@
   <div class="container">
     <div class="c-header">
       <h3>코멘트</h3>
-      <Button :title="title" />
+      <div class="btn-box" @open-modal="$emit('open-modal')">
+        <Button :title="title" @open-modal="$emit('open-modal')" />
+      </div>
     </div>
-    <ul
-      class="item"
-      v-for="(comment, index) in dummy.comments"
-      v-bind:key="index"
-    >
-      <CommentItem :comment="comment" />
-    </ul>
+    <!-- <div v-if="detailBookInfo.comments == null" class="item">
+      아직 코멘트가 없습니다.
+    </div>
+    <div v-else>
+      <ul
+        class="item"
+        v-for="(comment, index) in detailBookInfo.comments"
+        v-bind:key="index"
+      >
+        <CommentItem :comment="comment" />
+      </ul>
+    </div> -->
+    <div v-if="detailBookInfo.comments == null" class="item">
+      아직 코멘트가 없습니다.
+    </div>
+    <div v-else>
+      <ul
+        class="item"
+        v-for="(comment, index) in detailBookInfo.comments"
+        v-bind:key="index"
+      >
+        <CommentItem :comment="comment" />
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -24,12 +43,17 @@ export default {
     CommentItem,
   },
   props: {
-    dummy: Object,
+    detailBookInfo: Object,
   },
   data() {
     return {
       title: "+ 코멘트 남기기",
     };
+  },
+  methods: {
+    openModal: function () {
+      this.$emit("open-modal");
+    },
   },
 };
 </script>

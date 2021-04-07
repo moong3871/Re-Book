@@ -2,7 +2,9 @@
   <div>
     <div class="o-header">
       <h3 class="o-title">당근서점에서 찾아보기</h3>
-      <Button :title="title" />
+      <div class="btn-box" @click="$emit('open-Mmodal')">
+        <Button :title="title" />
+      </div>
     </div>
     <Map />
   </div>
@@ -17,10 +19,18 @@ export default {
     Button,
     Map,
   },
+  props: {
+    detailBookInfo: Object,
+  },
   data() {
     return {
       title: "+ 당근서점에 등록하기",
     };
+  },
+  methods: {
+    openModal: function () {
+      this.$emit("open-Mmodal");
+    },
   },
 };
 </script>
