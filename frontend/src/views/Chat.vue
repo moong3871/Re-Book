@@ -143,12 +143,15 @@ export default {
     },
     getChatList() {
       axios
-        // .get(`http://j4b206.p.ssafy.io/api/yangsangchu/deallist`, {
-        .post(`http://localhost:8080/api/yangsangchu/deallist/${this.user}`, {
-          headers: {
-            Authorization: `${localStorage.getItem("jwt")}`,
-          },
-        })
+        .post(
+          `http://j4b206.p.ssafy.io/api/yangsangchu/deallist/${this.user}`,
+          {
+            // .post(`http://localhost:8080/api/yangsangchu/deallist/${this.user}`, {
+            headers: {
+              Authorization: `${localStorage.getItem("jwt")}`,
+            },
+          }
+        )
         .then((res) => {
           this.chatList = res.data;
           // var data = JSON.parse(res.data);
