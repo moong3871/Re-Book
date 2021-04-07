@@ -37,11 +37,16 @@ def recommend(request, user_id):
     user_based_collab = cosine_similarity(title_user, title_user)
     user_based_collab = pd.DataFrame(user_based_collab, index=title_user.index, columns=title_user.index)
 
+    book_list = []
     # 사용자 기반 추천 목록 출력 및 JSON으로 변환
     user = user_based_collab[user_id].sort_values(ascending=False)[:7].index[1]
     recommend_books = title_user.loc[user].sort_values(ascending=False).to_json()
+    for k, v in title_user.loc[user].sort_values(ascending=False).items():
+        book_list.append(k)
 
-    return Response(recommend_books)
+    book_info = set(book_list)
+
+    return Response(book_info)
     # return render(request, 'index.html', context) 
 
 
