@@ -195,8 +195,8 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 .signup-bg {
-  /* background-image: url("https://miro.medium.com/max/3840/1*Ke9U-3pgDjro0CfeEU5tEw@2x.jpeg"); */
-  background-image: url("https://www.etri.re.kr/webzine/eng/20190726/common/images/sub04_03.jpg");
+  /* background-image: url("https://www.etri.re.kr/webzine/eng/20190726/common/images/sub04_03.jpg"); */
+  background-image: url("https://library.navercorp.com/img/gallery/big/img_gallery_big1.jpg");
   opacity: 1;
   background-repeat: no-repeat;
   background-size: cover;
@@ -214,7 +214,7 @@ export default {
   min-width: 100%;
   width: 100%;
   height: 75px;
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: rgb(0, 0, 0, 0.3);
   /* z-index: 3000; */
 }
 .login-logo {
@@ -230,7 +230,8 @@ export default {
   width: 90px !important;
   float: right;
   margin-right: 20px;
-  background-color: black !important;
+  background-color: rgb(97, 88, 88) !important;
+  font-size: 18px;
   color: white;
 }
 .login-container {
@@ -239,14 +240,14 @@ export default {
   height: 100%;
   min-height: 1100px;
   display: flex;
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: rgb(0, 0, 0, 0.05);
 }
 .login-box {
-  margin-top: -80px;
+  margin-top: -240px;
   /* background-color: rgb(61, 44, 8, 0.6); */
-  background-color: rgb(0, 0, 0, 0.85);
+  background-color: rgb(0, 0, 0, 0.7);
   width: 35%;
-  height: 80%;
+  height: 85%;
   padding-top: 2%;
   padding-bottom: 4%;
   max-height: 800px;
@@ -255,7 +256,7 @@ export default {
 
 .title {
   /* margin: 50px; */
-  margin-bottom: 10%;
+  margin-bottom: 5%;
   color: white;
   font-size: 2.5rem;
   font-family: "Do Hyeon", sans-serif;

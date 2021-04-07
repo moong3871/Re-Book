@@ -3,11 +3,11 @@
     <v-app id="header" style="height: 180px; min-height: 180px !important">
       <div class="top-header">
         <div class="logo" @click="toHome">
-          <img src="@/assets/images/logo.png" style="height: 60px" />
+          <img src="@/assets/images/REBOOK.png" style="height: 90%" />
         </div>
         <div class="myinfo-container">
           <div v-if="!nickname">
-            <button @click="login" style="margin-right: 5px">
+            <button @click="login" style="margin-right: 5px; margin-top: 8px">
               <h5>로그인해주세요.</h5>
             </button>
           </div>
@@ -40,14 +40,14 @@
             <input
               type="text"
               class="searchTerm"
-              placeholder="  원하는 책을 검색해주세요"
+              placeholder=" 원하는 책을 검색해주세요"
               v-model="bookSearch"
               @keyup.enter="search"
             />
             <button type="submit" class="searchButton">
               <font-awesome-icon
                 icon="search"
-                style="height: 32px; width: 32px"
+                style="height: 26px; width: 26px"
                 color="white"
                 height="30"
                 @click="search"
@@ -117,7 +117,7 @@ export default {
 }
 .top-header {
   width: 100vw;
-  height: 70px;
+  height: 50px;
   display: flex;
   align-items: center;
   border: 1px solid black;
@@ -125,6 +125,7 @@ export default {
   background-color: white;
 }
 .logo {
+  height: 100%;
   margin-left: 50px;
   display: flex;
   align-items: center;
@@ -162,7 +163,7 @@ export default {
 }
 .navbar-container {
   background-color: #345656;
-  height: 80px;
+  height: 60px;
   min-width: 1600px;
 }
 .tab-container {
@@ -188,7 +189,7 @@ export default {
 .tab-text {
   text-align: center;
   font-family: "Nanum Gothic", sans-serif;
-  font-size: 27px;
+  font-size: 20px;
   color: white;
 }
 .search {
@@ -216,7 +217,7 @@ export default {
   /* border: 3px solid black; */
   border-right: none;
   padding: 5px;
-  height: 50px;
+  height: 40px;
   border-radius: 5px 0 0 5px;
   outline: none;
   color: #9dbfaf;
@@ -224,11 +225,11 @@ export default {
   transition-property: background-color, width;
   transition-duration: 0.7s;
   color: black;
-  font-size: 24px;
+  font-size: 18px;
 }
 .searchTerm::placeholder {
   color: white;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .searchTerm:focus {
@@ -237,8 +238,8 @@ export default {
 }
 
 .searchButton {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   /* border: 1px solid wh; */
   background: black;
   text-align: center;
