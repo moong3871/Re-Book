@@ -55,16 +55,16 @@
               />
             </div>
             <div class="address">
-              <p>주소 :</p>
-              <button type="button" @click="searchAddress">주소 검색</button>
-              <!-- <label for="address">직거래 장소: </label>
+              <!-- <p>주소 :</p>
+              <button type="button" @click="searchAddress">주소 검색</button> -->
+              <label for="address">직거래 장소: </label>
               <input
                 type="text"
                 id="address"
                 name="address"
+                placeholder="주소를 입력해주세요"
                 @click="searchAddress"
-                v-model="form.address"
-              /> -->
+              />
             </div>
             <div class="desc">
               <label for="desc">상세설명: </label>
@@ -119,6 +119,7 @@ export default {
       this.$emit("close-modal");
     },
     onSubmit: function () {
+      this.form.address = document.getElementById("address").value;
       console.log(this.form);
       axios
         .post(`http://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
@@ -137,10 +138,8 @@ export default {
     searchAddress: function () {
       new daum.Postcode({
         oncomplete: function (data) {
-          var addr = data.address;
-          console.log("------------------------");
-          console.log(addr);
-          // this.form.address = address;
+          let address = document.getElementById("address");
+          address.value = data.address;
           // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
           // 예제를 참고하여 다양한 활용법을 확인해 보세요.
         },

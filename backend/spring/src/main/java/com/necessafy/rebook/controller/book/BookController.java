@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import static com.necessafy.rebook.utils.HttpUtils.makeResponse;
 import static com.necessafy.rebook.utils.HttpUtils.convertObjectToJson;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,19 +129,31 @@ public class BookController {
     }
 
 
-
+    @Transactional
     @PutMapping("/{email}")
     @ApiOperation(value="해당 유저가 책을 읽은 상태를 등록")
-    public Object createReadStatus(@ModelAttribute @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
+    public Object createReadStatus(@RequestBody @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
                                    UserReadStatusRequest userReadStatusRequest, HttpServletRequest httpServletRequest){
-
+// @ModelAttribute
+        System.out.print(userReadStatusRequest + "helloooooo");
         Integer status=userReadStatusRequest.getStatus();
+        System.out.print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+status);
+        System.out.print(userReadStatusRequest.getEmail());
+
 //        String email=userReadStatusRequest.getUserRebook().getEmail().trim();
         String email=userReadStatusRequest.getEmail();
         String isbn=userReadStatusRequest.getBook().getIsbn().trim();
         Optional<UserRebook>curReUser=userRebookDao.findById(email);
-        Optional<Book>curBook=bookDao.findBookByIsbn(isbn);
 
+        Optional<Book>curBook=bookDao.findBookByIsbn(isbn);
+        if(!curBook.isPresent()){
+            bookDao.save(userReadStatusRequest.getBook());
+        }
+
+        System.out.println("");
+        System.out.println("#######################################################");
+        System.out.println(curReUser);
+        System.out.println(curBook);
         String emailToken = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 
         ResponseEntity<?>result=bookService.checkBlankWenUserReadStatus(curReUser,status);
@@ -147,13 +161,13 @@ public class BookController {
         if(result!=null){
             return result;
         }
-        Optional<UserReadStatus> curStatus=userReadStatusDao.findByUserRebookAndBook(curReUser.get(),curBook.get());
-        if(curStatus.isPresent()){
+        Optional<UserReadStatus> curStatus=userReadStatusDao.findByUserRebookAndBook(curReUser.get(),userReadStatusRequest.getBook());
+        if(curStatus.isPresent()) {
             curStatus.get().setStatus(status);
-            UserReadStatus userReadStatus=userReadStatusDao.save(curStatus.get());
-            return makeResponse("200",convertObjectToJson(userReadStatus),"update status",HttpStatus.OK);
+//            UserReadStatus userReadStatus = userReadStatusDao.save(curStatus.get());
+            return makeResponse("200", convertObjectToJson(curStatus.get()), "update status", HttpStatus.OK);
         }
-        UserReadStatus userReadStatus=bookService.buildStatus(status,curReUser.get(),curBook.get());
+        UserReadStatus userReadStatus=bookService.buildStatus(status,curReUser.get(),userReadStatusRequest.getBook());
         UserReadStatus savedStatus=userReadStatusDao.save(userReadStatus);
 
         return makeResponse("200",convertObjectToJson(savedStatus),"success",HttpStatus.OK);

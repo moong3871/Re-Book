@@ -206,3 +206,7 @@ https://code-machina.github.io/2019/10/03/Vue-Story-Part-10.html
 
 - arrow function 뒤에서 this 사용 시, vue instance가 아니라 window를 가리킨다.
 
+# unauthorized
+
+- 한방에 다 보내주던걸
+- 나눠서 변수로 저장 후 보내니까 잘 보내짐
