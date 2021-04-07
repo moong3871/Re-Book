@@ -27,12 +27,30 @@
 import BookHover from "@/components/library/BookHover.vue";
 import Progress from "@/components/library/Progress.vue";
 import Calendar from "@/components/library/Calendar.vue";
+import axios from "axios";
+
 export default {
   name: "UserPage",
   components: {
     BookHover,
     Progress,
     Calendar,
+  },
+  methods: {
+    getAccountInfo() {
+      axios
+        .get("http://j4b206.p.ssafy.io/api/account/sbs%40ssafy.com")
+        .then((res) => {
+          var data = JSON.parse(res.data.data);
+          console.log(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  created() {
+    this.getAccountInfo();
   },
 };
 </script>
