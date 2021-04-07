@@ -96,7 +96,7 @@
             type="submit"
             :disabled="submitStatus === 'PENDING'"
             class="signup-btn"
-            >회원가입</v-btn
+            >수정하기</v-btn
           >
           <p class="typo__p" v-if="submitStatus === 'OK'">
             Thanks for your submission!
