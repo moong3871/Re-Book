@@ -3,6 +3,7 @@ export default {
     USER: {
       LOGIN: "Login",
       SIGNUP: "Signup",
+      PREFERENCE: "Preference",
     },
     ABOUT: {
       ABOUT: "About",

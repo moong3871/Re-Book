@@ -11,7 +11,7 @@
           width: 100%;
           height: 50px;
           font-family: 'Noto Serif KR', serif;
-          font-size: 35px;
+          font-size: 30px;
           padding-left: 15%;
         "
       >
@@ -21,7 +21,7 @@
     <div class="first-category-container" v-if="domestic_count === 0">
       <button
         class="first-category"
-        style="margin-right: 10%; margin-left: 15%"
+        style="margin-right: 10%; margin-left: 20%"
         @click="finddomestic"
         :style="{ background: first_category_color }"
       >
@@ -426,6 +426,7 @@ export default {
   padding: 20px;
   margin-bottom: 30px;
   font-family: "Jua", sans-serif;
+  margin-top: -30px;
 }
 .result-category {
   margin-right: 20px;
@@ -456,9 +457,9 @@ export default {
 }
 .first-category {
   background-color: white;
-  height: 70px;
-  width: 30%;
-  font-size: 40px;
+  height: 60px;
+  width: 25%;
+  font-size: 28px;
   font-family: "Do Hyeon", sans-serif;
   border: 1px solid rgb(241, 232, 232);
   border-radius: 20px;
@@ -575,7 +576,7 @@ export default {
   /* min-width: 1600px; */
   /* min-height: 900px; */
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.1);
   z-index: 1000;
   -webkit-backdrop-filter: blur(1px);
   backdrop-filter: blur(1px);
