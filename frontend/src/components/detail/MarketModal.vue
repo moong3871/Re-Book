@@ -144,6 +144,7 @@ export default {
           console.log("성공");
           this.$emit("close-modal");
           this.$emit("registerMarket", this.form);
+          console.log(this.form);
         })
         .catch((err) => {
           console.log(err);

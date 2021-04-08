@@ -88,6 +88,7 @@ export default {
           // .post(`http://localhost:8080/api/comment`, this.comment, config)
           .then(() => {
             console.log("성공");
+            this.$emit("close-modal");
             // localStorage.setitem("rating", 0);
           })
           .catch((err) => {

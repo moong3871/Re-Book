@@ -9,12 +9,38 @@
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=96d25cdceea12f75a73fe83bd3348112"
 ></script>
 <script>
+import axios from "axios";
 export default {
   name: "Map",
   props: {
     detailBookInfo: Object,
   },
+  data() {
+    return { testdetailBookInfo: null, marketInfo: null };
+  },
+  watch: {
+    detailBookInfo: {
+      deep: true,
+      handler(newData) {
+        this.marketInfo = this.detailBookInfo;
+        this.initMap();
+      },
+    },
+  },
   mounted() {
+    // const config = this.setToken();
+    // var isbn = this.$route.query.isbn;
+    // axios
+    //   .get(`http://localhost:8080/api/book/${isbn}`, config)
+    //   .then((res) => {
+    //     console.log("성공");
+    //     this.detailBookInfo = res.data.object;
+    //     console.log(this.detailBookInfo);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    // if (this.detailBookInfo != null) {
     if (window.kakao && window.kakao.maps) {
       this.initMap();
     } else {
@@ -25,8 +51,18 @@ export default {
         "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=96d25cdceea12f75a73fe83bd3348112";
       document.head.appendChild(script);
     }
+    // }
   },
   methods: {
+    setToken() {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        headers: {
+          Authorization: token,
+        },
+      };
+      return config;
+    },
     initMap() {
       // 지도 생성
       var container = document.getElementById("map");
@@ -45,6 +81,8 @@ export default {
         imageSize,
         imageOption
       );
+      console.log("Map.vue===================");
+      console.log(this.detailBookInfo.market);
       var markerPositions = this.detailBookInfo.market;
 
       markerPositions.forEach((pos) => {
