@@ -5,9 +5,7 @@
         <img src="@/assets/images/REBOOK-removebg.png" class="login-logo" />
         <div class="checked-count">평가한 책 : {{ this.cnt }}권</div>
         <div class="done-box" v-if="this.cnt >= 10">
-          <div class="done" @click.left="$router.push({ name: Home })">
-            완료!
-          </div>
+          <div class="done" @click="$router.push('/home')">완료!</div>
         </div>
       </div>
       <div class="description-container">
