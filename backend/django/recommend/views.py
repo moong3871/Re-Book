@@ -50,6 +50,6 @@ def recommend(request, user_id):
         book_list.append(book)
     
     # 책 정보 전달
-    return Response(book_list)
+    return Response(book_list[:7])
 
     
