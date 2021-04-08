@@ -85,13 +85,10 @@ export default {
       // var ISBN = this.$route.params.book.isbn;
       console.log(this.book);
       const email = localStorage.getItem("email");
-      console.log("@@@@@이ㅣㅣㅣㅣㅣ메일");
-      console.log(typeof email);
-      const temp = localStorage.getItem("jwt");
-      console.log(typeof temp);
+      if (email == null) {
+        alert("로그인이 필요합니다.");
+      }
       const _status = status;
-      console.log("status 상태--------------------------------");
-      console.log(typeof _status);
       const info = {
         // userToken: localStorage.getItem("jwt"),
         email: email,

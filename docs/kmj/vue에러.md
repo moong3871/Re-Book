@@ -1,7 +1,5 @@
 [toc]
 
-# 사진에 돋보기 추가되면 좋을까?
-
 # img
 
 ```html
@@ -122,6 +120,12 @@ https://dev.eyegood.co.kr/entry/%EB%94%94%EB%B2%84%EA%B9%85-Uncaught-TypeError-i
   다른 라이브러리 사용 `vue-star-rating`
 
   [vue-star-rating - npm (npmjs.com)](https://www.npmjs.com/package/vue-star-rating)
+  
+- 시도 5
+
+  다른 component에서 -를 사용하니 icon이 보였다.
+
+  ex) mdiStar -> mdi-star
 
 # v-slot
 
