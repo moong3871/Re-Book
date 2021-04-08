@@ -1,9 +1,10 @@
-//package com.necessafy.rebook.controller;
+//package com.necessafy.rebook.controller.book;
 //
 //import com.necessafy.rebook.Service.BookRecommendService;
 //import com.necessafy.rebook.Service.ResponseService;
 //import com.necessafy.rebook.model.CommonResult;
 //import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.RestController;
 //
 ///**
@@ -11,16 +12,10 @@
 // */
 //@RestController
 //public class BookRecommendController {
-//    private final ResponseService responseService;
 //    private final BookRecommendService bookService;
 //
-//    public BookRecommendController(ResponseService responseService, BookRecommendService bookService){
-//        this.responseService = responseService;
-//        this.bookService = bookService;
-//    }
-//
-//    @GetMapping("/books")
-//    public CommonResult getBooks(){
-//        return responseService.getResult(bookService.getRecommendBooks());
+//    @GetMapping("/recobooks/{email}")
+//    public CommonResult getBooks(@PathVariable String user){
+//        return responseService.getResult(bookService.getRecommendBooks(userId))
 //    }
 //}
