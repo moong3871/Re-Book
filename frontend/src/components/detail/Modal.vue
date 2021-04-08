@@ -84,10 +84,11 @@ export default {
         // const info = this.comment;
         const config = this.setToken();
         axios
-          .post(`https://j4b206.p.ssafy.io/api/comment`, this.comment, config)
-          // .post(`http://localhost:8080/api/comment`, this.comment, config)
+          // .post(`https://j4b206.p.ssafy.io/api/comment`, this.comment, config)
+          .post(`http://localhost:8080/api/comment`, this.comment, config)
           .then(() => {
             console.log("성공");
+            this.$emit("close-modal");
             // localStorage.setitem("rating", 0);
           })
           .catch((err) => {

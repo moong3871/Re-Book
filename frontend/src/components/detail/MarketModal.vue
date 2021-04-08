@@ -136,14 +136,15 @@ export default {
       console.log(this.form);
       const config = this.setToken();
       axios
-        .post(`https://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
-          // .post(`http://localhost:8080/api/yangsangchu`, this.form, {
+        // .post(`https://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
+        .post(`http://localhost:8080/api/yangsangchu`, this.form, {
           config,
         })
         .then(() => {
           console.log("성공");
           this.$emit("close-modal");
           this.$emit("registerMarket", this.form);
+          console.log(this.form);
         })
         .catch((err) => {
           console.log(err);

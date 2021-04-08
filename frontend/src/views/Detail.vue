@@ -114,8 +114,6 @@ export default {
     registerMarket: function (info) {
       const newInfo = info;
       newInfo["nickname"] = localStorage.getItem("nickname");
-      console.log("@@@@@@@@@@@@@@@@@@@");
-      console.log(newInfo);
       this.detailBookInfo.market.push(newInfo);
     },
     openCommentModal() {
@@ -132,27 +130,18 @@ export default {
     // back에 이 책과 관련된 코멘트,user정보 요청
     // const config = this.setToken();
     axios
-      .get(`https://j4b206.p.ssafy.io/api/book/${this.isbn}`, config)
-      // .get(`http://localhost:8080/api/book/${this.isbn}`, config)
+      // .get(`https://j4b206.p.ssafy.io/api/book/${this.isbn}`, config)
+      .get(`http://localhost:8080/api/book/${this.isbn}`, config)
       .then((res) => {
         console.log(`=================책detail응답`);
         console.log(res.data);
         console.log(res.data.object);
         this.detailBookInfo = res.data.object;
+        this.$store.dispatch("get_marketInfo", res.data.object.market);
       })
       .catch((err) => {
         console.log("@@@@@@@@@@@@@@@@@@@책detail응답 에러");
         console.error(err);
-        // 더미데이터, 나중에 지우기
-        this.detailBookInfo = {
-          lat: 36.3457153,
-          lng: 127.3021023,
-          status: 0,
-          userEvaluation: 0,
-          comments: [],
-          recoBooks: [],
-          market: [],
-        };
       });
   },
 };
