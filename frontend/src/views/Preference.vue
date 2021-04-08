@@ -74,8 +74,8 @@ export default {
       const isbn = pre.isbn;
       const config = this.setToken();
       axios.post(
-        // "https://j4b206.p.ssafy.io/api/comment",
-        "http://localhost:8080/api/comment",
+        "https://j4b206.p.ssafy.io/api/comment",
+        // "http://localhost:8080/api/comment",
         {
           review: "리뷰",
           userEmail: localStorage.getItem("email"),

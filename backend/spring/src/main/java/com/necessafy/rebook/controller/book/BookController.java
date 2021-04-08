@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import static com.necessafy.rebook.utils.HttpUtils.makeResponse;
 import static com.necessafy.rebook.utils.HttpUtils.convertObjectToJson;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -72,7 +71,7 @@ public class BookController {
 //        -----------전처리-------
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         System.out.printf(email);
-        Optional<UserRebook> curReUser = userRebookDao.findById(email);
+        Optional<UserRebook> curReUser = userRebookDao.findByEmail(email);
         Optional<Book> curBook = bookDao.findById(isbn);
 
         // 1. for status
@@ -156,7 +155,7 @@ public class BookController {
         Integer status = userReadStatusRequest.getStatus();
         String email=userReadStatusRequest.getEmail();
         String isbn=userReadStatusRequest.getBook().getIsbn().trim();
-        Optional<UserRebook> curReUser=userRebookDao.findById(email);
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(email);
 
         Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
         // 책을 저장
@@ -196,7 +195,7 @@ public class BookController {
     @GetMapping("/search/{email}")
     @ApiOperation(value="특정 유저의 상태(읽고 싶어요, 읽고있어요 읽었어요)따른 책 정보 반환")
     public Object searchReadStatus(@Valid @RequestBody @ApiParam(value="email별로 조회",required = true) @PathVariable String email, String isbn) {
-        Optional<UserRebook> curReUser = userRebookDao.findById(email);
+        Optional<UserRebook> curReUser = userRebookDao.findByEmail(email);
         Optional<Book> curBook = bookDao.findById(isbn);
 
 
