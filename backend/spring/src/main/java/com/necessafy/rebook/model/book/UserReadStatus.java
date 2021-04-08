@@ -28,10 +28,15 @@ public class UserReadStatus {
     @JoinColumn(name="USER_ID")
     private UserRebook userRebook;
 
+
+    private String readStart;
+    private String readEnd;
+
     // 자식이 먼저 생성되는 문제 방지용 cascade 추가
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="BOOK_ISBN")
     private Book book;
+
 
 
 

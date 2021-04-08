@@ -356,7 +356,6 @@ img {
 .sent_msg {
   float: right;
   max-width: 46%;
-  /* min-width: 21%; */
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
