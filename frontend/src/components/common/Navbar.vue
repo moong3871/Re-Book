@@ -134,7 +134,7 @@ export default {
 }
 .logo {
   height: 100%;
-  margin-left: 50px;
+  margin-left: 30px;
   display: flex;
   align-items: center;
   float: left;
