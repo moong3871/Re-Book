@@ -1,4 +1,4 @@
-from . import models, serializers
+from . import models
 from .models import Book, Rating
 from django.shortcuts import render
 from django.http import JsonResponse
@@ -51,31 +51,5 @@ def recommend(request, user_id):
     
     # 책 정보 전달
     return Response(book_list)
-
-
-def index(request):
-    ratings = Rating.objects.all()
-    print(ratings)
-    return render(request, 'index.html')
-
-# class SmallPagination(PageNumberPagination):
-#     page_size = 10
-#     page_size_query_param = "page_size"
-#     max_page_size = 50
-
-
-# class CategoryViewSet(viewsets.ModelViewSet):
-#     serializer_class = serializers.BookSerializer
-#     pagination_class = SmallPagination
- 
-#     def get_queryset(self):
-#         queryset = 'http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey={}&QueryType=Bestseller&MaxResults=20&CategoryId={}&start=1&SearchTarget=Book&output=js&Version=20131101'.format(key, CID)
-#         return queryset
-
-# class BookDetailViewSet(viewsets.ModelViewSet):
-#     serializer_class = serializers.BookDetailSerializer
-#     def get_queryset(self):
-#         queryset = 'http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey={}&Query={}&QueryType=Keyword&MaxResults=1&start=1&SearchTarget=Book&output=js&Version=20131101'.format(key, {query_params})
-#         return queryset
 
     
