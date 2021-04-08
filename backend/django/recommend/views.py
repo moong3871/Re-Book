@@ -30,24 +30,27 @@ def recommend(request, user_id):
 
     # 데이터 통합
     book_ratings = pd.merge(books, ratings, on='isbn')
-    title_user = book_ratings.pivot_table('rating', index='user_id', columns='isbn')
+    title_user = book_ratings.pivot_table('rating', index='user_id', columns=['isbn', 'title', 'book_image_path', 'book_summary', 'evaluation', 'price', 'publisher', 'writer', 'country', 'maincategory', 'subcategory', 'categoryid', 'publish_date'])
     title_user.fillna(0, inplace=True)
 
     # 유저와 유저 간의 유사도 계산
     user_based_collab = cosine_similarity(title_user, title_user)
     user_based_collab = pd.DataFrame(user_based_collab, index=title_user.index, columns=title_user.index)
 
-    book_list = []
     # 사용자 기반 추천 목록 출력 및 JSON으로 변환
     user = user_based_collab[user_id].sort_values(ascending=False)[:7].index[1]
+
     recommend_books = title_user.loc[user].sort_values(ascending=False).to_json()
-    for k, v in title_user.loc[user].sort_values(ascending=False).items():
-        book_list.append(k)
 
-    book_info = set(book_list)
-
-    return Response(book_info)
-    # return render(request, 'index.html', context) 
+    book_list = []
+    # 정보 dictionary화
+    for keys, v in title_user.loc[user].sort_values(ascending=False).items():
+        values = ('isbn', 'title', 'book_image_path', 'book_summary', 'evaluation', 'price', 'publisher', 'writer', 'country', 'maincategory', 'subcategory', 'categoryid', 'publish_date')
+        book = dict(zip(values, keys))
+        book_list.append(book)
+    
+    # 책 정보 전달
+    return Response(book_list)
 
 
 def index(request):

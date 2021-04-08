@@ -11,7 +11,6 @@ router = DefaultRouter(trailing_slash=False)
 # router.register(r"bookSearch", views.BookSearchViewSet, 'booksearch')
 # router.register(r"book/(?P<id>.+)",views.BookDetailViewSet,basename="book")
 
-
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:user_id>/', views.recommend, name='recommend'),
