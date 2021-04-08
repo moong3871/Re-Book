@@ -133,7 +133,9 @@ export default {
   },
   mounted() {
     this.categorized_books = this.allbookdatas.filter((data) => {
-      return data.title.replace(/ /g, "").includes(this.keyword);
+      return data.title
+        .replace(/ /g, "")
+        .includes(this.keyword.replace(/ /g, ""));
     });
     this.currentpagebooks = this.categorized_books.slice(
       this.currentpage * 20 - 20,
