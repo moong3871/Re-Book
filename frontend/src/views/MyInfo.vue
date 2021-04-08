@@ -161,7 +161,7 @@ export default {
         password: this.password,
       };
       axios
-        .put(`http://j4b206.p.ssafy.io/api/account/update/`, info, config)
+        .put(`https://j4b206.p.ssafy.io/api/account/update/`, info, config)
         .then((res) => {
           var data = JSON.parse(res.data.data);
           console.log(data);

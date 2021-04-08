@@ -85,6 +85,10 @@
 </template>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+  type="text/javascript"
+  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=96d25cdceea12f75a73fe83bd3348112&libraries=services"
+></script>
 
 <script>
 import axios from "axios";
@@ -122,7 +126,7 @@ export default {
       this.form.address = document.getElementById("address").value;
       console.log(this.form);
       axios
-        .post(`http://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
+        .post(`https://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
           // .post(`http://localhost:8080/api/yangsangchu`, this.form, {
           headers: {
             Authorization: `jwt ${localStorage.getItem("jwt")}`,
@@ -136,12 +140,25 @@ export default {
         });
     },
     searchAddress: function () {
+      //주소-좌표 변환 객체를 생성
+      let geocoder = new kakao.maps.services.Geocoder();
       new daum.Postcode({
         oncomplete: function (data) {
+          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드
           let address = document.getElementById("address");
           address.value = data.address;
-          // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-          // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+          // 주소 -> 좌표 변환
+          geocoder.addressSearch(data.address, function (results, status) {
+            if (status === daum.maps.services.Status.OK) {
+              var result = results[0]; //첫번째 결과의 값을 활용
+
+              // 해당 주소에 대한 좌표를 받기
+              var coords = new daum.maps.LatLng(result.y, result.x);
+              console.log(coords);
+            } else {
+              console.log("주소 좌표변환 실패");
+            }
+          });
         },
       }).open();
     },
