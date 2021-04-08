@@ -235,7 +235,7 @@ export default {
 .login-box {
   margin-top: -240px;
   /* background-color: rgb(61, 44, 8, 0.6); */
-  background-color: rgba(26, 24, 24, 0.7);
+  background-color: rgba(133, 102, 63, 0.6);
   width: 35%;
   height: 80%;
   padding-top: 4%;

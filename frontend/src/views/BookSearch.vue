@@ -42,11 +42,43 @@
           @mousedown="
             opened = false;
             modalcheck = 0;
+            modal_button_activate = 0;
           "
         >
           <div class="modal-container" @mousedown.stop>
             <div class="book-open">
               <div class="book-container">
+                <div class="modal-contents">
+                  <div class="modal-title">
+                    {{ status.title }}
+                  </div>
+                  <div class="modal-writer" v-if="status.writer.length > 0">
+                    저자 : {{ status.writer }}
+                  </div>
+                  <div
+                    class="modal-category"
+                    v-if="status.subcategory.length > 0"
+                  >
+                    장르 : {{ status.subcategory }}
+                  </div>
+                </div>
+                <div
+                  class="modal-button-container"
+                  v-if="modal_button_activate === 1"
+                >
+                  <div
+                    class="modal-button"
+                    :style="{ background: modal_button_color }"
+                    @click.left="
+                      $router.push({
+                        name: 'Detail',
+                        query: { isbn: status.isbn },
+                      })
+                    "
+                  >
+                    More Details!
+                  </div>
+                </div>
                 <div id="card" :class="{ flipped: opened }">
                   <div class="front">
                     <img
@@ -129,6 +161,9 @@ export default {
       allpages: [],
       pages_idx: 0,
       max_pages_idx: 0,
+      status: [],
+      modal_button_activate: 0,
+      modal_button_color: "white",
     };
   },
   mounted() {
@@ -199,6 +234,7 @@ export default {
     rightclick(value) {
       this.countMouseOver = 1;
       this.pathinbook = value.book_image_path;
+      this.status = value;
       this.dolt();
     },
     dolt() {
@@ -211,6 +247,22 @@ export default {
           const audio = new Audio(booksound);
           audio.play();
         }, 300);
+        setTimeout(() => {
+          this.modal_button_activate = 1;
+        }, 2000);
+        // Detail 버튼 색깔
+        setTimeout(() => {
+          this.modal_button_color = "rgb(226, 175, 175)";
+        }, 2300);
+        setTimeout(() => {
+          this.modal_button_color = "white";
+        }, 2600);
+        setTimeout(() => {
+          this.modal_button_color = "rgb(226, 175, 175)";
+        }, 2900);
+        setTimeout(() => {
+          this.modal_button_color = "white";
+        }, 3200);
       }
     },
   },
@@ -306,10 +358,6 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  /* max-height: 1350px; */
-  /* max-width: 2400px; */
-  /* min-width: 1600px; */
-  /* min-height: 900px; */
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -320,11 +368,8 @@ export default {
   position: fixed;
   top: 19%;
   left: 22%;
-  /* max-width: 1200px; */
   width: 60%;
   height: 60%;
-  background-color: rgb(25, 37, 141);
-  background-color: rgb(194, 210, 221);
   z-index: 1002;
   border-radius: 20px;
   background: linear-gradient(45deg, rgb(162, 199, 216), rgb(239, 245, 239));
@@ -341,12 +386,67 @@ export default {
   border-bottom-right-radius: 15px;
   width: 100%;
   height: 100%;
-  background-color: rgb(243, 236, 197);
+  background-color: rgb(197, 214, 193);
   -webkit-perspective: 2000px;
   -moz-perspective: 800px;
   -o-perspective: 800px;
   perspective: 2000px;
   box-shadow: 1px 1px 2px #444 inset, -2px -2px 4px #444 inset;
+}
+.modal-contents {
+  position: absolute;
+  width: 100%;
+  height: 80%;
+  padding: 5% 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.modal-title {
+  text-align: center;
+  font-family: "Jua", sans-serif;
+  font-size: 25px;
+  background-color: white;
+  margin-bottom: 5%;
+}
+.modal-writer {
+  text-align: center;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
+  height: 20%;
+  /* background-color: white; */
+}
+.modal-category {
+  text-align: center;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
+  height: 20%;
+  /* background-color: white; */
+}
+.modal-button-container {
+  top: 80%;
+  position: absolute;
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.modal-button {
+  float: right;
+  width: 35%;
+  text-align: center;
+  /* background-color: red; */
+  margin-right: 20px;
+  font-family: "Jua", sans-serif;
+  font-size: 20px;
+  border-radius: 13px;
+  border: 1px solid black;
+  animation: fade-in 1s;
+}
+.modal-button:hover {
+  cursor: pointer;
+  background-color: rgb(75, 94, 124) !important;
 }
 #card {
   z-index: 2000;
@@ -405,13 +505,14 @@ export default {
 #card .back {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
-  background: rgb(243, 236, 197);
+  background: rgb(197, 214, 193);
   -webkit-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
   transform: rotateY(180deg);
   margin: 0;
+  padding: 2% 0;
   box-shadow: 1px 1px 2px #444 inset, -2px -2px 4px #444 inset;
 }
 .front-img {
