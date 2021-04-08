@@ -122,15 +122,23 @@ export default {
       alert("저장하지 않고 이 페이지를 벗어나면, 변경사항을 잃게 됩니다.");
       this.$emit("close-modal");
     },
+    setToken() {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        headers: {
+          Authorization: token,
+        },
+      };
+      return config;
+    },
     onSubmit: function () {
       this.form.address = document.getElementById("address").value;
       console.log(this.form);
+      const config = this.setToken();
       axios
-        .post(`https://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
-          // .post(`http://localhost:8080/api/yangsangchu`, this.form, {
-          headers: {
-            Authorization: `jwt ${localStorage.getItem("jwt")}`,
-          },
+        // .post(`https://j4b206.p.ssafy.io/api/yangsangchu`, this.form, {
+        .post(`http://localhost:8080/api/yangsangchu`, this.form, {
+          config,
         })
         .then(() => {
           console.log("성공");

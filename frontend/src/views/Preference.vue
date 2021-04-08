@@ -82,6 +82,7 @@ export default {
           userEmail: localStorage.getItem("email"),
           rating: this.rating,
           isbn: isbn,
+          book: pre,
         },
         config
       );
