@@ -130,8 +130,8 @@ export default {
     // back에 이 책과 관련된 코멘트,user정보 요청
     // const config = this.setToken();
     axios
-      // .get(`https://j4b206.p.ssafy.io/api/book/${this.isbn}`, config)
-      .get(`http://localhost:8080/api/book/${this.isbn}`, config)
+      .get(`https://j4b206.p.ssafy.io/api/book/${this.isbn}`, config)
+      // .get(`http://localhost:8080/api/book/${this.isbn}`, config)
       .then((res) => {
         console.log(`=================책detail응답`);
         console.log(res.data);
