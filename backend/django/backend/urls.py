@@ -21,6 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path('', include("recommend.urls")),
     path("admin/", admin.site.urls),
-    # path("recommend/", include("recommend.urls")),
 ]
 # fmt: on

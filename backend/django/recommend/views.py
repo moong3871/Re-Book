@@ -16,10 +16,10 @@ def recommend(request, user_id):
         books = pd.read_json(books)
 
     # AWS 환경 실행
-    con = MySQLdb.connect('rebookdb.cr7qoevh9p3x.ap-northeast-2.rds.amazonaws.com', 'admin', 'ssafyb206!', 'rebookdb')
+    # con = MySQLdb.connect('rebookdb.cr7qoevh9p3x.ap-northeast-2.rds.amazonaws.com', 'admin', 'ssafyb206!', 'rebookdb')
    
     # 로컬 환경 실행
-    # con = MySQLdb.connect("127.0.0.1", 'root', 'ssafy107', 'rebookdb')
+    con = MySQLdb.connect("127.0.0.1", 'root', 'ssafy107', 'rebookdb')
     
     cur = con.cursor()
     ratings = pd.read_sql_query('SELECT * FROM rating', con)
