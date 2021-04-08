@@ -98,8 +98,8 @@ export default {
       const config = this.setToken();
       axios
         .put(
-          `https://j4b206.p.ssafy.io/api/book/${email}`,
-          // `http://localhost:8080/api/book/${email}`,
+          // `https://j4b206.p.ssafy.io/api/book/${email}`,
+          `http://localhost:8080/api/book/${email}`,
           info,
           config
         )
@@ -122,10 +122,10 @@ export default {
     this.book = temp[0];
 
     // back에 이 책과 관련된 코멘트,user정보 요청
+    const config = this.setToken();
     axios
-      .get(`https://j4b206.p.ssafy.io/api/book/${this.isbn}`, {
-        userToken: localStorage.getItem("jwt"),
-      })
+      // .get(`https://j4b206.p.ssafy.io/api/book/${this.isbn}`, {
+      .get(`http://localhost:8080/api/book/${this.isbn}`, config)
       .then((res) => {
         console.log(`=================책detail응답`);
         console.log(res.data);
