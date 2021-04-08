@@ -80,7 +80,7 @@ export default {
         { title: "사이트소개", path: "/about" },
         { title: "카테고리", path: "/category" },
         { title: "장터", path: "/market" },
-        { title: "내 서재", path: "/chat" },
+        { title: "내 서재", path: "/userpage" },
       ],
       nickname: "",
     };

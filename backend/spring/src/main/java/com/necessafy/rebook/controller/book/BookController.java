@@ -93,13 +93,16 @@ public class BookController {
         List<OldBook> bookDealList = oldBookDao.findByIsbn(isbn);
 //        -----------------------
         List<BookComment> bookCommentList = new ArrayList<>();
-        List<Book> recoBookList = new ArrayList<>();
+        if(curBook.isPresent()){
+            bookCommentList = bookCommentDao.findAllByBook(curBook.get());
+        }
+//        List<Book> recoBookList = new ArrayList<>();
 
 
         bookDetailRequest.setLat("36.3457153");
         bookDetailRequest.setLng("127.3021023");
         bookDetailRequest.setBookComment(bookCommentList);
-        bookDetailRequest.setRecoBooks(recoBookList);
+//        bookDetailRequest.setRecoBooks(recoBookList);
         bookDetailRequest.setMarket(bookDealList);
 
 

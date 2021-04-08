@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(jwtInterceptor).addPathPatterns("/*")// 기본 적용 경로
 //                .excludePathPatterns(EXCLUDE_PATHS);// 적용 제외 경로
-        registry.addInterceptor(jwtInterceptor).addPathPatterns("/feed/**", "/map/**", "/search/**", "/yangsangchu/**") // 기본 적용 경로
+        registry.addInterceptor(jwtInterceptor).addPathPatterns("/feed/**", "/map/**", "/search/**") // 기본 적용 경로
                 .excludePathPatterns(Arrays.asList("/account/**", "/error/"));// 적용 제외 경로
     }
 

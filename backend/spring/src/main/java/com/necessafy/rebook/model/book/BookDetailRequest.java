@@ -19,7 +19,7 @@ public class BookDetailRequest {
     private int status;
     private int userEvaluation; // this can be rating
     private List<BookComment> bookComment;
-    private List<Book> recoBooks;
+//    private List<Book> recoBooks;
     private List<OldBook> market;
 
 }
