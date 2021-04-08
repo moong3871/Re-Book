@@ -12,7 +12,7 @@ import MySQLdb
 def recommend(request, user_id):
 
     # 책 데이터 불러오기
-    with open('recommend/management/commands/aladinalldata.json', encoding='UTF-8') as books:
+    with open('/django/backend/django/recommend/management/commands/aladinalldata.json', encoding='UTF-8') as books:
         books = pd.read_json(books)
 
     # AWS 환경 실행
