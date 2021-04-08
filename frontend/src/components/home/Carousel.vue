@@ -152,8 +152,9 @@ export default {
     };
   },
   created() {
+    const email = localStorage.getItem("email");
     axios
-      .get(`http://j4b206.p.ssafy.io:8000/recommend/1/`)
+      .get(`https://j4b206.p.ssafy.io/api/recobooks/${email}`)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   },

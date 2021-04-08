@@ -9,7 +9,7 @@
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=96d25cdceea12f75a73fe83bd3348112"
 ></script>
 <script>
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: "Map",
   props: {
@@ -74,7 +74,7 @@ export default {
 
       // 마커 생성
       var imageSrc = require("@/assets/images/lettuce.png"); // 마커 이미지
-      var imageSize = new kakao.maps.Size(64, 85); // 마커 이미지 크기
+      var imageSize = new kakao.maps.Size(42, 56); // 마커 이미지 크기
       var imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커 좌표와 일치시킬 이미지 안에서의 좌표 설정
       var markerImage = new kakao.maps.MarkerImage( // 마커 이미지 생성
         imageSrc,
