@@ -1,7 +1,13 @@
 <template>
   <div
     id="carousel3d"
-    style="width: 75vw; margin-left: 7vw; min-width: 1300px; height: 800px"
+    style="
+      width: 75vw;
+      min-width: 1300px;
+      height: 800px;
+      display: block;
+      margin: 0 auto;
+    "
   >
     <div class="recom-carousel-title">RE:BOOK's RECOMMEND</div>
     <carousel-3d
@@ -179,13 +185,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(37, 99, 45);
+  background-color: rgb(192, 219, 188);
+  border-radius: 20px;
 }
 .recom-image {
   width: 90%;
 }
 .recom-image:hover {
   cursor: pointer;
+  opacity: 0.8;
   /* width: 100%; */
 }
 </style>
