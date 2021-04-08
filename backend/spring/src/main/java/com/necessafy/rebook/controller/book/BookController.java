@@ -132,17 +132,14 @@ public class BookController {
     @Transactional
     @PutMapping("/{email}")
     @ApiOperation(value="해당 유저가 책을 읽은 상태를 등록")
-    public Object createReadStatus(@RequestBody @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
-                                   UserReadStatusRequest userReadStatusRequest, HttpServletRequest httpServletRequest){
-// @ModelAttribute
-        System.out.print(userReadStatusRequest + "helloooooo");
-        Integer status=userReadStatusRequest.getStatus();
-        System.out.print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+status);
-        System.out.print(userReadStatusRequest.getEmail());
+    public Object createReadStatus(@ModelAttribute @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
+                                   UserReadStatusRequest userReadStatusRequest, HttpServletRequest httpServletRequest,
+            @PathVariable String email){
 
-//        String email=userReadStatusRequest.getUserRebook().getEmail().trim();
-        String email=userReadStatusRequest.getEmail();
+        Integer status=userReadStatusRequest.getStatus();
         String isbn=userReadStatusRequest.getBook().getIsbn().trim();
+
+
         Optional<UserRebook>curReUser=userRebookDao.findById(email);
 
         Optional<Book>curBook=bookDao.findBookByIsbn(isbn);

@@ -89,9 +89,9 @@ DATABASES = {
         'PASSWORD': 'ssafyb206!',
         'HOST': 'rebookdb.cr7qoevh9p3x.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
-        'OPTIONS': {
-            "init_command": "SET GLOBAL max_connections = 100000",  # <-- The fix
-        }
+        # 'OPTIONS': {
+        #     "init_command": "SET GLOBAL max_connections = 100000",  # <-- The fix
+        # }
     }
 }
 
