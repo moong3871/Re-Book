@@ -150,9 +150,9 @@ export default {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("nickname", data.user.nickname);
           localStorage.setItem("email", this.email);
-
           this.$emit("login");
-          this.$router.push({ name: "Home" });
+
+          this.$router.push({ name: "Preference" });
           alert("정상적으로 로그인 되었습니다.");
         })
         .catch((err) => {

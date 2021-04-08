@@ -5,7 +5,7 @@
         <img src="@/assets/images/REBOOK-removebg.png" class="login-logo" />
         <div class="checked-count">평가한 책 : {{ this.cnt }}권</div>
         <div class="done-box" v-if="this.cnt >= 10">
-          <div class="done">완료!</div>
+          <div class="done" @click="$router.push('/home')">완료!</div>
         </div>
       </div>
       <div class="description-container">
@@ -42,6 +42,7 @@ import preference from "@/assets/bookdata/preference.json";
 import StarRating from "vue-star-rating";
 import axios from "axios";
 export default {
+  name: "Preference",
   components: {
     // Rating,
     StarRating,
