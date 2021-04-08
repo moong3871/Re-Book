@@ -49,6 +49,7 @@ export default {
         rating: localStorage.getItem("rating"),
         review: "",
         userEmail: localStorage.getItem("email"),
+        book: this.book,
       },
       test: "test",
     };
@@ -81,11 +82,11 @@ export default {
         alert("내용을 입력해주세요.");
         return;
       } else {
-        const info = this.comment;
+        // const info = this.comment;
         const config = this.setToken();
         axios
-          .post(`https://j4b206.p.ssafy.io/api/comment`, info, config)
-          // .post(`http://localhost:8080/api/comment`, info, config)
+          // .post(`https://j4b206.p.ssafy.io/api/comment`, info, config)
+          .post(`http://localhost:8080/api/comment`, this.comment, config)
           .then(() => {
             console.log("성공");
             // localStorage.setitem("rating", 0);

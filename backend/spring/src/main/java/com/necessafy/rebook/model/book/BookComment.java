@@ -32,7 +32,7 @@ public class BookComment extends TimeEntity {
     @JoinColumn(name="USER_EMAIL")
     private UserRebook userRebook;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="BOOK_ISBN")
     private Book book;
 

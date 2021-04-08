@@ -43,8 +43,9 @@ public class BookCommentController {
 
     @PostMapping
     @ApiOperation(value="리뷰 등록")
-    public Object create(@ModelAttribute @ApiParam(value="리뷰 등록 시 필요한 정보(평점, 날짜, 내용) "
+    public Object create(@RequestBody @ApiParam(value="리뷰 등록 시 필요한 정보(평점, 날짜, 내용) "
     ,required = true) CommentRequest commentRequest,HttpServletRequest httpServletRequest){
+        System.out.println(commentRequest);
         Integer rating=commentRequest.getRating();
         String review=commentRequest.getReview().trim();
         String userEmail=commentRequest.getUserEmail().trim();
@@ -53,18 +54,25 @@ public class BookCommentController {
 
         Optional<UserRebook> curReUser=userRebookDao.findById(userEmail); //이미 있는 정보
         Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
+        System.out.println(curReUser);
+        System.out.println(curBook);
+        Book book = new Book();
+        if(curBook.isPresent()){
+            Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
 
-        Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
-
-        if(curComment.isPresent()) {
-            return makeResponse("404",null,"review already exist", HttpStatus.BAD_REQUEST);
+            if(curComment.isPresent()) {
+                return makeResponse("404",null,"review already exist", HttpStatus.BAD_REQUEST);
+            }
+            book = curBook.get();
+        }else{
+            book = bookDao.save(commentRequest.getBook());
         }
 
         ResponseEntity<?>result=commentService.checkBlankWenCreateComment(curReUser,review,rating,curBook);
         if (result!=null){
             return result;
         }
-        BookComment bookComment=commentService.buildComment(rating,review,curReUser.get(),curBook.get());
+        BookComment bookComment=commentService.buildComment(rating,review,curReUser.get(),book);
 
         BookComment savedComment=bookCommentDao.save(bookComment);
 

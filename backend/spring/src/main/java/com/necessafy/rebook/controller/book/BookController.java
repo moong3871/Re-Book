@@ -62,7 +62,7 @@ public class BookController {
     BookService bookService;
 
     // 책 상세정보 반환
-    @PostMapping("/{isbn}")
+    @GetMapping("/{isbn}")
     @ApiOperation(value = "전체 공개 게시물을 받아온다", response = CommonResult.class)
     public CommonResult retrieveBookDetail(@PathVariable String isbn, HttpServletRequest httpServletRequest){
         CommonResult commonResult = new CommonResult();
@@ -72,22 +72,30 @@ public class BookController {
 //        -----------전처리-------
         Optional<UserRebook> curReUser = userRebookDao.findById(email);
         Optional<Book> curBook = bookDao.findById(isbn);
+
         // 1. for status
-        Optional<UserReadStatus> userReadStatus = userReadStatusDao.findByUserRebookAndBook(curReUser.get(), curBook.get());
         // 2. for userEvaluation
-        Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
+
+        BookDetailRequest bookDetailRequest = new BookDetailRequest();
+
+        if(curBook.isPresent() && curReUser.isPresent()) {
+            Optional<UserReadStatus> userReadStatus = userReadStatusDao.findByUserRebookAndBook(curReUser.get(), curBook.get());
+            Optional<BookComment> curComment = bookCommentDao.findByBookAndUserRebook(curBook.get(), curReUser.get());
+            bookDetailRequest.setStatus(userReadStatus.isPresent()?userReadStatus.get().getStatus():0);
+            bookDetailRequest.setUserEvaluation(curComment.isPresent()?curComment.get().getRating():0);
+        }else {
+            bookDetailRequest.setStatus(0);
+            bookDetailRequest.setUserEvaluation(0);
+        }
         // 3. for Market
         List<OldBook> bookDealList = oldBookDao.findByIsbn(isbn);
 //        -----------------------
-        BookDetailRequest bookDetailRequest = new BookDetailRequest();
         List<BookComment> bookCommentList = new ArrayList<>();
         List<Book> recoBookList = new ArrayList<>();
 
 
         bookDetailRequest.setLat("36.3457153");
         bookDetailRequest.setLng("127.3021023");
-        bookDetailRequest.setStatus(userReadStatus.isPresent()?userReadStatus.get().getStatus():0);
-        bookDetailRequest.setUserEvaluation(curComment.isPresent()?curComment.get().getRating():0);
         bookDetailRequest.setBookComment(bookCommentList);
         bookDetailRequest.setRecoBooks(recoBookList);
         bookDetailRequest.setMarket(bookDealList);
@@ -129,46 +137,54 @@ public class BookController {
     }
 
 
-    @Transactional
     @PutMapping("/{email}")
     @ApiOperation(value="해당 유저가 책을 읽은 상태를 등록")
-    public Object createReadStatus(@ModelAttribute @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
-                                   UserReadStatusRequest userReadStatusRequest, HttpServletRequest httpServletRequest,
-            @PathVariable String email){
+    public Object createReadStatus(@RequestBody @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
+                                   UserReadStatusRequest userReadStatusRequest, HttpServletRequest httpServletRequest){
+// @ModelAttribute
+//        System.out.print(userReadStatusRequest + "helloooooo");
+//        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+status);
+//        System.out.println(userReadStatusRequest.getEmail());
+        // 여기까지 완료
 
-        Integer status=userReadStatusRequest.getStatus();
+//        String email=userReadStatusRequest.getUserRebook().getEmail().trim();
+        Integer status = userReadStatusRequest.getStatus();
+        String email=userReadStatusRequest.getEmail();
         String isbn=userReadStatusRequest.getBook().getIsbn().trim();
+        Optional<UserRebook> curReUser=userRebookDao.findById(email);
 
+        Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
+        // 책을 저장
+//        if(!curBook.isPresent()){
+//            System.out.println("I saved this" + bookDao.save(userReadStatusRequest.getBook()));
+//        }
 
-        Optional<UserRebook>curReUser=userRebookDao.findById(email);
-
-        Optional<Book>curBook=bookDao.findBookByIsbn(isbn);
-        if(!curBook.isPresent()){
-            bookDao.save(userReadStatusRequest.getBook());
-        }
-
-        System.out.println("");
         System.out.println("#######################################################");
         System.out.println(curReUser);
+        //
         System.out.println(curBook);
         String emailToken = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 
-        ResponseEntity<?>result=bookService.checkBlankWenUserReadStatus(curReUser,status);
+        ResponseEntity<?> result = bookService.checkBlankWenUserReadStatus(curReUser,status);
 
         if(result!=null){
             return result;
         }
-        Optional<UserReadStatus> curStatus=userReadStatusDao.findByUserRebookAndBook(curReUser.get(),userReadStatusRequest.getBook());
+        Optional<UserReadStatus> curStatus = userReadStatusDao.findByUserRebookAndBook(curReUser.get(),userReadStatusRequest.getBook());
         if(curStatus.isPresent()) {
             curStatus.get().setStatus(status);
 //            UserReadStatus userReadStatus = userReadStatusDao.save(curStatus.get());
             return makeResponse("200", convertObjectToJson(curStatus.get()), "update status", HttpStatus.OK);
         }
-        UserReadStatus userReadStatus=bookService.buildStatus(status,curReUser.get(),userReadStatusRequest.getBook());
-        UserReadStatus savedStatus=userReadStatusDao.save(userReadStatus);
+        userReadStatusDao.save(bookService.buildStatus(status,curReUser.get(),userReadStatusRequest.getBook()));
 
-        return makeResponse("200",convertObjectToJson(savedStatus),"success",HttpStatus.OK);
+//        UserReadStatus userReadStatus=new UserReadStatus();
+//        userReadStatus.setStatus(status);
+//        userReadStatus.setUserRebook(curReUser.get());
+//        userReadStatus.setBook(userReadStatusRequest.getBook());
+//        UserReadStatus savedReadStatus = userReadStatusDao.save(userReadStatus);
 
+        return makeResponse("200",null,"success",HttpStatus.OK);
     }
 
 
