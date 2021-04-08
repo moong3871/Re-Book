@@ -11,6 +11,9 @@
 <script>
 export default {
   name: "Map",
+  props: {
+    detailBookInfo: Object,
+  },
   mounted() {
     if (window.kakao && window.kakao.maps) {
       this.initMap();
@@ -25,14 +28,33 @@ export default {
   },
   methods: {
     initMap() {
+      // 지도 생성
       var container = document.getElementById("map");
       var options = {
         center: new kakao.maps.LatLng(36.3457153, 127.3021026),
         level: 2,
       };
-
       var map = new kakao.maps.Map(container, options);
-      map.setMapTypeId(kakao.maps.MapTypeId.STANDARD); // 이거 안하면 is defined but not used
+
+      // 마커 생성
+      var imageSrc = require("@/assets/images/lettuce.png"); // 마커 이미지
+      var imageSize = new kakao.maps.Size(64, 85); // 마커 이미지 크기
+      var imageOption = { offset: new kakao.maps.Point(27, 69) }; // 마커 좌표와 일치시킬 이미지 안에서의 좌표 설정
+      var markerImage = new kakao.maps.MarkerImage( // 마커 이미지 생성
+        imageSrc,
+        imageSize,
+        imageOption
+      );
+      var markerPositions = this.detailBookInfo.market;
+
+      markerPositions.forEach((pos) => {
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: new kakao.maps.LatLng(pos.lat, pos.lng),
+          image: markerImage, // 마커이미지 설정
+          clickable: true, // 마커 클릭 시 지도의 클릭이벤트가 발생하지 않도록 설정
+        });
+      });
     },
   },
 };

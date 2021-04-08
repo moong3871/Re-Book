@@ -34,7 +34,6 @@ export default {
         review: "",
         userEmail: localStorage.getItem("email"),
       },
-      test: "test",
     };
   },
   methods: {
@@ -80,7 +79,6 @@ export default {
   mounted() {
     console.log("@@@@@@@@@@@@@@this.comment");
     console.log(this.comment);
-    console.log(this.test);
   },
 };
 </script>

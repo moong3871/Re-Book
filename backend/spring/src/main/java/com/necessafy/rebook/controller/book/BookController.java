@@ -70,6 +70,8 @@ public class BookController {
         String email = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 //        String email = "sbs@ssafy.com";
 //        -----------전처리-------
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.printf(email);
         Optional<UserRebook> curReUser = userRebookDao.findById(email);
         Optional<Book> curBook = bookDao.findById(isbn);
 
