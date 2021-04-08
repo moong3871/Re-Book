@@ -5,7 +5,7 @@
         <img class="s-img" :src="this.book.book_image_path" alt="책 이미지" />
       </div>
       <div class="info-box-right">
-        <h2>{{ book.title }}</h2>
+        <h2 class="book-title">{{ book.title }}</h2>
         <p>작 가: {{ book.writer }}</p>
         <p>출판사: {{ book.publisher }}</p>
         <p>정 가: {{ book.price }}원</p>
@@ -14,7 +14,7 @@
           <div class="dropdown">
             <v-menu offset-y>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn v-bind="attrs" v-on="on">
+                <v-btn v-bind="attrs" v-on="on" class="item-button item-status">
                   {{ status[current] }}
                 </v-btn>
               </template>
@@ -25,7 +25,9 @@
                   link
                   @click="changeStatus(index)"
                 >
-                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                  <v-list-item-title class="item-status">{{
+                    item.title
+                  }}</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -57,12 +59,12 @@ export default {
   },
   data() {
     return {
-      status: ["+ 읽고싶어요", "- 읽는 중", "✓ 읽었어요"],
+      status: ["+ 읽고싶어요", "-  읽는 중", "✓ 읽었어요"],
       current: 0,
       // color: ["#E91E63", "#F8BBD0", "#616161"],
       items: [
         { title: "+ 읽고싶어요" },
-        { title: "- 읽는 중" },
+        { title: "-  읽는 중" },
         { title: "✓ 읽었어요" },
       ],
     };
@@ -83,10 +85,52 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap");
+
+.book-title {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+}
+
+p {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 400;
+}
+
+.item-status {
+  font-family: "Noto Sans KR", sans-serif;
+  color: white;
+}
+
+.theme--light.v-btn.v-btn--has-bg[data-v-6d3f4828] {
+  background-color: #445b54;
+  color: white;
+}
+
+.theme--light.v-list {
+  padding: 0;
+}
+
+#list-item-39 {
+  background-color: #f6ac8b;
+}
+
+#list-item-40 {
+  background-color: #afd7ce;
+}
+
+#list-item-41 {
+  background-color: #69a9a3;
+}
+
 .info-container {
   width: 100%;
   height: 100%;
   display: flex;
+  font-family: "Noto Sans KR", AppleSDGothicNeo, "Apple SD Gothic Neo",
+    AppleSDGothicNeo-Light, HelveticaNeue-Light, "Malgun Gothic", "맑은 고딕",
+    sans-serif;
   justify-content: center;
   align-items: flex-start;
   margin-bottom: 3rem;

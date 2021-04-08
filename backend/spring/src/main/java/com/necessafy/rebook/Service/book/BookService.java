@@ -31,6 +31,14 @@ public class BookService {
                 .book(book)
                 .build();
     }
+    public UserReadStatus buildStatuse(Integer status,String readStart,UserRebook userRebook,Book book){
+        return UserReadStatus.builder()
+                .status(status)
+                .readStart(readStart)
+                .userRebook(userRebook)
+                .book(book)
+                .build();
+    }
 
 
 }

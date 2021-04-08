@@ -99,8 +99,8 @@ export default {
       const config = this.setToken();
       axios
         .put(
-          `https://j4b206.p.ssafy.io/api/book/${email}`,
-          // `http://localhost:8080/api/book/${email}`,
+          // `https://j4b206.p.ssafy.io/api/book/${email}`,
+          `http://localhost:8080/api/book/${email}`,
           info,
           config
         )
