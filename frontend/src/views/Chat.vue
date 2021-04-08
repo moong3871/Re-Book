@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 class="text-center">Messaging</h3>
+    <h3 class="text-center">{{ nickname }}님의 양상추마켓🥬</h3>
     <div class="messaging">
       <div class="inbox_msg">
         <div class="inbox_people">
@@ -10,12 +10,12 @@
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">
-                <input type="text" class="search-bar" placeholder="Search" />
-                <span class="input-group-addon">
+                <!-- <input type="text" class="search-bar" placeholder="Search" /> -->
+                <!-- <span class="input-group-addon">
                   <button type="button">
                     <i class="fa fa-search" aria-hidden="true"></i>
                   </button>
-                </span>
+                </span> -->
               </div>
             </div>
           </div>
@@ -55,17 +55,23 @@
                   />
                 </div>
                 <div class="received_msg mb-4">
+                  <span class="time_date ml-3" style="float: left">
+                    {{ message.createdAt }}</span
+                  ><br />
                   <div class="received_withd_msg ml-3">
                     <p>{{ message.message }}</p>
-                    <span class="time_date"> {{ message.createdAt }}</span>
                   </div>
                 </div>
               </div>
-              <div class="outgoing_msg" v-else>
-                <div class="sent_msg mb-4">
+              <div class="outgoing_msg mr-3" v-else>
+                <div class="sent_msg mb-4 ml-3">
+                  <span class="time_date" style="float: right">
+                    {{ message.createdAt }}</span
+                  ><br />
                   <div class="sent_withd_msg ml-3">
-                    <p>{{ message.message }}</p>
-                    <span class="time_date"> {{ message.createdAt }}</span>
+                    <p>
+                      {{ message.message }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -82,10 +88,12 @@
               />
               <button
                 @keyup.enter="saveMessage"
+                @click="saveMessage"
                 class="msg_send_btn mr-4"
                 type="button"
               >
-                <i aria-hidden="true">✏️</i>
+                <!-- <i aria-hidden="true">✏️</i> -->
+                <img src="../assets/images/lettuce.png" />
               </button>
             </div>
           </div>
@@ -108,7 +116,7 @@ export default {
       message: null,
       messages: [],
       createdAt: null,
-      // user: localStorage.getItem("nickname"),
+      nickname: localStorage.getItem("nickname"),
       user: "",
       chatId: 0,
       chatList: null,
@@ -117,6 +125,9 @@ export default {
   },
   methods: {
     saveMessage(sendnick) {
+      if (this.message === "" || this.message === null) {
+        return;
+      }
       //save to message
       db.collection(this.chatId).add({
         senduser: this.user,
@@ -139,12 +150,18 @@ export default {
             allMessages.push(doc.data());
           });
           this.messages = allMessages;
+          setTimeout(() => {
+            document.querySelector(
+              ".msg_history"
+            ).scrollTop = document.querySelector(".msg_history").scrollHeight;
+          }, 100);
         });
     },
     getChatList() {
       axios
         .post(
-          `https://j4b206.p.ssafy.io/api/yangsangchu/deallist/${this.user}`,
+          // `https://j4b206.p.ssafy.io/api/yangsangchu/deallist/${this.user}`,
+          `http://localhost:8080/api/yangsangchu/deallist/${this.user}`,
           {
             // .post(`http://localhost:8080/api/yangsangchu/deallist/${this.user}`, {
             headers: {
@@ -180,8 +197,9 @@ export default {
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap");
 * {
-  font-family: "Poor Story", cursive;
+  font-family: "Noto Sans KR", sans-serif;
 }
 .container {
   max-width: 1170px;
@@ -322,7 +340,7 @@ img {
 }
 
 .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
+  background: #69a9a3 none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
   margin: 0;
@@ -336,7 +354,8 @@ img {
 }
 .sent_msg {
   float: right;
-  width: 46%;
+  max-width: 46%;
+  min-width: 21%;
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;

@@ -103,10 +103,10 @@ public class DealController {
     @ApiOperation(value = "현재 거래중인 채팅방에 대한 정보를 반환한다.", notes = "클릭하면 chatId를 반환한다")
     public Object selectDealList(HttpServletRequest httpServletRequest, @PathVariable String email){
         //TODO:현재 사용자의 토큰 값!
-        System.out.println("before auth");
-        String test = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
-
-        System.out.println("after auth");
+//        System.out.println("before auth");
+//        String test = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
+//
+//        System.out.println("after auth");
         System.out.println(dealService.findBuyerAndSellerByUserEmail(email));
         return dealService.findBuyerAndSellerByUserEmail(email);
 //        return "hello";
