@@ -52,6 +52,7 @@ export default {
       yourLocalVariable: 0,
       rating: 0,
       cnt: 0,
+      already_rated: [],
       // current_preference: [],
     };
   },
@@ -71,8 +72,6 @@ export default {
     },
     preRating(pre) {
       const isbn = pre.isbn;
-      console.log(isbn);
-      console.log(this.rating);
       const config = this.setToken();
       axios.post(
         // "https://j4b206.p.ssafy.io/api/comment",
@@ -86,7 +85,13 @@ export default {
         },
         config
       );
-      this.cnt = this.cnt + 1;
+      if (this.already_rated.includes(isbn)) {
+        console.log("already");
+      } else {
+        this.cnt = this.cnt + 1;
+        this.already_rated.push(isbn);
+      }
+      // console.log(this.already_rated);
     },
   },
 };
