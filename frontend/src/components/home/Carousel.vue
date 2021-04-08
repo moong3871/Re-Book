@@ -131,6 +131,7 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 import Preference from "@/assets/bookdata/preference.json";
 import { Carousel3d, Slide } from "vue-carousel-3d";
 export default {
@@ -145,7 +146,10 @@ export default {
     };
   },
   created() {
-    // this.recommended_books = 추천하는 책들 7가지
+    axios
+      .get(`http://j4b206.p.ssafy.io:8000/recommend/1/`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   },
 };
 </script>
