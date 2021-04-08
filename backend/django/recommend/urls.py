@@ -7,5 +7,5 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter(trailing_slash=False)
 
 urlpatterns = [
-    path('/recommend/<int:user_id>/', views.recommend, name='recommend'),
+    path('recommend/<int:user_id>/', views.recommend, name='recommend'),
 ]
