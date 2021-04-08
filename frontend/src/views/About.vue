@@ -1,37 +1,5 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-    <div class="cover" @mouseover="activarOver" @mouseleave="resetOver"></div>
-    <div
-      v-if="modalcheck === 1"
-      class="modal-full"
-      @mousedown="
-        modalcheck = 0;
-        opened = false;
-      "
-    >
-      modal
-
-      <div class="modal-container" @mousedown.stop>
-        <div class="book-open">
-          <div class="book-container">
-            <div id="card" :class="{ flipped: opened }">
-              <figure class="front">A</figure>
-              <figure class="back">B</figure>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="book-open">
-      <div class="book-container">
-        <div id="card" :class="{ flipped: opened }">
-          <figure class="front">A</figure>
-          <figure class="back">B</figure>
-        </div>
-      </div>
-    </div> -->
-  </div>
+  <div></div>
 </template>
 <script>
 export default {
