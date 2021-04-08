@@ -144,7 +144,7 @@ export default {
     getChatList() {
       axios
         .post(
-          `http://j4b206.p.ssafy.io/api/yangsangchu/deallist/${this.user}`,
+          `https://j4b206.p.ssafy.io/api/yangsangchu/deallist/${this.user}`,
           {
             // .post(`http://localhost:8080/api/yangsangchu/deallist/${this.user}`, {
             headers: {

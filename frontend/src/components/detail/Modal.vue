@@ -84,7 +84,7 @@ export default {
         const info = this.comment;
         const config = this.setToken();
         axios
-          .post(`http://j4b206.p.ssafy.io/api/comment`, info, config)
+          .post(`https://j4b206.p.ssafy.io/api/comment`, info, config)
           // .post(`http://localhost:8080/api/comment`, info, config)
           .then(() => {
             console.log("성공");

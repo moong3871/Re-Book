@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="o-header">
-      <h3 class="o-title">당근서점에서 찾아보기</h3>
+      <h3 class="o-title">양상추마켓에서 찾아보기</h3>
       <div class="btn-box" @click="$emit('open-Mmodal')">
         <Button :title="title" />
       </div>
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      title: "+ 당근서점에 등록하기",
+      title: "+ 양상추마켓에 등록하기",
     };
   },
   methods: {

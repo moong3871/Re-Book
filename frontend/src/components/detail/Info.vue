@@ -71,17 +71,6 @@ export default {
     changeStatus(index) {
       this.current = index;
       this.$emit("changeStatus", this.current);
-      // axios
-      //   .put(`http://j4b206.p.ssafy.io/api/book/${ISBN}`, {
-      //     userToken: localStorage.getItem("jwt"),
-      //     status: this.current,
-      //   })
-      //   .then(() => {
-      //     console.log("성공");
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     },
     handleCommentModal() {
       this.$emit("openCommentModal");
