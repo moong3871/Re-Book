@@ -52,7 +52,7 @@ public class BookCommentController {
         String isbn=commentRequest.getIsbn().trim();
         String email = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 
-        Optional<UserRebook> curReUser=userRebookDao.findById(userEmail); //이미 있는 정보
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(userEmail); //이미 있는 정보
         Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
         System.out.println(curReUser);
         System.out.println(curBook);
@@ -88,7 +88,7 @@ public class BookCommentController {
         String review=updateBookCommentRequest.getReview().trim();
         String isbn=updateBookCommentRequest.getIsbn().trim();
 
-        Optional<UserRebook> curUserRebook=userRebookDao.findById(email);
+        Optional<UserRebook> curUserRebook=userRebookDao.findByEmail(email);
         Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
 
         String jwtEmail=jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
@@ -113,7 +113,7 @@ public class BookCommentController {
     public Object delete(@Valid @ApiParam(value=" commendID 값으로 리뷰 삭제 ",required = true)@PathVariable String commendId,String email ,HttpServletRequest httpServletRequest){
 
         Optional<BookComment> curComment=bookCommentDao.findById(Long.parseLong(commendId));
-        Optional<UserRebook> curReUser=userRebookDao.findById(email);
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(email);
         String userEmail=jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
         if (curReUser.get().equals(userEmail)){
             return makeResponse("404", null, "user not found", HttpStatus.NOT_FOUND);
@@ -131,7 +131,7 @@ public class BookCommentController {
     @GetMapping("/{email}")
     @ApiOperation(value="특정 유저가 특정 책에 쓴 코멘트 정보 검색")
     public Object search(@Valid @RequestBody @ApiParam(value="email로 특정 책 코멘트 정보 찾기",required =true) @PathVariable String email,String isbn){
-        Optional<UserRebook> curReUser=userRebookDao.findById(email);
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(email);
         Optional<Book> curBook=bookDao.findById(isbn);
         System.out.println(curReUser);
         System.out.println(curBook);

@@ -25,7 +25,7 @@ public class UserReadStatus {
     private int status; //읽고 싶어요 0 읽고 있어요 1 읽었어요 2
 
     @ManyToOne
-    @JoinColumn(name="USER_EMAIL")
+    @JoinColumn(name="USER_ID")
     private UserRebook userRebook;
 
     // 자식이 먼저 생성되는 문제 방지용 cascade 추가

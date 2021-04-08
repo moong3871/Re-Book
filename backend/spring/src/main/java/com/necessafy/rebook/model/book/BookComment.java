@@ -27,7 +27,7 @@ public class BookComment extends TimeEntity {
 
     //unique 키 : USER_EMAIL, isbn
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="USER_EMAIL")
+    @JoinColumn(name="USER_ID")
     private UserRebook userRebook;
 
     @ManyToOne()

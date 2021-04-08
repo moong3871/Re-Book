@@ -110,7 +110,7 @@ public class AccountController {
         if (!request.getEmail().equals(email)) {
             return makeResponse("404", null, "email is not match", HttpStatus.NOT_FOUND);
         } else {
-            Optional<UserRebook> curReUser = userRebookDao.findById(request.getEmail());
+            Optional<UserRebook> curReUser = userRebookDao.findByEmail(request.getEmail());
             String salt = curReUser.get().getSalt();
             if (!curReUser.isPresent()) {
                 return makeResponse("404", null, "user not found", HttpStatus.NOT_FOUND);
@@ -166,7 +166,7 @@ public class AccountController {
     @ApiOperation(value="특정 user 검색 시 책정보 ,comment 반환")
     public Object search(@Valid @RequestBody @ApiParam(value = "email로 조회",required = true) @PathVariable String email){
 
-        Optional<UserRebook> curReUser=userRebookDao.findById(email);
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(email);
 
         System.out.println(curReUser);
         List<BookComment> curComment=bookCommentDao.findByUserRebook(curReUser.get());
