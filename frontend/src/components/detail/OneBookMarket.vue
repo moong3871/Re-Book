@@ -6,7 +6,7 @@
         <Button :title="title" />
       </div>
     </div>
-    <Map />
+    <Map :detailBookInfo="detailBookInfo" />
   </div>
 </template>
 

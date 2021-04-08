@@ -29,6 +29,7 @@
     <MarketModal
       v-if="isMModal"
       @close-modal="isMModal = false"
+      @registerMarket="registerMarket"
       :detailBookInfo="detailBookInfo"
       :book="book"
     />
@@ -110,6 +111,13 @@ export default {
           console.log(err);
         });
     },
+    registerMarket: function (info) {
+      const newInfo = info;
+      newInfo["nickname"] = localStorage.getItem("nickname");
+      console.log("@@@@@@@@@@@@@@@@@@@");
+      console.log(newInfo);
+      this.detailBookInfo.market.push(newInfo);
+    },
     openCommentModal() {
       this.isModal = true;
     },
@@ -120,7 +128,7 @@ export default {
       return data.isbn.includes(this.isbn);
     });
     this.book = temp[0];
-
+    const config = this.setToken();
     // back에 이 책과 관련된 코멘트,user정보 요청
     const config = this.setToken();
     axios

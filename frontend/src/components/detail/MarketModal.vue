@@ -17,7 +17,7 @@
               <label for="status"
                 >상
                 <input
-                  id="status"
+                  id="status1"
                   type="radio"
                   name="status"
                   value="0"
@@ -27,7 +27,7 @@
               <label for="status"
                 >중
                 <input
-                  id="status"
+                  id="status2"
                   type="radio"
                   name="status"
                   value="1"
@@ -37,7 +37,7 @@
               <label for="status"
                 >하
                 <input
-                  id="status"
+                  id="status3"
                   type="radio"
                   name="status"
                   value="2"
@@ -134,9 +134,12 @@ export default {
         })
         .then(() => {
           console.log("성공");
+          this.$emit("close-modal");
+          this.$emit("registerMarket", this.form);
         })
         .catch((err) => {
           console.log(err);
+          alert("등록에 실패하였습니다. 다시 시도해주세요.");
         });
     },
     searchAddress: function () {
@@ -154,13 +157,16 @@ export default {
 
               // 해당 주소에 대한 좌표를 받기
               var coords = new daum.maps.LatLng(result.y, result.x);
-              console.log(coords);
+              localStorage.setItem("lat", coords.Ma);
+              localStorage.setItem("lng", coords.La);
             } else {
               console.log("주소 좌표변환 실패");
             }
           });
         },
       }).open();
+      this.form.lat = localStorage.getItem("lat");
+      this.form.lng = localStorage.getItem("lng");
     },
   },
 };

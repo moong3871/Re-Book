@@ -11,6 +11,9 @@
 <script>
 export default {
   name: "Map",
+  props: {
+    detailBookInfo: Object,
+  },
   mounted() {
     if (window.kakao && window.kakao.maps) {
       this.initMap();
@@ -30,7 +33,6 @@ export default {
         center: new kakao.maps.LatLng(36.3457153, 127.3021026),
         level: 2,
       };
-
       var map = new kakao.maps.Map(container, options);
       map.setMapTypeId(kakao.maps.MapTypeId.STANDARD); // 이거 안하면 is defined but not used
     },
