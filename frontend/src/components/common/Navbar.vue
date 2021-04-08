@@ -15,6 +15,14 @@
             <div class="hello-user-container">
               <div class="hello-user">{{ nickname }}님 환영합니다.</div>
               <div class="profile-container">
+                <v-icon
+                  dark
+                  color="green"
+                  size="35px"
+                  @click="$router.push({ name: 'Chat' })"
+                >
+                  mdi-bell
+                </v-icon>
                 <Member></Member>
               </div>
             </div>
@@ -248,5 +256,8 @@ export default {
 }
 .v-application--wrap {
   min-height: 0px !important;
+}
+.profile-container {
+  display: flex;
 }
 </style>
