@@ -23,19 +23,3 @@ class Rating(models.Model):
     review = models.CharField(max_length=45, null=True)
     user_id = models.CharField(max_length=45, null=True)
     
-
-
-# class MainCategory(models.Model):
-#     name = models.CharField(max_length=100)
-
-# class SubCategory(models.Model):
-#     name = models.CharField(max_length=100)
-#     main = models.ForeignKey(MainCategory,on_delete=models.CASCADE)
-#     book_category = models.ManyToManyField(
-#         related_name='favoriteCategory',
-#         blank=True
-#     )
-    
-# class DetailCategory(models.Model):
-#     name = models.CharField(max_length=100)
-#     sub = models.ForeignKey(SubCategory, on_delete =models.CASCADE)
