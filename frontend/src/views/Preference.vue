@@ -60,18 +60,30 @@ export default {
   },
   mounted() {},
   methods: {
+    setToken() {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        headers: {
+          Authorization: token,
+        },
+      };
+      return config;
+    },
     preRating(pre) {
       const isbn = pre.isbn;
       console.log(isbn);
       console.log(this.rating);
+      const config = this.setToken();
       axios.post(
-        "http://j4b206.p.ssafy.io/api/comment",
-        { rating: this.rating, isbn: isbn },
+        // "https://j4b206.p.ssafy.io/api/comment",
+        "http://localhost:8080/api/comment",
         {
-          headers: {
-            Authorization: `jwt ${localStorage.getItem("jwt")}`,
-          },
-        }
+          review: "리뷰",
+          userEmail: localStorage.getItem("email"),
+          rating: this.rating,
+          isbn: isbn,
+        },
+        config
       );
       this.cnt = this.cnt + 1;
     },

@@ -2,7 +2,6 @@
   <div class="container">
     <h1 class="temp">가나다</h1>
     {{ sample }}
-    {{ test }}
     {{ sellInfo }}
   </div>
 </template>
@@ -20,7 +19,6 @@ export default {
   name: "MarketInfo",
   props: {
     sellInfo: Array,
-    test: String,
   },
   data() {
     return {

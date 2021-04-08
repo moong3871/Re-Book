@@ -51,7 +51,6 @@ export default {
         userEmail: localStorage.getItem("email"),
         book: this.book,
       },
-      test: "test",
     };
   },
   // components: {
