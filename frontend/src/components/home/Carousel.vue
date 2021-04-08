@@ -1,8 +1,9 @@
 <template>
   <div
     id="carousel3d"
-    style="width: 80vw; margin-left: 10vw; min-width: 1300px; height: 1000px"
+    style="width: 75vw; margin-left: 7vw; min-width: 1300px; height: 800px"
   >
+    <div class="recom-carousel-title">RE:BOOK's RECOMMEND</div>
     <carousel-3d
       :perspective="0"
       :space="320"
@@ -18,96 +19,138 @@
       style="height: 600px; min-height: 600px; max-width: 1800px !important"
     >
       <slide :index="0" style="height: 600px; border: 0px; max-width: 400px">
-        <div
-          style="
-            height: 1500px;
-            width: 100%;
-            background-image: url('https://image.aladin.co.kr/product/25964/44/cover500/8933871551_3.jpg');
-            background-size: contain;
-            height: 100%;
-            position: relative;
-          "
-        ></div>
+        <div class="recom-image-box">
+          <img
+            :src="recommended_books[0]['book_image_path']"
+            alt=""
+            class="recom-image"
+            @click.left="
+              $router.push({
+                name: 'Detail',
+                query: { isbn: recommended_books[0]['isbn'] },
+              })
+            "
+          />
+        </div>
       </slide>
-      <slide
-        :index="1"
-        style="
-          height: 600px;
-          background-color: rgb(216, 216, 216);
-          border: 0px;
-          max-width: 400px;
-        "
-      >
+      <slide :index="1" style="height: 600px; border: 0px; max-width: 400px">
+        <div class="recom-image-box">
+          <img
+            :src="recommended_books[1]['book_image_path']"
+            alt=""
+            class="recom-image"
+            @click.left="
+              $router.push({
+                name: 'Detail',
+                query: { isbn: recommended_books[1]['isbn'] },
+              })
+            "
+          />
+        </div>
       </slide>
-      <slide
-        :index="2"
-        style="
-          height: 600px;
-          background-color: rgb(216, 216, 216);
-          border: 0px;
-          max-width: 400px;
-        "
-      >
+      <slide :index="2" style="height: 600px; border: 0px; max-width: 400px">
+        <div class="recom-image-box">
+          <img
+            :src="recommended_books[2]['book_image_path']"
+            alt=""
+            class="recom-image"
+            @click.left="
+              $router.push({
+                name: 'Detail',
+                query: { isbn: recommended_books[2]['isbn'] },
+              })
+            "
+          />
+        </div>
       </slide>
-      <slide
-        :index="3"
-        style="
-          height: 600px;
-          background-color: rgb(216, 216, 216);
-          border: 0px;
-          max-width: 400px;
-        "
-      >
+      <slide :index="3" style="height: 600px; border: 0px; max-width: 400px">
+        <div class="recom-image-box">
+          <img
+            :src="recommended_books[3]['book_image_path']"
+            alt=""
+            class="recom-image"
+            @click.left="
+              $router.push({
+                name: 'Detail',
+                query: { isbn: recommended_books[3]['isbn'] },
+              })
+            "
+          />
+        </div>
       </slide>
-      <slide
-        :index="4"
-        style="
-          height: 600px;
-          background-color: rgb(216, 216, 216);
-          border: 0px;
-          max-width: 400px;
-        "
-      >
+      <slide :index="4" style="height: 600px; border: 0px; max-width: 400px">
+        <div class="recom-image-box">
+          <img
+            :src="recommended_books[4]['book_image_path']"
+            alt=""
+            class="recom-image"
+            @click.left="
+              $router.push({
+                name: 'Detail',
+                query: { isbn: recommended_books[4]['isbn'] },
+              })
+            "
+          />
+        </div>
       </slide>
-      <slide
-        :index="5"
-        style="
-          height: 600px;
-          background-color: rgb(216, 216, 216);
-          border: 0px;
-          max-width: 400px;
-        "
-      >
+      <slide :index="5" style="height: 600px; border: 0px; max-width: 400px">
+        <div class="recom-image-box">
+          <img
+            :src="recommended_books[5]['book_image_path']"
+            alt=""
+            class="recom-image"
+            @click.left="
+              $router.push({
+                name: 'Detail',
+                query: { isbn: recommended_books[5]['isbn'] },
+              })
+            "
+          />
+        </div>
       </slide>
       <slide
         :index="6"
-        style="
-          height: 600px;
-          background-color: rgb(216, 216, 216);
-          border: 0px;
-          max-width: 400px;
-        "
+        style="height: 600px; border: 0px; max-width: 400px"
+        class="abc"
       >
+        <div class="recom-image-box">
+          <img
+            :src="recommended_books[6]['book_image_path']"
+            alt=""
+            class="recom-image"
+            @click.left="
+              $router.push({
+                name: 'Detail',
+                query: { isbn: recommended_books[6]['isbn'] },
+              })
+            "
+          />
+        </div>
       </slide>
     </carousel-3d>
   </div>
 </template>
 <script>
+import Preference from "@/assets/bookdata/preference.json";
 import { Carousel3d, Slide } from "vue-carousel-3d";
 export default {
-  data() {
-    return {
-      slides: 7,
-      abcde: [0, 1, 2, 3, 4, 5, 6],
-    };
-  },
   components: {
     Carousel3d,
     Slide,
   },
+  data() {
+    return {
+      slides: 7,
+      recommended_books: Preference.slice(0, 7),
+    };
+  },
+  created() {
+    // this.recommended_books = 추천하는 책들 7가지
+  },
 };
 </script>
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Train+One&display=swap");
 #carousel3d .carousel-3d-slide {
   display: flex;
   flex: 1;
@@ -117,5 +160,28 @@ export default {
   background-color: #fff;
   /* padding: 10px; */
   transition: all 0.4s;
+}
+.recom-carousel-title {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: -30px;
+  font-size: 40px;
+  font-family: "Train One", cursive;
+  font-weight: 1000;
+}
+.recom-image-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(37, 99, 45);
+}
+.recom-image {
+  width: 90%;
+}
+.recom-image:hover {
+  cursor: pointer;
+  /* width: 100%; */
 }
 </style>
