@@ -161,7 +161,7 @@ export default {
   methods: {
     signup() {
       axios
-        .post(`http://j4b206.p.ssafy.io/api/account/signup`, {
+        .post(`https://j4b206.p.ssafy.io/api/account/signup`, {
           // .post(`http://localhost:8080/api/account/signup`, {
           email: this.email,
           nickname: this.nickname,

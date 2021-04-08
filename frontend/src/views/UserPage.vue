@@ -39,7 +39,7 @@ export default {
   methods: {
     getAccountInfo() {
       axios
-        .get("http://j4b206.p.ssafy.io/api/account/sbs%40ssafy.com")
+        .get("https://j4b206.p.ssafy.io/api/account/sbs%40ssafy.com")
         .then((res) => {
           var data = JSON.parse(res.data.data);
           console.log(data);
