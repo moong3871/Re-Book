@@ -111,7 +111,20 @@ public class DealController {
         return dealService.findBuyerAndSellerByUserEmail(email);
 //        return "hello";
     }
-
+    
+//    @GetMapping("/showBuyer/{userId}")
+//    @ApiOperation(value = "구매자 아이디를 이용하여 닉네임을 가져옵니다", notes = "클릭하면 chatId를 반환한다")
+//    public Object showBuyer(HttpServletRequest httpServletRequest, @PathVariable String userId){
+//        //TODO:현재 사용자의 토큰 값!
+//        Long.parseLong(userId);
+//        System.out.println("before auth");
+//        String test = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
+//
+//        System.out.println("after auth");
+//        System.out.println(dealService.findBuyerAndSellerByUserEmail(email));
+//        return dealService.findBuyerAndSellerByUserEmail(email);
+//        return "hello";
+    }
     // 채팅방을 선택하면, chatId에 의해서 채팅방 정보를 병경해줄수 있다.
     
     // 이제 서로 확인작업을 통해서 complete 값을 갱신시켜주면 거래 완료
