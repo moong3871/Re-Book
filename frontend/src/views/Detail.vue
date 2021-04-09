@@ -18,8 +18,8 @@
     />
     <!-- <ModalContent @close-modal="this.$emit('close-modal')" />
     </Modal> -->
-    <hr />
-    <Recommend :detailBookInfo="detailBookInfo" />
+    <!-- <hr />
+    <Recommend :detailBookInfo="detailBookInfo" /> -->
     <hr />
     <OneBookMarket
       :detailBookInfo="detailBookInfo"
@@ -42,7 +42,7 @@ import axios from "axios";
 import Cover from "@/components/detail/Cover.vue";
 import Info from "@/components/detail/Info.vue";
 import Comment from "@/components/detail/Comment.vue";
-import Recommend from "@/components/detail/Recommend.vue";
+// import Recommend from "@/components/detail/Recommend.vue";
 import OneBookMarket from "@/components/detail/OneBookMarket.vue";
 import MarketModal from "@/components/detail/MarketModal.vue";
 import Modal from "@/components/detail/Modal.vue";
@@ -54,7 +54,7 @@ export default {
     Cover,
     Info,
     Comment,
-    Recommend,
+    // Recommend,
     OneBookMarket,
     MarketModal,
     Modal,
