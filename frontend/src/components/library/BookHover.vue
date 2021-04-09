@@ -1,34 +1,19 @@
 <template>
   <div class="card" :style="elStyle">
     <div class="content">
-      <h2 class="title">{{ book.title }}</h2>
+      <h2 class="title">{{ book.book.title }}</h2>
       <p class="rate">★ 5.0</p>
       <p class="copy">
-        이 책에서 ‘회복탄력성’ 이란 원래 제자리로 되돌아오는 힘을 일컫는 말로
-        회복력 혹은 높이 되튀어오르는 탄력성을 뜻한다고 한다. 또한 회복탄력성은
-        성공에 대한 강한 집념에서 나오는 것이 아닌 실패에 대한 두려움 없음에서
-        나온다. 그리고 이 책에서 다양한 사례에서 계속 강조하듯이 회복탄력성에서
-        제일 중요한 것은 ‘긍정성’ 이다. 삶에서 일어나는 모든 사건들을 보다 더
-        긍정적으로 받아들이는 뇌가 회복탄력성을 높이는 것처럼. 긍정적인 뇌,
-        긍정적인 습관을 키울 수 있는 것이 중요하다. 이 책의 PART 2 에서는
-        회복탄력성의 지수를 알아볼 수 있는 KRQ-53 테스트가 있다. 테스트를 하기
-        전 부터 사실 걱정이 좀 되었지만, 내 예상대로 자기조절능력, 대인관계능력,
-        긍정성 까지 평균보다 낮아버렸다. (이 세가지 점수의 총합이 회복탄력성
-        지수인데, 나는 160점대가 나왔다.) 즉 나는 깨지기 쉬운 유리 같은
-        존재라고. 사실 최근들어 힘든 일이 너무 많아서 멘탈이 무너지고 있었다.
-        무슨 일을 하기 전부터 부정적인 생각이 나를 더 강하게 지배하고 있었다.
-        짧은 시간 안에 바꾸기는 힘들겠지만 조금 더 나은 나의 삶을 위해서
-        긍정적인 힘을 믿어보기로 했다. 3주가량 노력하면 의식하지 않아도 습관이
-        들기 시작하고, 3개월 정도 지나면 완전히 내 것으로 만들 수 있다니까!
-        회복탄력성을 내 것으로 만들어보자.
+        {{ book.review }}
       </p>
-      <BookModal />
+      <BookModal :book="book" :src="src" />
     </div>
   </div>
 </template>
 
 <script>
 import BookModal from "./BookModal.vue";
+import bookdata from "@/assets/bookdata/bookdata.json";
 
 export default {
   name: "BookHover",
@@ -37,13 +22,25 @@ export default {
       type: Object,
     },
   },
+  data() {
+    return {
+      bookdata: bookdata,
+      src: null,
+    };
+  },
   components: {
     BookModal,
+  },
+  created() {
+    var temp = this.bookdata.filter((data) => {
+      return data.isbn.includes("K512739331");
+    });
+    this.src = temp[0].book_image_path;
   },
   computed: {
     elStyle() {
       return {
-        "background-image": `url(${this.book.src})`,
+        "background-image": `url(${this.src})`,
       };
     },
   },

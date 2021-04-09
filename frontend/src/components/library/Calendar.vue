@@ -95,6 +95,9 @@
 <script>
 export default {
   name: "Calendar",
+  props: {
+    books: Array,
+  },
   data: () => ({
     focus: "",
     type: "month",
@@ -108,26 +111,26 @@ export default {
     selectedElement: null,
     selectedOpen: false,
     events: [],
-    books: [
-      {
-        name: "회복탄력성",
-        start: new Date("2021-04-01 09:00:00 GMT+0900"),
-        end: new Date("2021-04-04 19:00:00 GMT+0900"),
-        color: "#173F5F",
-      },
-      {
-        name: "자기관리론",
-        start: new Date("2021-04-03 09:00:00 GMT+0900"),
-        end: new Date("2021-04-06 22:00:00 GMT+0900"),
-        color: "#124933",
-      },
-      {
-        name: "저 청소일 하는데요?",
-        start: new Date("2021-04-06 09:00:00 GMT+0900"),
-        end: new Date("2021-04-09 09:00:00 GMT+0900"),
-        color: "#ac3300",
-      },
-    ],
+    // books: [
+    //   {
+    //     name: "회복탄력성",
+    //     start: new Date("2021-04-01 09:00:00 GMT+0900"),
+    //     end: new Date("2021-04-04 19:00:00 GMT+0900"),
+    //     color: "#173F5F",
+    //   },
+    //   {
+    //     name: "자기관리론",
+    //     start: new Date("2021-04-03 09:00:00 GMT+0900"),
+    //     end: new Date("2021-04-06 22:00:00 GMT+0900"),
+    //     color: "#124933",
+    //   },
+    //   {
+    //     name: "저 청소일 하는데요?",
+    //     start: new Date("2021-04-06 09:00:00 GMT+0900"),
+    //     end: new Date("2021-04-09 09:00:00 GMT+0900"),
+    //     color: "#ac3300",
+    //   },
+    // ],
   }),
   mounted() {
     this.$refs.calendar.checkChange();
@@ -178,10 +181,9 @@ export default {
 
       for (let i = 0; i < eventCount; i++) {
         events.push({
-          name: this.books[i].name,
-          start: this.books[i].start,
-          end: this.books[i].end,
-          color: this.books[i].color,
+          name: this.books[i].book.title,
+          start: new Date(this.books[i].createDate),
+          end: new Date(this.books[i].updateDate),
         });
       }
 
