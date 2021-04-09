@@ -7,14 +7,14 @@
     <div class="modal-card">
       <p class="c-title">장터에 책 등록하기</p>
       <div class="m-content">
-        <div class="m-img">
+        <div class="m-img-box">
           <img :src="this.book.book_image_path" alt="책표지" class="m-img" />
         </div>
         <div class="m-info">
           <form class="form">
-            <div class="status">
+            <div class="status" style="margin-right: 20px">
               책상태:
-              <label for="status"
+              <label for="status" style="margin-right: 10px"
                 >상
                 <input
                   id="status1"
@@ -24,7 +24,7 @@
                   v-model="form.status"
                 />
               </label>
-              <label for="status"
+              <label for="status" style="margin-right: 10px"
                 >중
                 <input
                   id="status2"
@@ -46,34 +46,54 @@
               </label>
             </div>
             <div class="price">
-              <label for="price">가격: </label>
+              <label for="price" style="margin-right: 15px">가격 : </label>
               <input
                 type="number"
                 id="price"
                 name="price"
                 v-model="form.price"
+                style="
+                  height: 35px;
+                  border: 1px solid gray;
+                  border-radius: 6px;
+                  width: 120px;
+                "
               />
             </div>
             <div class="address">
               <!-- <p>주소 :</p>
               <button type="button" @click="searchAddress">주소 검색</button> -->
-              <label for="address">직거래 장소: </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                placeholder="주소를 입력해주세요"
-                @click="searchAddress"
-              />
+              <label for="address" style="margin-left: -125px"
+                >직거래 장소:
+              </label>
+              <div>
+                <input
+                  class="location-input"
+                  type="text"
+                  id="address"
+                  name="address"
+                  placeholder="주소를 입력해주세요"
+                  @click="searchAddress"
+                />
+              </div>
             </div>
             <div class="desc">
-              <label for="desc">상세설명: </label>
-              <input
-                type="text"
-                id="desc"
-                name="desc"
-                v-model="form.description"
-              />
+              <label for="desc" style="margin-left: -130px">상세설명: </label>
+              <div>
+                <input
+                  type="text"
+                  id="desc"
+                  name="desc"
+                  v-model="form.description"
+                  style="
+                    height: 35px;
+                    border: 1px solid black;
+                    width: 230px;
+                    border-radius: 15px;
+                    margin-left: 10px;
+                  "
+                />
+              </div>
             </div>
           </form>
         </div>
@@ -202,6 +222,7 @@ export default {
   z-index: 6;
   color: white;
   text-align: center;
+  border-radius: 25px;
 }
 .c-title {
   font-size: 2rem;
@@ -225,5 +246,32 @@ export default {
 .condition {
   display: flex;
   align-content: center;
+}
+.m-img-box {
+  height: 100%;
+}
+.m-img {
+  margin-top: 8%;
+  height: 90%;
+  max-width: 99%;
+}
+.status {
+  /* background-color: red; */
+  margin-top: 30px;
+  font-size: 18px;
+  margin-bottom: 8%;
+}
+.price {
+  font-size: 17px;
+  margin-left: -40px;
+  /* background-color: green; */
+  margin-bottom: 8%;
+}
+.location-input {
+  border: 1px solid black;
+  width: 90%;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 8%;
 }
 </style>
