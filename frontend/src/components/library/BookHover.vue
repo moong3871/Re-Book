@@ -33,7 +33,7 @@ export default {
   },
   created() {
     var temp = this.bookdata.filter((data) => {
-      return data.isbn.includes("K512739331");
+      return data.isbn.includes(this.book.book.isbn);
     });
     this.src = temp[0].book_image_path;
   },
