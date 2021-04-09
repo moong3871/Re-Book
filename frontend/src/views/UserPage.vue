@@ -40,8 +40,9 @@ export default {
   },
   methods: {
     getAccountInfo() {
+      const email = localStorage.getItem("email");
       axios
-        .get("https://j4b206.p.ssafy.io/api/account/ssafy1617@ssafy.com")
+        .get(`https://j4b206.p.ssafy.io/api/account/${email}`)
         .then((res) => {
           var data = JSON.parse(res.data.data);
           this.books = data;
