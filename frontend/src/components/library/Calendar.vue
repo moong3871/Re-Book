@@ -131,6 +131,7 @@ export default {
     //     color: "#ac3300",
     //   },
     // ],
+    nickname: "",
   }),
   mounted() {
     this.$refs.calendar.checkChange();

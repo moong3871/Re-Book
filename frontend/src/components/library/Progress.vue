@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <h3 class="progress-tag">책벌레님의 책 달력</h3>
+    <h3 class="progress-tag">{{ nickname }}님의 책 달력</h3>
     <div class="progress-circle" data-progress="45"></div>
     <div class="progress-tag">
-      <h4>99권 중 45권</h4>
+      <h4>권 중 0권</h4>
       <h4>완독하셨습니다.</h4>
     </div>
   </div>
@@ -12,6 +12,14 @@
 <script>
 export default {
   name: "Progress",
+  data() {
+    return {
+      nickname: "",
+    };
+  },
+  created() {
+    this.nickname = localStorage.getItem("nickname");
+  },
 };
 </script>
 
