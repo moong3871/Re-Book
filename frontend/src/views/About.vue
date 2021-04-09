@@ -17,9 +17,9 @@
           </v-btn>
         </div>
       </div>
-      <!-- <div class="item" id="one"></div> -->
+      <div class="item" id="one"><Rebook /></div>
       <!-- <div class="item" id="two"></div> -->
-      <div class="item" id="three">
+      <div class="item" id="three" style="width: 100vw; height: 100vh">
         <!-- <div class="introduce-text"></div> -->
         <Introduce style="" />
       </div>
@@ -31,10 +31,10 @@
 <script>
 import VueScrollSnap from "vue-scroll-snap";
 import Introduce from "./Introduce.vue";
-
+import Rebook from "@/components/main/Rebook.vue";
 export default {
   name: "FullscreenVertical",
-  components: { VueScrollSnap, Introduce },
+  components: { VueScrollSnap, Introduce, Rebook },
   data() {
     return {};
   },
@@ -66,7 +66,7 @@ export default {
   background-color: rgb(138, 134, 134);
 }
 #one {
-  background: #204626;
+  background: #adccb1;
 }
 
 #two {

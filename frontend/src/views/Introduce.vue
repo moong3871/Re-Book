@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     <body>
       <div class="bookshelf_wrapper">
@@ -14,6 +15,18 @@
       </div>
       <p class="intro-title">Necessafy 팀원을 소개합니다</p>
       <div class="wrapper">
+=======
+  <body>
+    <div
+      class="team-intro"
+      style="width: 100vw; height: 100vh; background-color: beige"
+      @mouseover="startcheck3"
+    >
+      <div class="team-introduce" v-if="check_team_intro === 1">
+        <div>6팀 사람들을 소개합니다~!</div>
+      </div>
+      <div class="wrapper" v-if="check_wrapper === 1">
+>>>>>>> 4d7f51e (.)
         <ul class="team">
           <li class="team-item">
             <div class="profile profile_red">
@@ -35,7 +48,11 @@
           </li>
           <li class="team-item">
             <div class="profile profile_green">
+<<<<<<< HEAD
               <img src="../assets/images/SBS.jpeg" />
+=======
+              <img src="../assets/images/범석.jpg" />
+>>>>>>> 4d7f51e (.)
               <div class="profile-contents">
                 <h2>SBS<span>Back-end</span></h2>
                 <p>신체나이 31세</p>
@@ -44,7 +61,11 @@
           </li>
           <li class="team-item">
             <div class="profile profile_pink">
+<<<<<<< HEAD
               <img src="../assets/images/JH.png" />
+=======
+              <img src="../assets/images/준혁.jpg" />
+>>>>>>> 4d7f51e (.)
               <div class="profile-contents">
                 <h2>주녁<span>Back-end</span></h2>
                 <p>리듬타</p>
@@ -53,7 +74,11 @@
           </li>
           <li class="team-item">
             <div class="profile profile_purple">
+<<<<<<< HEAD
               <img src="../assets/images/MJ.jpeg" />
+=======
+              <img src="../assets/images/문정.png" />
+>>>>>>> 4d7f51e (.)
               <div class="profile-contents">
                 <h2>Moon<span>Front-end</span></h2>
                 <p>Moonrise</p>
@@ -62,7 +87,11 @@
           </li>
           <li class="team-item">
             <div class="profile profile_pink">
+<<<<<<< HEAD
               <img src="../assets/images/SM.jpeg" />
+=======
+              <img src="../assets/images/수민.png" />
+>>>>>>> 4d7f51e (.)
               <div class="profile-contents">
                 <h2>SumJean<span>Back-end</span></h2>
                 <p>막내온탑, 합성수지</p>
@@ -71,17 +100,43 @@
           </li>
         </ul>
       </div>
+<<<<<<< HEAD
     </body>
   </div>
+=======
+    </div>
+  </body>
+>>>>>>> 4d7f51e (.)
 </template>
 
 <script>
 export default {
   name: "Introduce",
+  data() {
+    return {
+      check_team_intro: 0,
+      check_wrapper: 0,
+    };
+  },
+  methods: {
+    startcheck3() {
+      setTimeout(() => {
+        this.check_team_intro = 1;
+      }, 500);
+      setTimeout(() => {
+        this.check_wrapper = 1;
+      }, 1000);
+    },
+    endcheck3() {
+      this.check_wrapper = 0;
+      this.check_team_intro = 0;
+    },
+  },
 };
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 .intro-title {
   position: relative;
   left: 30%;
@@ -90,6 +145,30 @@ export default {
   color: #345656;
 }
 
+=======
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap");
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.wrapper {
+  animation: fadein 2s;
+  /* background-color: beige; */
+}
+.team-introduce {
+  animation: fadein 1.5s;
+}
+img {
+  width: 50px;
+  /* height: 150px; */
+}
+body,
+>>>>>>> 4d7f51e (.)
 ul,
 h2,
 p {
@@ -103,7 +182,11 @@ li {
 
 .wrapper {
   display: flex;
+<<<<<<< HEAD
   height: 80vh;
+=======
+  height: 60vh;
+>>>>>>> 4d7f51e (.)
   justify-content: center;
   align-items: center;
 }
@@ -217,6 +300,7 @@ li {
   max-height: 6em;
   margin-top: 0.4em;
 }
+<<<<<<< HEAD
 
 body {
   /* background-color: #1929ff; */
@@ -507,5 +591,17 @@ body {
     opacity: 0;
     transform: translateX(0px) rotateZ(-90deg);
   }
+=======
+.team-introduce {
+  /* background-color: rgb(179, 179, 138); */
+  width: 100%;
+  height: 40vh;
+  padding-top: 25vh;
+  text-align: center;
+  font-size: 60px;
+  font-family: "Noto Serif KR", serif;
+  font-weight: 800;
+  /* margin-top: 300px; */
+>>>>>>> 4d7f51e (.)
 }
 </style>
