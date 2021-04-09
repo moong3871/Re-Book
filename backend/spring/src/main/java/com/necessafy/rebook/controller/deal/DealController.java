@@ -124,7 +124,7 @@ public class DealController {
 //        System.out.println(dealService.findBuyerAndSellerByUserEmail(email));
 //        return dealService.findBuyerAndSellerByUserEmail(email);
 //        return "hello";
-    }
+    
     // 채팅방을 선택하면, chatId에 의해서 채팅방 정보를 병경해줄수 있다.
     
     // 이제 서로 확인작업을 통해서 complete 값을 갱신시켜주면 거래 완료
