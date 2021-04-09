@@ -33,11 +33,11 @@
                   />
                 </div>
                 <div class="chat_ib">
-                  <h5>
-                    숨니짱짱 #{{ chat.id }}
-                    <span class="chat_date">April 9th</span>
-                  </h5>
-                  <p>관계를 정리하는 중입니다 (리미티드 에디션) 거래</p>
+                  <h5>{{ chat.id }} <span class="chat_date">Dec 25</span></h5>
+                  <p>
+                    Test, which is a new approach to have all solutions
+                    astrology under one roof.
+                  </p>
                 </div>
               </div>
             </div>
@@ -356,6 +356,7 @@ img {
 .sent_msg {
   float: right;
   max-width: 46%;
+  /* min-width: 21%; */
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
