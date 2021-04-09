@@ -5,7 +5,7 @@
         <img src="@/assets/images/REBOOK-removebg.png" class="login-logo" />
         <div class="checked-count">평가한 책 : {{ this.cnt }}권</div>
         <div class="done-box" v-if="this.cnt >= 10">
-          <div class="done">완료!</div>
+          <div class="done" @click="$router.push('/home')">완료!</div>
         </div>
       </div>
       <div class="description-container">
@@ -42,6 +42,7 @@ import preference from "@/assets/bookdata/preference.json";
 import StarRating from "vue-star-rating";
 import axios from "axios";
 export default {
+  name: "Preference",
   components: {
     // Rating,
     StarRating,
@@ -52,6 +53,7 @@ export default {
       yourLocalVariable: 0,
       rating: 0,
       cnt: 0,
+      already_rated: [],
       // current_preference: [],
     };
   },
@@ -71,12 +73,10 @@ export default {
     },
     preRating(pre) {
       const isbn = pre.isbn;
-      console.log(isbn);
-      console.log(this.rating);
       const config = this.setToken();
       axios.post(
-        // "https://j4b206.p.ssafy.io/api/comment",
-        "http://localhost:8080/api/comment",
+        "https://j4b206.p.ssafy.io/api/comment",
+        // "http://localhost:8080/api/comment",
         {
           review: "리뷰",
           userEmail: localStorage.getItem("email"),
@@ -86,7 +86,13 @@ export default {
         },
         config
       );
-      this.cnt = this.cnt + 1;
+      if (this.already_rated.includes(isbn)) {
+        console.log("already");
+      } else {
+        this.cnt = this.cnt + 1;
+        this.already_rated.push(isbn);
+      }
+      // console.log(this.already_rated);
     },
   },
 };

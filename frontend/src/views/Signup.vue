@@ -108,15 +108,6 @@
             </p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
           </form>
-          <!-- <v-btn width="400" height="48" color="#FFFFFF">
-          <GoogleLogin :params="params" b :onSuccess="onSuccess">
-            <img
-              alt="googleLogin"
-              src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
-            />
-            <span class="google-login-text">Google 계정으로 계속하기</span>
-          </GoogleLogin>
-        </v-btn> -->
         </div>
       </v-col>
     </v-row>
@@ -245,7 +236,7 @@ export default {
 .login-box {
   margin-top: -240px;
   /* background-color: rgb(61, 44, 8, 0.6); */
-  background-color: rgb(0, 0, 0, 0.7);
+  background-color: rgba(175, 148, 115, 0.8);
   width: 35%;
   height: 85%;
   padding-top: 2%;

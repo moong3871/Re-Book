@@ -87,17 +87,6 @@
               모든 항목을 입력해주세요.
             </p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-            <!-- <v-btn width="400" height="48">
-              <GoogleLogin>
-                <img
-                  alt="googleLogin"
-                  src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
-                />
-                <span class="google-login-text" style="font-size: 17px"
-                  >Google 계정으로 계속하기</span
-                >
-              </GoogleLogin>
-            </v-btn> -->
           </form>
         </div>
       </v-col>
@@ -133,14 +122,10 @@ export default {
       minLength: minLength(6),
     },
   },
-  components: {
-    // GoogleLogin,
-  },
   methods: {
     login() {
       axios
-        .post(`https://j4b206.p.ssafy.io/api/account/login/`, {
-          // .post(`http://localhost:8080/api/account/login/`, {
+        .post(`https://j4b206.p.ssafy.io/api/account/login`, {
           email: this.email,
           password: this.password,
         })
@@ -150,9 +135,9 @@ export default {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("nickname", data.user.nickname);
           localStorage.setItem("email", this.email);
-
           this.$emit("login");
-          this.$router.push({ name: "Home" });
+
+          this.$router.push({ name: "Preference" });
           alert("정상적으로 로그인 되었습니다.");
         })
         .catch((err) => {
@@ -235,7 +220,7 @@ export default {
 .login-box {
   margin-top: -240px;
   /* background-color: rgb(61, 44, 8, 0.6); */
-  background-color: rgba(26, 24, 24, 0.7);
+  background-color: rgba(133, 102, 63, 0.6);
   width: 35%;
   height: 80%;
   padding-top: 4%;

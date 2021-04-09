@@ -69,6 +69,7 @@
                     {{ message.createdAt }}</span
                   ><br />
                   <div class="sent_withd_msg ml-3">
+                    <!--  style="min-width: 2%" -->
                     <p>
                       {{ message.message }}
                     </p>
@@ -160,8 +161,8 @@ export default {
     getChatList() {
       axios
         .post(
-          // `https://j4b206.p.ssafy.io/api/yangsangchu/deallist/${this.user}`,
-          `http://localhost:8080/api/yangsangchu/deallist/${this.user}`,
+          `https://j4b206.p.ssafy.io/api/yangsangchu/deallist/${this.user}`,
+          // `http://localhost:8080/api/yangsangchu/deallist/${this.user}`,
           {
             // .post(`http://localhost:8080/api/yangsangchu/deallist/${this.user}`, {
             headers: {
@@ -355,7 +356,6 @@ img {
 .sent_msg {
   float: right;
   max-width: 46%;
-  min-width: 21%;
 }
 .input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -390,4 +390,7 @@ img {
   height: 516px;
   overflow-y: auto;
 }
+/* p {
+  margin: 0;
+} */
 </style>
