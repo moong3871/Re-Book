@@ -3,49 +3,8 @@
     <div class="bookshelf">
       <div class="book-grid">
         <ul>
-          <li>
-            <BookCover
-              :book="{
-                src:
-                  'https://images-na.ssl-images-amazon.com/images/I/51uLvJlKpNL._SX321_BO1,204,203,200_.jpg',
-                title: '호빗',
-              }"
-            />
-          </li>
-          <li>
-            <BookCover
-              :book="{
-                src:
-                  'https://damonza.com/wp-content/uploads/portfolio/fiction/The-prophecy_03.jpg',
-                title: 'Prophecy',
-              }"
-            />
-          </li>
-          <li>
-            <BookCover
-              :book="{
-                src:
-                  'https://i.pinimg.com/564x/f7/c8/12/f7c812c9b0296cd9f119e33a06d9a256.jpg',
-                title: 'THE PAST IS RISING',
-              }"
-            />
-          </li>
-          <li>
-            <BookCover
-              :book="{
-                src:
-                  'https://images.penguinrandomhouse.com/cover/9781101931288',
-                title: 'TESS OF THE ROAD',
-              }"
-            />
-          </li>
-          <li>
-            <BookCover
-              :book="{
-                src: 'https://i.harperapps.com/covers/9780062698162/x510.jpg',
-                title: 'THE BUTTERFLY GIRL',
-              }"
-            />
+          <li v-for="book in books" :key="book.id">
+            <BookHover :book="book" />
           </li>
         </ul>
       </div>
@@ -56,12 +15,15 @@
 </template>
 
 <script>
-import BookCover from "@/components/common/BookCover.vue";
+import BookHover from "@/components/library/BookHover.vue";
 
 export default {
   name: "Bookshelf",
+  props: {
+    books: Array,
+  },
   components: {
-    BookCover,
+    BookHover,
   },
 };
 </script>

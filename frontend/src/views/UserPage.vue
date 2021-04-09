@@ -8,20 +8,14 @@
         <Progress />
       </v-col>
     </v-row>
-    <h3>테스형님이 읽고 싶은 책</h3>
-    <div v-for="book in books" :key="book.id">
-      <BookHover :book="book" />
-    </div>
-    <h3>테스형님이 읽고 있는 책</h3>
-    <BookHover />
-    <h3>테스형님이 읽은 책</h3>
-    <BookHover />
+    <h3>{{ nickname }}님이 평가한 책</h3>
+    <Bookshelf :books="books" />
   </v-container>
 </template>
 
 <script>
-// import Bookshelf from "@/components/library/Bookshelf.vue";
-import BookHover from "@/components/library/BookHover.vue";
+import Bookshelf from "@/components/library/Bookshelf.vue";
+// import BookHover from "@/components/library/BookHover.vue";
 import Progress from "@/components/library/Progress.vue";
 import Calendar from "@/components/library/Calendar.vue";
 import axios from "axios";
@@ -31,16 +25,18 @@ export default {
   data() {
     return {
       books: [],
+      nickname: "",
     };
   },
   components: {
-    BookHover,
+    Bookshelf,
     Progress,
     Calendar,
   },
   methods: {
     getAccountInfo() {
       const email = localStorage.getItem("email");
+      this.nickname = localStorage.getItem("nickname");
       axios
         .get(`https://j4b206.p.ssafy.io/api/account/${email}`)
         .then((res) => {
