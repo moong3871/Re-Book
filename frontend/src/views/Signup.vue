@@ -108,15 +108,6 @@
             </p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
           </form>
-          <!-- <v-btn width="400" height="48" color="#FFFFFF">
-          <GoogleLogin :params="params" b :onSuccess="onSuccess">
-            <img
-              alt="googleLogin"
-              src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
-            />
-            <span class="google-login-text">Google 계정으로 계속하기</span>
-          </GoogleLogin>
-        </v-btn> -->
         </div>
       </v-col>
     </v-row>
