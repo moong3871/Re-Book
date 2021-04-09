@@ -33,10 +33,9 @@
                   />
                 </div>
                 <div class="chat_ib">
-                  <h5>{{ chat.id }} <span class="chat_date">Dec 25</span></h5>
+                  <h5> 숨니짱짱 #{{ chat.id }} <span class="chat_date">April 9th</span></h5>
                   <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
+                    관계를 정리하는 중입니다 (리미티드 에디션) 거래
                   </p>
                 </div>
               </div>
