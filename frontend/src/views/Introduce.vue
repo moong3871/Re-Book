@@ -22,7 +22,7 @@
         </li>
         <li class="team-item">
           <div class="profile profile_green">
-            <img src="../assets/images/Dony.jpg" />
+            <img src="../assets/images/범석.png" />
             <div class="profile-contents">
               <h2>SBS<span>Back-end</span></h2>
               <p>신체나이 31세</p>
@@ -31,7 +31,7 @@
         </li>
         <li class="team-item">
           <div class="profile profile_pink">
-            <img src="../assets/images/Dony.jpg" />
+            <img src="../assets/images/준혁.jpg" />
             <div class="profile-contents">
               <h2>주녁<span>Back-end</span></h2>
               <p>리듬타</p>
@@ -40,7 +40,7 @@
         </li>
         <li class="team-item">
           <div class="profile profile_purple">
-            <img src="../assets/images/Dony.jpg" />
+            <img src="../assets/images/문정.png" />
             <div class="profile-contents">
               <h2>Moon<span>Front-end</span></h2>
               <p>Moonrise</p>
@@ -49,7 +49,7 @@
         </li>
         <li class="team-item">
           <div class="profile profile_pink">
-            <img src="../assets/images/Dony.jpg" />
+            <img src="../assets/images/수민.png" />
             <div class="profile-contents">
               <h2>SumJean<span>Back-end</span></h2>
               <p>막내온탑, 합성수지</p>
