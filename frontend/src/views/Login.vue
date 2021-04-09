@@ -87,17 +87,6 @@
               모든 항목을 입력해주세요.
             </p>
             <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
-            <!-- <v-btn width="400" height="48">
-              <GoogleLogin>
-                <img
-                  alt="googleLogin"
-                  src="https://web-staging.brandi.co.kr/static/3.50.7/images/google-logo.png"
-                />
-                <span class="google-login-text" style="font-size: 17px"
-                  >Google 계정으로 계속하기</span
-                >
-              </GoogleLogin>
-            </v-btn> -->
           </form>
         </div>
       </v-col>
@@ -107,10 +96,6 @@
 
 <script>
 import axios from "axios";
-<<<<<<< HEAD
-=======
-// import GoogleLogin from "vue-google-login";
->>>>>>> d371f33 (로그인 수정)
 import Vue from "vue";
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
@@ -137,21 +122,10 @@ export default {
       minLength: minLength(6),
     },
   },
-  components: {
-    // GoogleLogin,
-  },
-<<<<<<< HEAD
-  components: {
-    // GoogleLogin,
-  },
-=======
-
->>>>>>> d371f33 (로그인 수정)
   methods: {
     login() {
       axios
-        .post(`http://j4b206.p.ssafy.io/api/account/login/`, {
-          // .post(`http://localhost:8080/api/account/login/`, {
+        .post(`https://j4b206.p.ssafy.io/api/account/login`, {
           email: this.email,
           password: this.password,
         })

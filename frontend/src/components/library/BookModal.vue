@@ -14,29 +14,12 @@
               <h1><button @click="dialog.value = false">닫기 X</button></h1>
             </header>
             <article>
-              <img
-                src="http://image.yes24.com/momo/TopCate2227/MidCate003/222620895.jpg"
-                class="modal-img"
-              />
-              <h2>회복탄력성</h2>
-              <h5>작성자 : SBS</h5>
+              <img :src="src" class="modal-img" />
+              <h2>{{ book.book.title }}</h2>
+              <h5>작성자 : {{ book.userRebook.nickname }}</h5>
               <hr />
               <p class="review">
-                이 책에서 ‘회복탄력성’ 이란 원래 제자리로 되돌아오는 힘을 일컫는
-                말로 회복력 혹은 높이 되튀어오르는 탄력성을 뜻한다고 한다. 또한
-                회복탄력성은 성공에 대한 강한 집념에서 나오는 것이 아닌 실패에
-                대한 두려움 없음에서 나온다. 그리고 이 책에서 다양한 사례에서
-                계속 강조하듯이 회복탄력성에서 제일 중요한 것은 ‘긍정성’ 이다.
-                삶에서 일어나는 모든 사건들을 보다 더 긍정적으로 받아들이는 뇌가
-                회복탄력성을 높이는 것처럼. 긍정적인 뇌, 긍정적인 습관을 키울 수
-                있는 것이 중요하다.이 책에서 ‘회복탄력성’ 이란 원래 제자리로
-                되돌아오는 힘을 일컫는 말로 회복력 혹은 높이 되튀어오르는
-                탄력성을 뜻한다고 한다. 또한 회복탄력성은 성공에 대한 강한
-                집념에서 나오는 것이 아닌 실패에 대한 두려움 없음에서 나온다.
-                그리고 이 책에서 다양한 사례에서 계속 강조하듯이 회복탄력성에서
-                제일 중요한 것은 ‘긍정성’ 이다. 삶에서 일어나는 모든 사건들을
-                보다 더 긍정적으로 받아들이는 뇌가 회복탄력성을 높이는 것처럼.
-                긍정적인 뇌, 긍정적인 습관을 키울 수 있는 것이 중요하다.
+                {{ book.review }}
               </p>
             </article>
             <footer>
@@ -55,6 +38,10 @@
 <script>
 export default {
   name: "BookModal",
+  props: {
+    book: Object,
+    src: String,
+  },
 };
 </script>
 
@@ -463,7 +450,7 @@ body {
   white-space: normal;
   text-align: left;
   word-wrap: break-word;
-  overflow: scroll;
+  /* overflow: scroll; */
   display: -webkit-box;
   -webkit-line-clamp: 13;
   -webkit-box-orient: vertical;
