@@ -24,7 +24,6 @@ export default {
   name: "MarketMap",
   data() {
     return {
-      test: "테스트",
       sellInfo: ["없어요"],
       bookLists: [],
       bookImgPath:
@@ -173,7 +172,6 @@ export default {
             title.textContent = info[i].title;
             infoList.appendChild(img);
             infoList.appendChild(title);
-            console.log(_this.test);
           }
           // var sellInfo = document.getElementById("info");
           // sellInfo.innerHTML = info[0].title;

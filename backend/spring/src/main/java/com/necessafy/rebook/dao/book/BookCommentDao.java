@@ -20,4 +20,5 @@ public interface BookCommentDao extends JpaRepository<BookComment, Long> {
 
     List<BookComment> findByUserRebook(UserRebook userRebook);
 
+    List<BookComment> findAllByBook(Book book);
 }

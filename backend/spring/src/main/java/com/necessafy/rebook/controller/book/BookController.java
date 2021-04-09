@@ -24,8 +24,11 @@ import static com.necessafy.rebook.utils.HttpUtils.makeResponse;
 import static com.necessafy.rebook.utils.HttpUtils.convertObjectToJson;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,7 +63,7 @@ public class BookController {
     BookService bookService;
 
     // 책 상세정보 반환
-    @PostMapping("/{isbn}")
+    @GetMapping("/{isbn}")
     @ApiOperation(value = "전체 공개 게시물을 받아온다", response = CommonResult.class)
     public CommonResult retrieveBookDetail(@PathVariable String isbn, HttpServletRequest httpServletRequest){
         CommonResult commonResult = new CommonResult();
@@ -68,26 +71,39 @@ public class BookController {
         String email = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 //        String email = "sbs@ssafy.com";
 //        -----------전처리-------
-        Optional<UserRebook> curReUser = userRebookDao.findById(email);
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.printf(email);
+        Optional<UserRebook> curReUser = userRebookDao.findByEmail(email);
         Optional<Book> curBook = bookDao.findById(isbn);
+
         // 1. for status
-        Optional<UserReadStatus> userReadStatus = userReadStatusDao.findByUserRebookAndBook(curReUser.get(), curBook.get());
         // 2. for userEvaluation
-        Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
+
+        BookDetailRequest bookDetailRequest = new BookDetailRequest();
+
+        if(curBook.isPresent() && curReUser.isPresent()) {
+            Optional<UserReadStatus> userReadStatus = userReadStatusDao.findByUserRebookAndBook(curReUser.get(), curBook.get());
+            Optional<BookComment> curComment = bookCommentDao.findByBookAndUserRebook(curBook.get(), curReUser.get());
+            bookDetailRequest.setStatus(userReadStatus.isPresent()?userReadStatus.get().getStatus():0);
+            bookDetailRequest.setUserEvaluation(curComment.isPresent()?curComment.get().getRating():0);
+        }else {
+            bookDetailRequest.setStatus(0);
+            bookDetailRequest.setUserEvaluation(0);
+        }
         // 3. for Market
         List<OldBook> bookDealList = oldBookDao.findByIsbn(isbn);
 //        -----------------------
-        BookDetailRequest bookDetailRequest = new BookDetailRequest();
         List<BookComment> bookCommentList = new ArrayList<>();
-        List<Book> recoBookList = new ArrayList<>();
+        if(curBook.isPresent()){
+            bookCommentList = bookCommentDao.findAllByBook(curBook.get());
+        }
+//        List<Book> recoBookList = new ArrayList<>();
 
 
         bookDetailRequest.setLat("36.3457153");
         bookDetailRequest.setLng("127.3021023");
-        bookDetailRequest.setStatus(userReadStatus.isPresent()?userReadStatus.get().getStatus():0);
-        bookDetailRequest.setUserEvaluation(curComment.isPresent()?curComment.get().getRating():0);
         bookDetailRequest.setBookComment(bookCommentList);
-        bookDetailRequest.setRecoBooks(recoBookList);
+//        bookDetailRequest.setRecoBooks(recoBookList);
         bookDetailRequest.setMarket(bookDealList);
 
 
@@ -127,44 +143,63 @@ public class BookController {
     }
 
 
-
     @PutMapping("/{email}")
     @ApiOperation(value="해당 유저가 책을 읽은 상태를 등록")
-    public Object createReadStatus(@ModelAttribute @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
+    public Object createReadStatus(@RequestBody @ApiParam(value="상태 등록 시 필요한 정보 (status)",required = true)
                                    UserReadStatusRequest userReadStatusRequest, HttpServletRequest httpServletRequest){
 
-        Integer status=userReadStatusRequest.getStatus();
-//        String email=userReadStatusRequest.getUserRebook().getEmail().trim();
+        Integer status = userReadStatusRequest.getStatus();
         String email=userReadStatusRequest.getEmail();
         String isbn=userReadStatusRequest.getBook().getIsbn().trim();
-        Optional<UserRebook>curReUser=userRebookDao.findById(email);
-        Optional<Book>curBook=bookDao.findBookByIsbn(isbn);
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(email);
 
+        SimpleDateFormat formatStart= new SimpleDateFormat("yyyy년 MM월dd일 HH시mm분ss초");
+        SimpleDateFormat formatEnd=new SimpleDateFormat("yyyy년 MM월dd일 HH시mm분ss초");
+
+        Date time =new Date();
+
+        String timeCreate=formatStart.format(time);
+        String timeUpdate=formatEnd.format(time);
+
+        System.out.println(timeCreate);
+
+        Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
+
+        System.out.println("#######################################################");
+        System.out.println(curReUser);
+
+        System.out.println(curBook);
         String emailToken = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 
-        ResponseEntity<?>result=bookService.checkBlankWenUserReadStatus(curReUser,status);
+        ResponseEntity<?> result = bookService.checkBlankWenUserReadStatus(curReUser,status);
 
         if(result!=null){
             return result;
         }
-        Optional<UserReadStatus> curStatus=userReadStatusDao.findByUserRebookAndBook(curReUser.get(),curBook.get());
-        if(curStatus.isPresent()){
+        Optional<UserReadStatus> curStatus = userReadStatusDao.findByUserRebookAndBook(curReUser.get(),userReadStatusRequest.getBook());
+        if(curStatus.isPresent()) {
             curStatus.get().setStatus(status);
-            UserReadStatus userReadStatus=userReadStatusDao.save(curStatus.get());
-            return makeResponse("200",convertObjectToJson(userReadStatus),"update status",HttpStatus.OK);
+
+            if(curStatus.get().getStatus()==1){
+                curStatus.get().setReadStart(timeCreate);
+            }
+            else if(curStatus.get().getStatus()==2){
+                curStatus.get().setReadEnd(timeUpdate);
+            }
+            userReadStatusDao.save(curStatus.get());
+            return makeResponse("200", convertObjectToJson(curStatus.get()), "update status", HttpStatus.OK);
         }
-        UserReadStatus userReadStatus=bookService.buildStatus(status,curReUser.get(),curBook.get());
-        UserReadStatus savedStatus=userReadStatusDao.save(userReadStatus);
 
-        return makeResponse("200",convertObjectToJson(savedStatus),"success",HttpStatus.OK);
+        userReadStatusDao.save(bookService.buildStatuse(status,timeCreate,curReUser.get(),userReadStatusRequest.getBook()));
 
+        return makeResponse("200",null,"success",HttpStatus.OK);
     }
 
 
     @GetMapping("/search/{email}")
     @ApiOperation(value="특정 유저의 상태(읽고 싶어요, 읽고있어요 읽었어요)따른 책 정보 반환")
     public Object searchReadStatus(@Valid @RequestBody @ApiParam(value="email별로 조회",required = true) @PathVariable String email, String isbn) {
-        Optional<UserRebook> curReUser = userRebookDao.findById(email);
+        Optional<UserRebook> curReUser = userRebookDao.findByEmail(email);
         Optional<Book> curBook = bookDao.findById(isbn);
 
 
@@ -180,9 +215,6 @@ public class BookController {
 //        Optional<Book> curBook=bookDao.findById(isbn);
 //        Optional<UserRebook> curRe
 //    }
-
-
-
 
 
 

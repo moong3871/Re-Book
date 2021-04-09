@@ -6,9 +6,9 @@
         v-on="on"
         class="my-profile"
         color="green"
-        size="50px"
+        size="35px"
       >
-        <v-icon dark size="48px"> mdi-account-circle </v-icon>
+        <v-icon dark size="32px"> mdi-account-circle </v-icon>
       </v-avatar>
     </template>
     <template v-slot:default="dialog">

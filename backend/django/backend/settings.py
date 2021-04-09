@@ -25,7 +25,7 @@ SECRET_KEY = "$yg2c-8-8cszt%3k$b=3wwc^j1g%gn)wj%yldz)6jd(ez80u-s"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['web', '127.0.0.1']
+ALLOWED_HOSTS = ['web', '127.0.0.1', 'j4b206.p.ssafy.io']
 
 
 # Application definition
@@ -81,7 +81,6 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# AWS 서버 환경
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
@@ -90,13 +89,12 @@ DATABASES = {
         'PASSWORD': 'ssafyb206!',
         'HOST': 'rebookdb.cr7qoevh9p3x.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
-        'OPTIONS': {
-        "init_command": "SET GLOBAL max_connections = 100000", #<-- The fix
-     }
+        # 'OPTIONS': {
+        #     "init_command": "SET GLOBAL max_connections = 100000",  # <-- The fix
+        # }
     }
 }
 
-# # 로컬 환경
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.mysql",
@@ -107,7 +105,6 @@ DATABASES = {
 #         'PORT': '3306',
 #     }
 # }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

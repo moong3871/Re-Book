@@ -2,10 +2,7 @@ package com.necessafy.rebook.model.book;
 
 import com.necessafy.rebook.model.TimeEntity;
 import com.necessafy.rebook.model.user.UserRebook;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -16,6 +13,7 @@ import javax.persistence.*;
 @Builder
 @Entity(name="BookComment")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class BookComment extends TimeEntity {
 
     @Id
@@ -28,11 +26,11 @@ public class BookComment extends TimeEntity {
     private String review;
 
     //unique 키 : USER_EMAIL, isbn
-    @ManyToOne
-    @JoinColumn(name="USER_EMAIL")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="USER_ID")
     private UserRebook userRebook;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="BOOK_ISBN")
     private Book book;
 

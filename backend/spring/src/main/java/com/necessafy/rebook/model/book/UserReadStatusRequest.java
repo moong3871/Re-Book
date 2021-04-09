@@ -22,6 +22,10 @@ public class UserReadStatusRequest {
     private String email;
     private Book book;
 
+    private String readStart;
+    private String readEnd;
+
+
 
 
 }

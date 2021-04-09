@@ -15,6 +15,14 @@
             <div class="hello-user-container">
               <div class="hello-user">{{ nickname }}님 환영합니다.</div>
               <div class="profile-container">
+                <v-icon
+                  dark
+                  color="green"
+                  size="35px"
+                  @click="$router.push({ name: 'Chat' })"
+                >
+                  mdi-bell
+                </v-icon>
                 <Member></Member>
               </div>
             </div>
@@ -72,7 +80,7 @@ export default {
         { title: "사이트소개", path: "/about" },
         { title: "카테고리", path: "/category" },
         { title: "장터", path: "/market" },
-        { title: "내 서재", path: "/chat" },
+        { title: "내 서재", path: "/userpage" },
       ],
       nickname: "",
     };
@@ -126,7 +134,7 @@ export default {
 }
 .logo {
   height: 100%;
-  margin-left: 50px;
+  margin-left: 30px;
   display: flex;
   align-items: center;
   float: left;
@@ -248,5 +256,8 @@ export default {
 }
 .v-application--wrap {
   min-height: 0px !important;
+}
+.profile-container {
+  display: flex;
 }
 </style>

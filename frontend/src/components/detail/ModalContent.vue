@@ -5,7 +5,7 @@
       <input
         type="text"
         class="c-input"
-        v-model="comment.content"
+        v-model="comment.review"
         placeholder="이 작품에 대한 생각을 자유롭게 표현해주세요."
       />
     </form>
@@ -29,34 +29,43 @@ export default {
   data() {
     return {
       comment: {
-        content: "",
+        isbn: this.book.isbn,
         rating: localStorage.getItem("rating"),
-        userToken: localStorage.getItem("jwt"),
-        book: this.book,
+        review: "",
+        userEmail: localStorage.getItem("email"),
       },
     };
   },
   methods: {
+    setToken() {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        headers: {
+          Authorization: token,
+        },
+      };
+      return config;
+    },
     cancel: function () {
+      console.log(this.comment);
       alert("저장하지 않고 이 페이지를 벗어나면, 변경사항을 잃게 됩니다.");
       this.$emit("close-modal");
     },
     onSubmit: function (event) {
       event.preventDefault();
       if (
-        this.comment.content == null ||
-        this.comment.content == "" ||
-        this.comment.content == "undefined"
+        this.comment.review == null ||
+        this.comment.review == "" ||
+        this.comment.review == "undefined"
       ) {
         alert("내용을 입력해주세요.");
         return;
       } else {
+        const info = this.comment;
+        const config = this.setToken();
         axios
-          .post(`http://j4b206.p.ssafy.io/api/comment`, this.comment, {
-            headers: {
-              Authorization: `jwt ${localStorage.getItem("jwt")}`,
-            },
-          })
+          .post(`https://j4b206.p.ssafy.io/api/comment`, info, config)
+          // .post(`http://localhost:8080/api/comment`, info, config)
           .then(() => {
             console.log("성공");
             // localStorage.setitem("rating", 0);
@@ -66,6 +75,10 @@ export default {
           });
       }
     },
+  },
+  mounted() {
+    console.log("@@@@@@@@@@@@@@this.comment");
+    console.log(this.comment);
   },
 };
 </script>

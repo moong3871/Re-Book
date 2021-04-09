@@ -13,5 +13,6 @@ public class CommentRequest {
     private String review;
     private String userEmail;
     private String isbn;
+    private Book book;
 
 }

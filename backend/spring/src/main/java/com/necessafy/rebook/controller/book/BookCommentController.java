@@ -43,28 +43,36 @@ public class BookCommentController {
 
     @PostMapping
     @ApiOperation(value="리뷰 등록")
-    public Object create(@ModelAttribute @ApiParam(value="리뷰 등록 시 필요한 정보(평점, 날짜, 내용) "
+    public Object create(@RequestBody @ApiParam(value="리뷰 등록 시 필요한 정보(평점, 날짜, 내용) "
     ,required = true) CommentRequest commentRequest,HttpServletRequest httpServletRequest){
+        System.out.println(commentRequest);
         Integer rating=commentRequest.getRating();
         String review=commentRequest.getReview().trim();
         String userEmail=commentRequest.getUserEmail().trim();
         String isbn=commentRequest.getIsbn().trim();
         String email = jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
 
-        Optional<UserRebook> curReUser=userRebookDao.findById(userEmail); //이미 있는 정보
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(userEmail); //이미 있는 정보
         Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
+        System.out.println(curReUser);
+        System.out.println(curBook);
+        Book book = new Book();
+        if(curBook.isPresent()){
+            Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
 
-        Optional<BookComment> curComment=bookCommentDao.findByBookAndUserRebook(curBook.get(),curReUser.get());
-
-        if(curComment.isPresent()) {
-            return makeResponse("404",null,"review already exist", HttpStatus.BAD_REQUEST);
+            if(curComment.isPresent()) {
+                return makeResponse("404",null,"review already exist", HttpStatus.BAD_REQUEST);
+            }
+            book = curBook.get();
+        }else{
+            book = bookDao.save(commentRequest.getBook());
         }
 
         ResponseEntity<?>result=commentService.checkBlankWenCreateComment(curReUser,review,rating,curBook);
         if (result!=null){
             return result;
         }
-        BookComment bookComment=commentService.buildComment(rating,review,curReUser.get(),curBook.get());
+        BookComment bookComment=commentService.buildComment(rating,review,curReUser.get(),book);
 
         BookComment savedComment=bookCommentDao.save(bookComment);
 
@@ -80,7 +88,7 @@ public class BookCommentController {
         String review=updateBookCommentRequest.getReview().trim();
         String isbn=updateBookCommentRequest.getIsbn().trim();
 
-        Optional<UserRebook> curUserRebook=userRebookDao.findById(email);
+        Optional<UserRebook> curUserRebook=userRebookDao.findByEmail(email);
         Optional<Book> curBook=bookDao.findBookByIsbn(isbn);
 
         String jwtEmail=jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
@@ -105,7 +113,7 @@ public class BookCommentController {
     public Object delete(@Valid @ApiParam(value=" commendID 값으로 리뷰 삭제 ",required = true)@PathVariable String commendId,String email ,HttpServletRequest httpServletRequest){
 
         Optional<BookComment> curComment=bookCommentDao.findById(Long.parseLong(commendId));
-        Optional<UserRebook> curReUser=userRebookDao.findById(email);
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(email);
         String userEmail=jwtService.getUserEmail(httpServletRequest.getHeader("Authorization"));
         if (curReUser.get().equals(userEmail)){
             return makeResponse("404", null, "user not found", HttpStatus.NOT_FOUND);
@@ -123,7 +131,7 @@ public class BookCommentController {
     @GetMapping("/{email}")
     @ApiOperation(value="특정 유저가 특정 책에 쓴 코멘트 정보 검색")
     public Object search(@Valid @RequestBody @ApiParam(value="email로 특정 책 코멘트 정보 찾기",required =true) @PathVariable String email,String isbn){
-        Optional<UserRebook> curReUser=userRebookDao.findById(email);
+        Optional<UserRebook> curReUser=userRebookDao.findByEmail(email);
         Optional<Book> curBook=bookDao.findById(isbn);
         System.out.println(curReUser);
         System.out.println(curBook);

@@ -1,7 +1,5 @@
 [toc]
 
-# 사진에 돋보기 추가되면 좋을까?
-
 # img
 
 ```html
@@ -122,6 +120,12 @@ https://dev.eyegood.co.kr/entry/%EB%94%94%EB%B2%84%EA%B9%85-Uncaught-TypeError-i
   다른 라이브러리 사용 `vue-star-rating`
 
   [vue-star-rating - npm (npmjs.com)](https://www.npmjs.com/package/vue-star-rating)
+  
+- 시도 5
+
+  다른 component에서 -를 사용하니 icon이 보였다.
+
+  ex) mdiStar -> mdi-star
 
 # v-slot
 
@@ -206,3 +210,7 @@ https://code-machina.github.io/2019/10/03/Vue-Story-Part-10.html
 
 - arrow function 뒤에서 this 사용 시, vue instance가 아니라 window를 가리킨다.
 
+# unauthorized
+
+- 한방에 다 보내주던걸
+- 나눠서 변수로 저장 후 보내니까 잘 보내짐

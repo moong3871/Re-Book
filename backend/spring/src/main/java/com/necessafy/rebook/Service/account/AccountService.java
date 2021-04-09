@@ -29,7 +29,7 @@ public class AccountService {
     public Object overlabAndBlankCheckWhenSignUp(String email,String nickname,String password){
 
         // 이메일 중복 체크
-        if(userRebookDao.findById(email).isPresent()){
+        if(userRebookDao.findByEmail(email).isPresent()){
             return makeResponse("400",null,"this email already exists", HttpStatus.BAD_REQUEST);
         }
 
