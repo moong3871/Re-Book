@@ -21,7 +21,7 @@ export default {
     },
   },
   mounted() {
-    this.rating = localStorage.getItem("rating") * 1;
+    // this.rating = localStorage.getItem("rating") * 1;
   },
 };
 </script>
